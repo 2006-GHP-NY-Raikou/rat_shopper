@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const User = require('./db/user')
-const Order = require('./db/order')
+const User = require('../db/models/user')
+const Order = require('../db/models/order')
 
 // for admin to view all users
 router.get('/', async (req, res, next) => {
@@ -28,6 +28,8 @@ router.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
+
+module.exports = router
 
 //for users to checkout
 // router.post('/:id/checkout', async (req, res, next) => {
