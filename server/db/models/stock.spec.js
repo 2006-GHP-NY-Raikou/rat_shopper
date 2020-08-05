@@ -19,6 +19,8 @@ describe('Stock model', () => {
     })
     try {
       let result = await stock.validate()
-    } catch (e) { throw new Error('not a valid price!') }
+    } catch (e) {
+      throw new Error('not a valid price!')
+    }
   })
 })
