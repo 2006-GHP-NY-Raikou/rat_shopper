@@ -1,58 +1,62 @@
-const db = require('./db')
+const db = require('../db')
 const Sequelize = require('sequelize')
 const crypto = require('crypto')
 
-const User = db.define('user', {
-  name: {
-    type: Sequelize.STRING
-  },
-  password: {
-    type: Sequelize.STRING,
-    get() {
-      return () => this.getDataValue('password')
+const User = db.define(
+  'user',
+  {
+    name: {
+      type: Sequelize.STRING
+    },
+    password: {
+      type: Sequelize.STRING,
+      get() {
+        return () => this.getDataValue('password')
+      }
+    },
+    email: {
+      type: Sequelize.STRING,
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    address: {
+      type: Sequelize.STRING
+    },
+    zipCode: {
+      type: Sequelize.INTEGER
+    },
+    country: {
+      type: Sequelize.STRING
+    },
+    isAdmin: {
+      type: Sequelize.BOOLEAN
+    },
+    salt: {
+      type: Sequelize.STRING,
+      get() {
+        return () => this.getDataValue('salt')
+      }
+    },
+    googleId: {
+      type: Sequelize.STRING
     }
   },
-  email: {
-    type: Sequelize.STRING,
-    unique: true,
-    validate: {
-      isEmail: true
+  {
+    hooks: {
+      beforeCreate: setSaltAndPassword,
+      beforeUpdate: setSaltAndPassword,
+      beforeBulkCreate: setSaltAndPassword
     }
-  },
-  address:{
-    type: Sequelize.STRING,
-  },
-  zipCode:{
-    type: Sequelize.NUMBER
-  },
-  country: {
-    type: Sequelize.STRING
-  },
-  isAdmin: {
-    type: Sequelize.BOOLEAN
-  },
-  salt: {
-    type: Sequelize.STRING,
-    get() {
-      return () => this.getDataValue('salt')
-    }
-  },
-  googleId: {
-    type: Sequelize.STRING
   }
-}, {
-  hooks: {
-    beforeCreate: setSaltAndPassword,
-    beforeUpdate: setSaltAndPassword,
-    beforeBulkCreate: setSaltAndPassword
-  }
-})
+)
 
 User.prototype.correctPassword = function(pw) {
   return User.encryptPassword(pw, this.salt()) === this.password()
 }
 
-User.generateSalt = function () {
+User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }
 
@@ -71,4 +75,3 @@ function setSaltAndPassword(user) {
 }
 
 module.exports = User
-
