@@ -31,8 +31,11 @@ const Stock = db.define('stock', {
     type: Sequelize.ENUM('male', 'female')
   },
   price: {
-    type: Sequelize.FLOAT,
-    allowNull: false
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   },
   quantity: {
     type: Sequelize.INTEGER,
