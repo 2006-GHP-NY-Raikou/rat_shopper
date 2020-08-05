@@ -29,15 +29,3 @@ router.get('/:id', async (req, res, next) => {
 })
 
 module.exports = router
-
-//for users to checkout
-// router.post('/:id/checkout', async (req, res, next) => {
-//     try {
-//         const newOrder = await Order.create({
-//             userId
-
-//         })
-//     } catch (error) {
-
-//     }
-// })
