@@ -11,3 +11,5 @@ const Order = db.define('order', {
 })
 
 module.exports = Order
+
+// To do: write the hooks that will convert our objects from redux store
