@@ -2,14 +2,11 @@ const db = require('../db')
 const Sequelize = require('sequelize')
 
 const Order = db.define('order', {
-  stockId: {
-    type: Sequelize.INTEGER
+  cart: {
+    type: Sequelize.ARRAY(Sequelize.STRING)
   },
-  qty: {
-    type: Sequelize.INTEGER
-  },
-  price: {
-    type: Sequelize.FLOAT
+  address: {
+    type: Sequelize.STRING
   }
 })
 
