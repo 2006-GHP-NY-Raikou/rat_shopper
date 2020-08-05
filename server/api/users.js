@@ -1,6 +1,5 @@
 const router = require('express').Router()
-const User = require('../db/models/user')
-const Order = require('../db/models/order')
+const{ User, Order } = require('../db/models')
 
 // for admin to view all users
 router.get('/', async (req, res, next) => {
