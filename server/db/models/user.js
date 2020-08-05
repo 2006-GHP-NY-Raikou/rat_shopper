@@ -5,21 +5,27 @@ const crypto = require('crypto')
 const User = db.define(
   'user',
   {
-    name: {
-      type: Sequelize.STRING
+    email: {
+      type: Sequelize.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: true,
+        isEmpty: false
+      }
     },
     password: {
       type: Sequelize.STRING,
+      //allowNull: false,
+      // validate: {
+      //   isEmpty: false,
+      // },
       get() {
         return () => this.getDataValue('password')
       }
     },
-    email: {
-      type: Sequelize.STRING,
-      unique: true,
-      validate: {
-        isEmail: true
-      }
+    name: {
+      type: Sequelize.STRING
     },
     address: {
       type: Sequelize.STRING

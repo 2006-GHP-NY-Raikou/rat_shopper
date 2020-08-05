@@ -8,6 +8,16 @@ describe('User model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
+  afterEach(() => db.sync({force: true}))
+
+  it('has fields email, password', async () => {
+    const user = await User.create({
+      email: 'test@email.com'
+      //password: 'abc',
+    })
+    expect(user.email).to.equal('test@email.com')
+    //expect(user.password).to.equal('abc')
+  })
 
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
