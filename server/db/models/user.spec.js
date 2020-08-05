@@ -10,6 +10,7 @@ describe('User model', () => {
   })
   afterEach(() => db.sync({force: true}))
 
+  //checks whether the email and password exist
   it('has fields email, password', async () => {
     const user = await User.create({
       email: 'test@email.com'
