@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order} = require('../db/models')
+const {User, OrderProduct} = require('../db/models')
 
 // for admin to view all users
 router.get('/', async (req, res, next) => {
@@ -14,14 +14,7 @@ router.get('/', async (req, res, next) => {
 //to view single user, for admin and individual user to view info
 router.get('/:id', async (req, res, next) => {
   try {
-    const singleUser = await User.findAll({
-      where: {
-        id: req.params.id
-      },
-      include: {
-        model: Order
-      }
-    })
+    const singleUser = await User.findByPk(req.params.id)
     res.send(singleUser)
   } catch (error) {
     next(error)

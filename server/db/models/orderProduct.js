@@ -1,10 +1,13 @@
 const db = require('../db')
 const {Sequelize} = require('sequelize')
 
-const Checkout = db.define('checkout', {
+const OrderProduct = db.define('checkout', {
+  qty: {
+    type: Sequelize.INTEGER
+  },
   priceAtPurchase: {
     type: Sequelize.INTEGER
   }
 })
 
-module.exports = Checkout
+module.exports = OrderProduct

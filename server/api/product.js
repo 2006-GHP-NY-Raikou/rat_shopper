@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const {Stock} = require('../db/models')
+const {Product} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
-    const stock = await Stock.findAll()
-    res.json(stock)
+    const product = await Product.findAll()
+    res.json(product)
   } catch (err) {
     next(err)
   }
@@ -12,8 +12,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const stock = await Stock.findByPk(req.params.id)
-    res.json(stock)
+    const product = await Product.findByPk(req.params.id)
+    res.json(product)
   } catch (err) {
     next(err)
   }
@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
       imageUrl,
       description
     } = req.body
-    const newStock = await Stock.create({
+    const newProduct = await Product.create({
       name,
       category,
       sex,
@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
       imageUrl,
       description
     })
-    res.json(newStock)
+    res.json(newProduct)
   } catch (err) {
     next(err)
   }
@@ -57,9 +57,9 @@ router.put('/:id', async (req, res, next) => {
       description
     } = req.body
 
-    const stock = await Stock.findByPk(req.params.id)
+    const product = await Product.findByPk(req.params.id)
 
-    await stock.update({
+    await Product.update({
       name,
       category,
       sex,
@@ -69,7 +69,7 @@ router.put('/:id', async (req, res, next) => {
       description
     })
 
-    res.status(201).json(stock)
+    res.status(201).json(product)
   } catch (err) {
     next(err)
   }
@@ -77,8 +77,8 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
-    const stock = await Stock.findByPk(req.params.id)
-    await stock.destroy()
+    const product = await Product.findByPk(req.params.id)
+    await product.destroy()
     res.status(204).send('deleted')
   } catch (err) {
     next(err)

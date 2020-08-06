@@ -1,37 +1,39 @@
 const router = require('express').Router()
-const {Order, Stock, Checkout} = require('../db/models')
+const {Order, OrderProduct} = require('../db/models')
 
 router.post('/', async (req, res, next) => {
   try {
-    const newOrder = await Order.findOrCreate({
-      where: {
-        userId: req.user.id,
-        status: false
-      }
+    const newOrder = await Order.create({ userId: req.user.id })
+    const newOrderProduct = await OrderProduct.create({
+      orderId: newOrder.id,
+      productId: req.body.productId,
+      qty: 1
     })
-    if (newOrder) {
-      const checkoutOrder = Checkout.create({
-        orderId: newOrder.id,
-        stockId: req.body.stockId
-      })
-    }
+    res.json(newOrderProduct)
   } catch (err) {
     next(err)
   }
-
-  //   const user = req.user || null
-  //   const {address, status} = req.body
-  //   const newOrder = await Order.build({address, status})
-  //   newOrder.setUser(user)
-  //   await newOrder.save()
-  //   res.send(newOrder)
-  // } catch (error) {
-  //   next(error)
-  // }
+//in order to create a new row in orderProduct, we need to order.addProduct(product)
+//so we need to find the order
 })
-//if order exists, find order then update that order to add asscociated product
 
-router.get('/', async (req, res, next) => {})
+router.put('/', async (req, res, next) => {
+  //add products to order
+  //send order id in req.body
+  const order = await Order.findOne({
+    where: {
+      userId: req.user.id,
+      status:false
+    }
+  })
+  const cartItem = await OrderProduct.findOrCreate({
+    
+  })
+  //adding new item to cart
+  //or adding duplicate
+  res.json(newOrderProduct)
+
+})
 
 module.exports = router
 //Order.setUser(user)

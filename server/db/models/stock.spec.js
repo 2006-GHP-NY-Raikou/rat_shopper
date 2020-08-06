@@ -1,4 +1,4 @@
-const {Stock} = require('./index')
+const {Product} = require('./index')
 const {expect} = require('chai')
 const db = require('../db')
 
@@ -6,14 +6,14 @@ const db = require('../db')
 //check if price is a valid price
 //check if quantity can below 0 (it shouldn't)
 
-describe('Stock model', () => {
+describe('Product model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
   afterEach(() => db.sync({force: true}))
 
   it('`name` is required', async () => {
-    const nameless = Stock.create()
+    const nameless = Product.create()
     try {
       expect(nameless.validate()).to.throw(Error)
     } catch (err) {
@@ -22,7 +22,7 @@ describe('Stock model', () => {
   })
 
   it('`name`,`price`, `quantity` and `category` are required', async () => {
-    const newRat = await Stock.create({
+    const newRat = await Product.create({
       name: 'bob',
       price: 2,
       quantity: 1,
@@ -35,7 +35,7 @@ describe('Stock model', () => {
   })
 
   it('price is a valid price', async () => {
-    const dumboBob = await Stock.create({
+    const dumboBob = await Product.create({
       name: 'bob',
       category: 'dumbo',
       sex: 'male',
@@ -48,14 +48,14 @@ describe('Stock model', () => {
     // expect('test').to.be.a('string');
     expect(dumboBob.price).to.be.a('number')
     // try {
-    //   let result = await stock.validate()
+    //   let result = await Product.validate()
     // } catch (e) {
     //   throw new Error('not a valid price!')
     // }
   })
 
   it('category is a valid price', async () => {
-    const stock = await Stock.build({
+    const product = await Product.build({
       name: 'bob',
       category: 'dumbo',
       sex: 'male',
@@ -65,7 +65,7 @@ describe('Stock model', () => {
       description: 'a cude and cuddly lil monster'
     })
     try {
-      let result = await stock.validate()
+      let result = await product.validate()
     } catch (e) {
       throw new Error('not a valid price!')
     }
