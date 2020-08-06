@@ -7,15 +7,23 @@ router.post('/', async (req, res, next) => {
     const newOrder = await Order.build(req.body)
     newOrder.setUser(user)
     await newOrder.save()
-    //below assumes req.body === { cart: [items] } and each item corresponds to the full set of item data
-    req.body.cart.forEach(async cartItem => {
-      const dbItem = await Stock.findByPk(cartItem.stockId)
-      await dbItem.update({...req.body, quantity: dbItem.quantity - cartItem.quantity})
-    })
     res.send(newOrder)
   } catch (error) {
     next(error)
   }
 })
+//if order exists, find order then update that order to add asscociated product
 
-// To do: once we have actual orders to build, test if we can chain the build, setUser, and save
+router.get('/', async (req, res, next) => {
+
+})
+
+module.exports = router
+//Order.setUser(user)
+//when item is added to cart:
+//make a new order, associate it with the user and stock
+//on checkout:
+//find all orders associated with user set to false, set to true
+
+//when we need to retrieve past orders, we find from the checkout table so we can also get the price at purchase
+//when we need to retrieve stock for the cart, we find orders that are set to false
