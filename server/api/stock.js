@@ -1,5 +1,5 @@
-const router = require('express').Router
-const {Stock} = require('../db')
+const router = require('express').Router()
+const {Stock} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
       price,
       quantity,
       imageUrl,
-      description,
+      description
     } = req.body
     const newStock = await Stock.create({
       name,
@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
       price,
       quantity,
       imageUrl,
-      description,
+      description
     })
   } catch (err) {
     next(err)
@@ -53,7 +53,7 @@ router.put('/:id', async (req, res, next) => {
       price,
       quantity,
       imageUrl,
-      description,
+      description
     } = req.body
 
     const stock = await Stock.findByPk(req.params.id)
@@ -65,7 +65,7 @@ router.put('/:id', async (req, res, next) => {
       price,
       quantity,
       imageUrl,
-      description,
+      description
     })
 
     res.status(201).json(stock)
