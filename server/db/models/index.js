@@ -12,5 +12,7 @@ Stock.belongsToMany(Order, {through: Checkout})
 module.exports = {
   db,
   User,
-  Stock
+  Stock,
+  Order,
+  Checkout
 }
