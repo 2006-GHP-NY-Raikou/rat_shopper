@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Stock } = require('../db/models')
+const {Stock} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -39,6 +39,7 @@ router.post('/', async (req, res, next) => {
       imageUrl,
       description
     })
+    res.json(newStock)
   } catch (err) {
     next(err)
   }
