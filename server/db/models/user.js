@@ -11,14 +11,14 @@ const User = db.define(
       allowNull: false,
       validate: {
         isEmail: true,
-        isEmpty: false
+        notEmpty: true
       }
     },
     password: {
       type: Sequelize.STRING,
       allowNull: false,
       validate: {
-        isEmpty: false
+        notEmpty: true
       },
       get() {
         return () => this.getDataValue('password')

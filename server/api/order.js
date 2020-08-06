@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Stock, Checkout} = require('../db/models')
+const {Order, orderProduct} = require('../db/models')
 
 router.post('/', async (req, res, next) => {
   try {
@@ -10,9 +10,9 @@ router.post('/', async (req, res, next) => {
       }
     })
     if (newOrder) {
-      const checkoutOrder = Checkout.create({
+      const checkoutOrder = orderProduct.create({
         orderId: newOrder.id,
-        stockId: req.body.stockId
+        productId: req.body.productId
       })
     }
   } catch (err) {
