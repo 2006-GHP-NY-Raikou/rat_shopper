@@ -16,15 +16,18 @@ const User = db.define(
     },
     password: {
       type: Sequelize.STRING,
-      //allowNull: false,
-      // validate: {
-      //   isEmpty: false,
-      // },
+      allowNull: false,
+      validate: {
+        isEmpty: false
+      },
       get() {
         return () => this.getDataValue('password')
       }
     },
-    name: {
+    firstName: {
+      type: Sequelize.STRING
+    },
+    lastName: {
       type: Sequelize.STRING
     },
     address: {
