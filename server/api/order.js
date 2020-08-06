@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, Stock } = require('../db/models')
+const {Order, Stock} = require('../db/models')
 
 router.post('/', async (req, res, next) => {
   try {
@@ -14,9 +14,7 @@ router.post('/', async (req, res, next) => {
 })
 //if order exists, find order then update that order to add asscociated product
 
-router.get('/', async (req, res, next) => {
-
-})
+router.get('/', async (req, res, next) => {})
 
 module.exports = router
 //Order.setUser(user)

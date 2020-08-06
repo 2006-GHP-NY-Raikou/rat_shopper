@@ -1,5 +1,5 @@
 const db = require('../db')
-const { Sequelize } = require('sequelize')
+const {Sequelize} = require('sequelize')
 
 const Checkout = db.define('checkout', {
   priceAtPurchase: {
