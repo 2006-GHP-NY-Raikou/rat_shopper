@@ -39,6 +39,7 @@ router.post('/', async (req, res, next) => {
       imageUrl,
       description
     })
+    res.json(newStock)
   } catch (err) {
     next(err)
   }
