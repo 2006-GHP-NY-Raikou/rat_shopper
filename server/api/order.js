@@ -39,7 +39,7 @@ module.exports = router
 //what this is doing is going into the checkout model, which joins order and product, and finding whether the order we are on has existing products
 //if the item IS already in the checkout table with an existing orderId, then we need to update the cart's quantity
 //need a quantity field in checkout?!?!
-//unless this where we update product table?
+//unless this is where we update product table?
 //ex: item.update({qty: item.qty + req.body.qty})
 // if the item IS NOT, then we need to create it in checkout
 // ex: checkout.create({orderId: newOrder, productId: req.body.productId, qty(?) })
