@@ -22,3 +22,6 @@ module.exports = router
 //make a new order, associate it with the user and stock
 //on checkout:
 //find all orders associated with user set to false, set to true
+
+//when we need to retrieve past orders, we find from the checkout table so we can also get the price at purchase
+//when we need to retrieve stock for the cart, we find orders that are set to false

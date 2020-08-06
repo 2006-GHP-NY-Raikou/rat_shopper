@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, Stock } = require('../db/models')
+const {Order, Stock} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -11,7 +11,9 @@ router.get('/', async (req, res, next) => {
       include: Stock
     })
     res.json(orders)
-  } catch (err) { next(err) }
+  } catch (err) {
+    next(err)
+  }
 })
 
 module.exports = router
