@@ -10,16 +10,16 @@ const User = db.define(
       unique: true,
       allowNull: false,
       validate: {
-        isEmail: true,
-        isEmpty: false
+        isEmail: true
+        // isEmpty: false
       }
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
-      validate: {
-        isEmpty: false
-      },
+      // allowNull: false,
+      // validate: {
+      //   isEmpty: false
+      // },
       get() {
         return () => this.getDataValue('password')
       }
@@ -51,36 +51,36 @@ const User = db.define(
     googleId: {
       type: Sequelize.STRING
     }
-  },
-  {
-    hooks: {
-      beforeCreate: setSaltAndPassword,
-      beforeUpdate: setSaltAndPassword,
-      beforeBulkCreate: setSaltAndPassword
-    }
   }
+  // {
+  //   hooks: {
+  //     beforeCreate: setSaltAndPassword,
+  //     beforeUpdate: setSaltAndPassword,
+  //     beforeBulkCreate: setSaltAndPassword
+  //   }
+  // }
 )
 
-User.prototype.correctPassword = function(pw) {
-  return User.encryptPassword(pw, this.salt()) === this.password()
-}
+// User.prototype.correctPassword = function(pw) {
+//   return User.encryptPassword(pw, this.salt()) === this.password()
+// }
 
-User.generateSalt = function() {
-  return crypto.randomBytes(16).toString('base64')
-}
+// User.generateSalt = function() {
+//   return crypto.randomBytes(16).toString('base64')
+// }
 
-User.encryptPassword = function(text, salt) {
-  const hash = crypto.createHash('sha256')
-  hash.update(text)
-  hash.update(salt)
-  return hash.digest('hex')
-}
+// User.encryptPassword = function(text, salt) {
+//   const hash = crypto.createHash('sha256')
+//   hash.update(text)
+//   hash.update(salt)
+//   return hash.digest('hex')
+// }
 
-function setSaltAndPassword(user) {
-  if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt())
-  }
-}
+// function setSaltAndPassword(user) {
+//   if (user.changed('password')) {
+//     user.salt = User.generateSalt()
+//     user.password = User.encryptPassword(user.password(), user.salt())
+//   }
+// }
 
 module.exports = User

@@ -6,6 +6,7 @@ const User = db.model('user')
 
 describe('User model', () => {
   beforeEach(() => db.sync({force: true}))
+  afterEach(() => db.sync({force: true}))
   describe('column definitions and validations', () => {
     it('has a `firstName`, `lastName`, `email`, `password`, `address`, `zipCode`, `country`, `isAdmin`', async () => {
       const user = await User.build({
