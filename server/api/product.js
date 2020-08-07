@@ -1,6 +1,14 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 
+function isAdmin(req, res, next) {
+  if (req.user.isAdmin) {
+    next()
+  } else {
+    return res.status(404).send('Not an admin!')
+  }
+}
+
 router.get('/', async (req, res, next) => {
   try {
     const product = await Product.findAll()
@@ -19,7 +27,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const {
       name,
@@ -47,6 +55,7 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
+    isAdmin()
     const {
       name,
       category,
@@ -77,6 +86,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
+    isAdmin()
     const product = await Product.findByPk(req.params.id)
     await product.destroy()
     res.status(204).send('deleted')

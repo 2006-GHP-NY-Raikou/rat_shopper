@@ -1,27 +1,36 @@
 const router = require('express').Router()
 const {Order, OrderProduct, Product} = require('../db/models')
 
+// function isAdmin(req, res, next) {
+//   if(req.user){
+//     next()
+//   } else {
+//     req.user.id =
+//   }
+// }
+
 //GET all orders and their associated product and orderProduct info
 router.get('/', async (req, res, next) => {
   try {
     const orders = await Order.findAll({
       include: {
         model: Product,
-        through: OrderProduct 
+        through: OrderProduct
       }
     })
     res.json(orders)
-  } catch (err) { next (err) }
-
+  } catch (err) {
+    next(err)
+  }
 })
 
 //POST new order for session user
 router.post('/', async (req, res, next) => {
   try {
-    const order = await Order.create({ 
-        userId: req.user.id,
-        status:false
-      })
+    const order = await Order.create({
+      userId: req.user.id,
+      status: false
+    })
     res.json(order)
   } catch (err) {
     next(err)
@@ -38,7 +47,9 @@ router.get('/:id', async (req, res, next) => {
       }
     })
     res.json(currentOrder)
-  } catch (err) { next (err) }
+  } catch (err) {
+    next(err)
+  }
 })
 
 //PUT status and product quantities on checkout
@@ -50,10 +61,18 @@ router.put('/:id', async (req, res, next) => {
         through: OrderProduct
       }
     })
-    await order.update({ status: true })
+    await order.update({status: true})
     //the below bit could maybe be in a product route??
     order.products.forEach(async product => {
-      const {name, category, sex, price, imageUrl, description, orderProduct} = product
+      const {
+        name,
+        category,
+        sex,
+        price,
+        imageUrl,
+        description,
+        orderProduct
+      } = product
       await product.update({
         name,
         category,
@@ -62,10 +81,13 @@ router.put('/:id', async (req, res, next) => {
         imageUrl,
         description,
         orderProduct,
-        quantity: product.quantity - product.orderProduct.qty})
+        quantity: product.quantity - product.orderProduct.qty
+      })
     })
     res.json(order)
-  } catch (err) { next (err) }
+  } catch (err) {
+    next(err)
+  }
 })
 
 router.delete('/:id', async (req, res, next) => {
@@ -73,13 +95,15 @@ router.delete('/:id', async (req, res, next) => {
     const order = await Order.findByPk(req.params.id)
     await order.destroy()
     res.status(204).json(order)
-  } catch (err) { next (err) }
+  } catch (err) {
+    next(err)
+  }
 })
 
 //POST new product to order
 router.post('/:id/orderProducts', async (req, res, next) => {
-    // assuming the product info is in the req.body
-    //check if the item already exists in cart
+  // assuming the product info is in the req.body
+  //check if the item already exists in cart
   try {
     const isThisProductAlreadyInCart = await OrderProduct.findOne({
       where: {
@@ -120,9 +144,9 @@ router.put('/:id/orderProducts', async (req, res, next) => {
       priceAtPurchase: req.body.price
     })
     res.json(cartItem)
-} catch (err) {
-  next(err)
-}
+  } catch (err) {
+    next(err)
+  }
 })
 
 //DELETE product(s) from cart
@@ -136,9 +160,9 @@ router.delete('/:id/orderProducts', async (req, res, next) => {
     })
     await cartItem.destroy()
     res.status(204).json(cartItem)
-} catch (err) {
-  next(err)
-}
+  } catch (err) {
+    next(err)
+  }
 })
 
 module.exports = router
