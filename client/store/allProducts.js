@@ -4,9 +4,7 @@ const SET_PRODUCTS = 'GET_PRODUCTS'
 const NEW_PRODUCT = 'NEW_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
-const initialState = {
-  products: []
-}
+const initialState = []
 
 const setProducts = products => ({
   type: SET_PRODUCTS,
@@ -66,22 +64,14 @@ export const deleteProduct = product => {
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCTS:
-      return {
-        ...state,
-        products: action.products
-      }
+      return action.products
+
     case NEW_PRODUCT:
-      return {
-        ...state,
-        products: [...state.products, action.product]
-      }
+      return [...state, action.product]
+
     case REMOVE_PRODUCT:
-      return {
-        ...state,
-        products: state.products.filter(
-          product => product.id !== action.product.id
-        )
-      }
+      return state.filter(product => product.id !== action.product.id)
+
     default:
       return state
   }

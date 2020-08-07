@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+
 import {fetchProducts} from '../store'
+import ProductView from './ProductView'
 
 export class AllProducts extends React.Component {
   constructor() {
@@ -71,13 +72,16 @@ export class AllProducts extends React.Component {
           </div>
         </div>
         <div>
-          {filteredProducts.map(product => (
-            <Link to={`/products/${product.id}`} key={product.id}>
-              <div>{product.name}</div>
+          {filteredProducts
+            ? filteredProducts.map(product => {
+                return <ProductView product={product} key={product.id} />
+                // <Link to={`/products/${product.id}`} key={product.id}>
+                //   <div>{product.name}</div>
 
-              <img src={product.imageUrl} />
-            </Link>
-          ))}
+                //   <img src={product.imageUrl} />
+                // </Link>
+              })
+            : ''}
         </div>
       </div>
     )
