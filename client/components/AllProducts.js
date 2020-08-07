@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {fetchProducts} from '../store'
 
 export class AllProducts extends React.Component {
   constructor() {
@@ -9,7 +10,9 @@ export class AllProducts extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleFilter = this.handleFilter.bind(this)
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.product.loadProducts()
+  }
   handleChange(event) {
     this.setState({sort: event.target.value})
   }
@@ -17,24 +20,34 @@ export class AllProducts extends React.Component {
     this.setState({filter: event.target.value})
   }
   render() {
-    const {products} = this.props
+    const {products} = this.props.products
     let filteredProducts = products
 
-    //Logic for filtering and sorting below, ie:
+    //Logic for filtering and sorting below
 
-    // if (this.state.filter === "noStudents") {
-    //   filteredCampuses = campuses.filter((c) => {
-    //     return c.students.length === 0;
-    //   });
-    // }
+    if (this.state.filter === 'rats') {
+      filteredProducts = products.filter(p => {
+        return p.sex
+      })
+    }
 
-    // if (this.state.sort === "enrolled") {
-    //   console.log(filteredCampuses);
+    if (this.state.filter === 'accessories') {
+      filteredProducts = products.filter(p => {
+        return !p.sex
+      })
+    }
 
-    //   filteredCampuses.sort((a, b) => {
-    //     return a.students.length < b.students.length ? 1 : -1;
-    //   });
-    // }
+    if (this.state.sort === 'highLow') {
+      filteredProducts.sort((a, b) => {
+        return a.price < b.price ? 1 : -1
+      })
+    }
+
+    if (this.state.sort === 'lowHigh') {
+      filteredProducts.sort((a, b) => {
+        return a.price > b.price ? 1 : -1
+      })
+    }
 
     return (
       <div>
@@ -42,7 +55,7 @@ export class AllProducts extends React.Component {
           <div>
             Sort:{' '}
             <select value={this.state.sort} onChange={this.handleChange}>
-              <option value="random">Random order</option>
+              <option value="random">Any order</option>
               <option value="highLow">Price (high-low)</option>
               <option value="lowHigh">Price (low-high)</option>
             </select>
@@ -79,7 +92,9 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    // loadProducts:
+    loadProducts: () => {
+      dispatch(fetchProducts())
+    }
   }
 }
 
