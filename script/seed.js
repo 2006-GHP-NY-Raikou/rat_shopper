@@ -1,19 +1,45 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product, Order, OrderProduct} = require('../server/db/models')
+//const session = require('express-session')
+const {users, products, orders, orderProducts, sessions} = require('./seedData')
 
 async function seed() {
-  await db.sync({force: true})
-  console.log('db synced!')
+  try {
+    await db.sync({force: true})
+    await Promise.all(
+      users.map(user => {
+        return User.create(user)
+      })
+    )
+    await Promise.all(
+      products.map(product => {
+        return Product.create(product)
+      })
+    )
+    await Promise.all(
+      orders.map(order => {
+        return Order.create(order)
+      })
+    )
+    await Promise.all(
+      orderProducts.map(orderProduct => {
+        return OrderProduct.create(orderProduct)
+      })
+    )
+    // await Promise.all(sessions.map(session => { return Session.create(session) }));
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
-
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+    console.log('db synced!')
+    console.log(`seeded ${users.length} users`)
+    console.log(`seeded ${products.length} products`)
+    console.log(`seeded ${orders.length} orders`)
+    console.log(`seeded ${orderProducts.length} order/Poducts`)
+    //console.log(`seeded ${sessions.length} sessions`)
+    console.log(`seeded successfully`)
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // We've separated the `seed` function from the `runSeed` function.
