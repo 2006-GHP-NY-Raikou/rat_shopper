@@ -13,7 +13,7 @@ describe('Product model', () => {
   afterEach(() => db.sync({force: true}))
 
   it('`name` is required', async () => {
-    const nameless = Product.create()
+    const nameless = await Product.create()
     try {
       expect(nameless.validate()).to.throw(Error)
     } catch (err) {

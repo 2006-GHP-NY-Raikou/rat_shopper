@@ -1,64 +1,144 @@
 const router = require('express').Router()
-const {Order, OrderProduct} = require('../db/models')
+const {Order, OrderProduct, Product} = require('../db/models')
 
+//GET all orders and their associated product and orderProduct info
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      include: {
+        model: Product,
+        through: OrderProduct 
+      }
+    })
+    res.json(orders)
+  } catch (err) { next (err) }
+
+})
+
+//POST new order for session user
 router.post('/', async (req, res, next) => {
   try {
-    const newOrder = await Order.create({ userId: req.user.id })
+    const order = await Order.create({ 
+        userId: req.user.id,
+        status:false
+      })
+    res.json(order)
+  } catch (err) {
+    next(err)
+  }
+})
+
+//GET all unbought products and their associated orderProduct info
+router.get('/:id', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findByPk(req.params.id, {
+      include: {
+        model: Product,
+        through: OrderProduct
+      }
+    })
+    res.json(currentOrder)
+  } catch (err) { next (err) }
+})
+
+//PUT status and product quantities on checkout
+router.put('/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.params.id, {
+      include: {
+        model: Product,
+        through: OrderProduct
+      }
+    })
+    await order.update({ status: true })
+    //the below bit could maybe be in a product route??
+    order.products.forEach(async product => {
+      const {name, category, sex, price, imageUrl, description, orderProduct} = product
+      await product.update({
+        name,
+        category,
+        sex,
+        price,
+        imageUrl,
+        description,
+        orderProduct,
+        quantity: product.quantity - product.orderProduct.qty})
+    })
+    res.json(order)
+  } catch (err) { next (err) }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const order = await Order.findByPk(req.params.id)
+    await order.destroy()
+    res.status(204).json(order)
+  } catch (err) { next (err) }
+})
+
+//POST new product to order
+router.post('/:id/orderProducts', async (req, res, next) => {
+    // assuming the product info is in the req.body
+    //check if the item already exists in cart
+  try {
+    const isThisProductAlreadyInCart = await OrderProduct.findOne({
+      where: {
+        orderId: req.params.id,
+        productId: req.body.productId
+      }
+    })
+    //if it does, destroy it and replace it with a new one
+    let oldQty = 0
+    if (isThisProductAlreadyInCart) {
+      oldQty = isThisProductAlreadyInCart.qty
+      await isThisProductAlreadyInCart.destroy()
+    }
     const newOrderProduct = await OrderProduct.create({
-      orderId: newOrder.id,
+      orderId: req.params.id,
       productId: req.body.productId,
-      qty: 1
+      qty: +req.body.qty + +oldQty,
+      priceAtPurchase: req.body.price
     })
     res.json(newOrderProduct)
   } catch (err) {
     next(err)
   }
-//in order to create a new row in orderProduct, we need to order.addProduct(product)
-//so we need to find the order
 })
 
-router.put('/', async (req, res, next) => {
-  //add products to order
-  //send order id in req.body
-  const order = await Order.findOne({
-    where: {
-      userId: req.user.id,
-      status:false
-    }
-  })
-  const cartItem = await OrderProduct.findOrCreate({
-    
-  })
-  //adding new item to cart
-  //or adding duplicate
-  res.json(newOrderProduct)
+//PUT unbought products in cart
+//again, assumes req.body contains item info
+router.put('/:id/orderProducts', async (req, res, next) => {
+  try {
+    const cartItem = await OrderProduct.findOne({
+      where: {
+        orderId: req.params.id,
+        productId: req.body.productId
+      }
+    })
+    await cartItem.update({
+      qty: req.body.qty,
+      priceAtPurchase: req.body.price
+    })
+    res.json(cartItem)
+} catch (err) {
+  next(err)
+}
+})
 
+//DELETE product(s) from cart
+router.delete('/:id/orderProducts', async (req, res, next) => {
+  try {
+    const cartItem = await OrderProduct.findOne({
+      where: {
+        orderId: req.params.id,
+        productId: req.body.productId
+      }
+    })
+    await cartItem.destroy()
+    res.status(204).json(cartItem)
+} catch (err) {
+  next(err)
+}
 })
 
 module.exports = router
-//Order.setUser(user)
-//when item is added to cart:
-//make a new order, associate it with the user and stock
-//on checkout:
-//find all orders associated with user set to false, set to true
-
-//when we need to retrieve past orders, we find from the checkout table so we can also get the price at purchase
-//when we need to retrieve stock for the cart, we find orders that are set to false
-
-//To add an order(post),
-//1.) find existing order associated with that user (findOne where userId: req.user, !status)
-//if order does exist, return order
-//if order does not exist, we need to create the order
-// ex: const newOrder = Order.create()
-//   newOrder.setUser(req)
-// 2.) Then we need to add the item to the order/cart
-// we need req.body.product.id, req.body.qty
-//first check to see if that item is already in their cart (use checkout model for this)
-// ex: const item = checkout.findOne(where: {productId: req.body.product.id, orderId: newOrder.id})
-//what this is doing is going into the checkout model, which joins order and product, and finding whether the order we are on has existing products
-//if the item IS already in the checkout table with an existing orderId, then we need to update the cart's quantity
-//need a quantity field in checkout?!?!
-//unless this where we update product table?
-//ex: item.update({qty: item.qty + req.body.qty})
-// if the item IS NOT, then we need to create it in checkout
-// ex: checkout.create({orderId: newOrder, productId: req.body.productId, qty(?) })
