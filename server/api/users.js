@@ -1,8 +1,16 @@
 const router = require('express').Router()
-const {User, OrderProduct} = require('../db/models')
+const {User} = require('../db/models')
+
+function isAdmin(req, res, next) {
+  if (req.user.isAdmin) {
+    next()
+  } else {
+    return res.status(404).send('Not an admin!')
+  }
+}
 
 // for admin to view all users
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const allUsers = await User.findAll()
     res.send(allUsers)
@@ -11,7 +19,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//to view single user, for admin and individual user to view info
+//for admin to view single user
 router.get('/:id', async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id)
