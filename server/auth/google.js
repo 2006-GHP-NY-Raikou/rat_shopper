@@ -24,7 +24,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   const googleConfig = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
+    callbackURL: '/login/verify'
   }
 
   const strategy = new GoogleStrategy(
@@ -54,7 +54,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   )
 
   router.get(
-    '/callback',
+    '/login/verify',
     passport.authenticate('google', {
       successRedirect: '/home',
       failureRedirect: '/login'
