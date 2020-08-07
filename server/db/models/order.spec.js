@@ -8,20 +8,19 @@ describe('Order model', () => {
   })
   afterEach(() => db.sync({force: true}))
 
-  it('has fields cart, address)', async () => {
+  it('has field address)', async () => {
     const order = await Order.create({
-      cart: [],
       address: ''
     })
-    expect(order.cart).to.deep.equal([])
+
     expect(order.address).to.equal('')
   })
 
-  it('cart is an array', async () => {
-    const order = await Order.create({
-      cart: ['cart'],
-      address: ''
-    })
-    assert(order.cart).is.an('array')
-  })
+  // it('cart is an array', async () => {
+  //   const order = await Order.create({
+  //     cart: ['cart'],
+  //     address: ''
+  //   })
+  //   assert(order.cart).is.an('array')
+  // })
 })
