@@ -6,9 +6,9 @@ const User = db.model('user')
 
 describe('User model', () => {
   beforeEach(() => db.sync({force: true}))
-  describe('column definitions and validations', () => {
+  describe('column definitions', () => {
     it('has a `firstName`, `lastName`, `email`, `password`, `address`, `zipCode`, `country`, `isAdmin`', async () => {
-      const user = await User.build({
+      const user = await User.create({
         firstName: 'Al',
         lastName: 'Rat',
         email: 'imARatShopper@gmail.com',
@@ -18,7 +18,6 @@ describe('User model', () => {
         country: 'USA',
         isAdmin: false
       })
-      await user.save()
       expect(user.firstName).to.equal('Al')
       expect(user.lastName).to.equal('Rat')
       expect(user.email).to.equal('imARatShopper@gmail.com')
@@ -28,53 +27,57 @@ describe('User model', () => {
       expect(user.country).to.equal('USA')
       expect(user.isAdmin).to.equal(false)
     })
-
+  }) // closes column definitions describe
+  describe('column validations', () => {
     it('`email` is required', async () => {
-      const user = User.build()
       try {
-        await user.validate()
+        const user = await User.create({})
         throw new Error('Validation should have failed!')
       } catch (err) {
-        expect(err).to.be.an('error')
+        expect(err.message).to.contain('email cannot be null')
       }
     })
-  })
-})
 
-// describe('User model', () => {
-//   beforeEach(() => {
-//     return db.sync({force: true})
-//   })
-//   afterEach(() => db.sync({force: true}))
+    it('email must be a valid email', async () => {
+      try {
+        const invalidEmail = await User.create({email: 'myemail'})
+        throw Error('validate did not throw validation error')
+      } catch (err) {
+        expect(err.message).to.contain('Validation isEmail on email failed')
+      }
+    })
 
-//   //checks whether the email and password exist
-//   it('has fields email, password', async () => {
-//     const user = await User.create({
-//       email: 'test@email.com'
-//       //password: 'abc',
+    it('email must be unique', async () => {
+      try {
+        const emailAddress = await User.create({email: 'myemail@gmail.com'})
+        const nonUniqueEmail = await User.create({email: 'myemail@gmail.com'})
+        throw Error('no SequelizeUniqueConstraintError thrown')
+      } catch (err) {
+        expect(err.message).to.contain('Validation error')
+      }
+    })
+
+    //SequelizeUniqueConstraintError
+  }) // closes column validaitions describe
+}) // closes User model describe
+
+// describe('instanceMethods', () => {
+//   describe('correctPassword', () => {
+//     let cody
+
+//     beforeEach(async () => {
+//       cody = await User.create({
+//         email: 'cody@puppybook.com',
+//         password: 'bones'
+//       })
 //     })
-//     expect(user.email).to.equal('test@email.com')
-//     //expect(user.password).to.equal('abc')
+
+//     it('returns true if the password is correct', () => {
+//       expect(cody.correctPassword('bones')).to.be.equal(true)
+//     })
+
+//     it('returns false if the password is incorrect', () => {
+//       expect(cody.correctPassword('bonez')).to.be.equal(false)
+//     })
 //   })
-
-//   describe('instanceMethods', () => {
-//     describe('correctPassword', () => {
-//       let cody
-
-//       beforeEach(async () => {
-//         cody = await User.create({
-//           email: 'cody@puppybook.com',
-//           password: 'bones'
-//         })
-//       })
-
-//       it('returns true if the password is correct', () => {
-//         expect(cody.correctPassword('bones')).to.be.equal(true)
-//       })
-
-//       it('returns false if the password is incorrect', () => {
-//         expect(cody.correctPassword('bonez')).to.be.equal(false)
-//       })
-//     }) // end describe('correctPassword')
-//   }) // end describe('instanceMethods')
-// })  end describe('User model')
+// })

@@ -7,20 +7,9 @@ describe('Order model', () => {
     return db.sync({force: true})
   })
   afterEach(() => db.sync({force: true}))
-
-  it('has field address)', async () => {
-    const order = await Order.create({
-      address: ''
-    })
-
-    expect(order.address).to.equal('')
-  })
-
-  // it('cart is an array', async () => {
-  //   const order = await Order.create({
-  //     cart: ['cart'],
-  //     address: ''
-  //   })
-  //   assert(order.cart).is.an('array')
-  // })
 })
+
+/*
+status true means order has been checked out ie is not active anymore
+there should only be on order per user with status false (current ‘cart’)
+*/

@@ -25,16 +25,45 @@ const Product = db.define('product', {
       'clothes',
       'props'
     ),
-    allowNull: false
+    allowNull: true,
+    validate: {
+      isIn: {
+        args: [
+          [
+            'dumbo',
+            'sphynx',
+            'husky',
+            'rex',
+            'fuzz',
+            'blue',
+            'black',
+            'satin',
+            'hat',
+            'shoes',
+            'jewelry',
+            'clothes',
+            'props'
+          ]
+        ],
+        msg: 'category should be one of the pre-set categories'
+      }
+    }
   },
   sex: {
-    type: Sequelize.ENUM('male', 'female')
+    type: Sequelize.ENUM('male', 'female'),
+    allowNull: true,
+    validate: {
+      isIn: {
+        args: [['male', 'female']],
+        msg: 'sex has to be either male, female, or null'
+      }
+    }
   },
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0
+      min: 1
     }
   },
   quantity: {

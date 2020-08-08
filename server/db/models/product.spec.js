@@ -12,62 +12,104 @@ describe('Product model', () => {
   })
   afterEach(() => db.sync({force: true}))
 
-  it('`name` is required', async () => {
-    const nameless = await Product.create()
-    try {
-      expect(nameless.validate()).to.throw(Error)
-    } catch (err) {
-      expect(err).to.be.an('error')
-    }
-  })
+  describe('column definitions', () => {
+    it('has a `name`, `category`, `sex`, `price`, `quantity`, `imageUrl` and `description`', async () => {
+      const product = await Product.create({
+        name: 'Ron',
+        category: 'rex',
+        sex: 'male',
+        price: 6000,
+        quantity: 1,
+        imageUrl:
+          'https://pm1.narvii.com/5814/f93414bcd343cc962d2cb21ed032617c98c77ba7_hq.jpg',
+        description: 'Ginger rat!'
+      }) // closes Product. create
+      expect(product.name).to.equal('Ron')
+      expect(product.category).to.equal('rex')
+      expect(product.sex).to.equal('male')
+      expect(product.price).to.equal(6000)
+      expect(product.quantity).to.equal(1)
+      expect(product.imageUrl).to.be.a('string')
+      expect(product.description).to.be.a('string')
+    }) //closes it
+  }) // closes describe
 
-  it('`name`,`price`, `quantity` and `category` are required', async () => {
-    const newRat = await Product.create({
-      name: 'bob',
-      price: 2,
-      quantity: 1,
-      category: 'dumbo'
+  describe('column validations', () => {
+    it('`name` and `price` are required', async () => {
+      try {
+        const nameless = await Product.create({})
+        throw Error('validate did not throw a validation error')
+      } catch (err) {
+        expect(err.message).to.contain('product.name cannot be null')
+        expect(err.message).to.contain('product.price cannot be null')
+      }
     })
 
-    expect(newRat.name).to.equal('bob')
-    expect(newRat.price).to.equal(2)
-    expect(newRat.quantity).to.equal(1)
-  })
-
-  it('price is a valid price', async () => {
-    const dumboBob = await Product.create({
-      name: 'bob',
-      category: 'dumbo',
-      sex: 'male',
-      price: 2,
-      quantity: 2,
-      imageUrl: null,
-      description: 'a cude and cuddly lil monster'
+    it('`name` cannot be empty', async () => {
+      try {
+        const emptyName = await Product.create({name: ''})
+        throw Error(
+          'validation should have failed with empty name and category'
+        )
+      } catch (err) {
+        expect(err.message).to.contain('Validation notEmpty on name failed')
+      }
     })
-    //// typeof
-    // expect('test').to.be.a('string');
-    expect(dumboBob.price).to.be.a('number')
-    // try {
-    //   let result = await Product.validate()
-    // } catch (e) {
-    //   throw new Error('not a valid price!')
-    // }
-  })
 
-  it('category is a valid price', async () => {
-    const product = await Product.build({
-      name: 'bob',
-      category: 'dumbo',
-      sex: 'male',
-      price: 2,
-      quantity: 2,
-      imageUrl: null,
-      description: 'a cude and cuddly lil monster'
+    it('`price` cannot be 0', async () => {
+      try {
+        const freeProduct = await Product.create({price: 0})
+        throw Error('validation should have failed with a price of 0')
+      } catch (err) {
+        expect(err.message).to.contain('Validation min on price failed')
+      }
     })
-    try {
-      let result = await product.validate()
-    } catch (e) {
-      throw new Error('not a valid price!')
-    }
+
+    it('price is a valid price', async () => {
+      const dumboBob = await Product.create({
+        name: 'bob',
+        category: 'dumbo',
+        sex: 'male',
+        price: 2,
+        quantity: 2,
+        imageUrl: null,
+        description: 'a cude and cuddly lil monster'
+      })
+      expect(dumboBob.price).to.be.a('number')
+    })
+
+    it('category has values corresponding to one of the preset categories', async () => {
+      try {
+        const fakeCategory = await Product.create({
+          name: 'bob',
+          price: 2,
+          category: 'wrongCat'
+        })
+        throw Error(
+          'validation should have failed with a category not within our ENUM types'
+        )
+      } catch (err) {
+        expect(err.message).to.contain(
+          'Validation error: category should be one of the pre-set categories'
+        )
+      }
+    })
+
+    it('sex has values corresponding to one of the preset categories', async () => {
+      try {
+        const fakeSex = await Product.create({
+          name: 'bob',
+          price: 2,
+          sex: 'me'
+        })
+        throw Error(
+          'validation should have failed with a sex not within our ENUM types'
+        )
+      } catch (err) {
+        expect(err.message).to.contain(
+          'Validation error: sex has to be either male, female, or null'
+        )
+      }
+    })
   })
 })
