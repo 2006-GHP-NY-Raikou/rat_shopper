@@ -24,7 +24,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   const googleConfig = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/login/verify'
+    callbackURL: '/auth/google/verify'
   }
 
   const strategy = new GoogleStrategy(
@@ -36,7 +36,6 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const firstName = profile.name.givenName
       const lastName = profile.name.familyName
       const fullName = profile.displayName
-
       User.findOrCreate({
         where: {googleId},
         defaults: {email, imgUrl, firstName, lastName, fullName}
@@ -54,7 +53,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   )
 
   router.get(
-    '/login/verify',
+    '/verify', 
     passport.authenticate('google', {
       successRedirect: '/home',
       failureRedirect: '/login'
