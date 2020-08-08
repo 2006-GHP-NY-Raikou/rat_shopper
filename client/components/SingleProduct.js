@@ -1,12 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {fetchSingleProduct} from '../store/singleProduct'
 
 class SingleProduct extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.loadSingleProduct()
+  }
 
   render() {
     const product = this.props.product
-    let campus
 
     if (!product.id) {
       return <div>Aw, rats! Not found!</div>
@@ -27,13 +29,13 @@ class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    product: state.singleProduct
+    product: state.product
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    // loadSingleProduct:
+    loadSingleProduct: () => dispatch(fetchSingleProduct)
   }
 }
 
