@@ -14,6 +14,8 @@ class NewProduct extends React.Component {
       imageUrl: '',
       description: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleSubmit(event) {
@@ -39,49 +41,49 @@ class NewProduct extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Updated Product Name:</label>
+        <label htmlFor="name">New Product Name:</label>
         <input
           type="text"
           name="name"
           value={this.state.name}
           onChange={this.handleChange}
         />
-        <label htmlFor="category">Updated Category:</label>
+        <label htmlFor="category">Category:</label>
         <input
           type="text"
           name="category"
           value={this.state.category}
           onChange={this.handleChange}
         />
-        <label htmlFor="sex">Updated Sex:</label>
+        <label htmlFor="sex">Sex:</label>
         <input
           type="text"
           name="sex"
           value={this.state.sex}
           onChange={this.handleChange}
         />
-        <label htmlFor="price">Updated Price:</label>
+        <label htmlFor="price">Price:</label>
         <input
           type="text"
           name="price"
           value={this.state.price}
           onChange={this.handleChange}
         />
-        <label htmlFor="quantity">Updated Quantity:</label>
+        <label htmlFor="quantity">Quantity:</label>
         <input
           type="text"
           name="quantity"
           value={this.state.quantity}
           onChange={this.handleChange}
         />
-        <label htmlFor="imageUrl">Updated ImageUrl:</label>
+        <label htmlFor="imageUrl">ImageUrl:</label>
         <input
           type="text"
           name="imageUrl"
           value={this.state.imageUrl}
           onChange={this.handleChange}
         />
-        <label htmlFor="description">Updated Quantity:</label>
+        <label htmlFor="description">Description:</label>
         <input
           type="text"
           name="description"
