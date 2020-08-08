@@ -6,10 +6,12 @@ import user from './user'
 import orderId from './order'
 import cart from './orderProduct'
 import products from './allProducts'
+import product from './singleProduct'
 
 const reducer = combineReducers({
   user,
   products,
+  product,
   orderId,
   cart
 })
