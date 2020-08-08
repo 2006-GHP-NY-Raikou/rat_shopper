@@ -1,13 +1,14 @@
 const router = require('express').Router()
 const {Order, OrderProduct, Product} = require('../db/models')
 
-// function isAdmin(req, res, next) {
-//   if(req.user){
-//     next()
-//   } else {
-//     req.user.id =
-//   }
-// }
+async function isUser(req, res, next) {
+  if(req.user){
+    const order = await Order.findOne({ where: { userId: req.user.id, status: false }})
+    next(order.id)
+  } else {
+    throw new Error('this is not the page you\'re looking for, move along')
+  }
+}
 
 //GET all orders and their associated product and orderProduct info
 router.get('/', async (req, res, next) => {
@@ -101,29 +102,25 @@ router.delete('/:id', async (req, res, next) => {
 })
 
 //POST new product to order
-router.post('/:id/orderProducts', async (req, res, next) => {
+router.post('/:id/orderProducts', isUser, async (req, res, next) => {
   // assuming the product info is in the req.body
   //check if the item already exists in cart
   try {
-    const isThisProductAlreadyInCart = await OrderProduct.findOne({
+    const cartItem = await OrderProduct.findOrCreate({
       where: {
         orderId: req.params.id,
         productId: req.body.productId
       }
     })
-    //if it does, destroy it and replace it with a new one
     let oldQty = 0
-    if (isThisProductAlreadyInCart) {
-      oldQty = isThisProductAlreadyInCart.qty
-      await isThisProductAlreadyInCart.destroy()
+    if (cartItem.qty) {
+      oldQty = cartItem.qty
     }
-    const newOrderProduct = await OrderProduct.create({
-      orderId: req.params.id,
-      productId: req.body.productId,
+    await cartItem.update({
       qty: +req.body.qty + +oldQty,
       priceAtPurchase: req.body.price
     })
-    res.json(newOrderProduct)
+    res.json(cartItem)
   } catch (err) {
     next(err)
   }
