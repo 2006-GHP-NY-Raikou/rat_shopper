@@ -102,7 +102,7 @@ router.delete('/:id', async (req, res, next) => {
 })
 
 //POST new product to order
-router.post('/:id/orderProducts', isUser, async (req, res, next) => {
+router.post('/:id/orderProducts', async (req, res, next) => {
   // assuming the product info is in the req.body
   //check if the item already exists in cart
   try {
