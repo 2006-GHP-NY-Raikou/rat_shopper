@@ -36,7 +36,6 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const firstName = profile.name.givenName
       const lastName = profile.name.familyName
       const fullName = profile.displayName
-      console.log(profile)
       User.findOrCreate({
         where: {googleId},
         defaults: {email, imgUrl, firstName, lastName, fullName}
@@ -54,10 +53,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   )
 
   router.get(
-    '/verify', (req, res, next) => {
-      console.log('we\'re at the redirect!')
-      next()
-    },
+    '/verify', 
     passport.authenticate('google', {
       successRedirect: '/home',
       failureRedirect: '/login'

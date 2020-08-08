@@ -2,7 +2,7 @@
 
 const db = require('../server/db')
 const {User, Product, Order, OrderProduct} = require('../server/db/models')
-//const session = require('express-session')
+// const session = require('express-session')
 const {users, products, orders, orderProducts, sessions} = require('./seedData')
 
 async function seed() {
