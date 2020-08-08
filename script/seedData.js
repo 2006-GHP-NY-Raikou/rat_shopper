@@ -207,69 +207,69 @@ const products = [
 
 const orders = [
   {
-    id: 1000001,
-    status: true,
+    id: 1,
+    status: false,
     userId: 2
   },
   {
-    id: 1000002,
+    id: 2,
+    status: false,
+    userId: 3
+  },
+  {
+    id: 3,
+    status: false,
+    userId: 3
+  },
+  {
+    id: 4,
     status: true,
     userId: 3
   },
   {
-    id: 1000003,
+    id: 5,
     status: true,
     userId: 3
   },
   {
-    id: 1000004,
-    status: false,
+    id: 6,
+    status: true,
     userId: 3
   },
   {
-    id: 1000005,
-    status: false,
-    userId: 3
-  },
-  {
-    id: 1000006,
-    status: false,
-    userId: 3
-  },
-  {
-    id: 1000007,
-    status: false,
+    id: 7,
+    status: true,
     userId: 3
   }
 ]
 
 const orderProducts = [
   {
-    orderId: 1000001,
+    orderId: 1,
     productId: 2,
     qty: 1,
     priceAtPurchase: 4400
   },
   {
-    orderId: 1000002,
+    orderId: 2,
     productId: 7,
     qty: 1,
     priceAtPurchase: 5500
   },
   {
-    orderId: 1000002,
+    orderId: 2,
     productId: 11,
     qty: 1,
     priceAtPurchase: 5500
   },
   {
-    orderId: 1000003,
+    orderId: 3,
     productId: 9,
     qty: 1,
     priceAtPurchase: 2300
   },
   {
-    orderId: 1000003,
+    orderId: 3,
     productId: 5,
     qty: 2,
     priceAtPurchase: 2300
