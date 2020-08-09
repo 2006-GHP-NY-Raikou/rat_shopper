@@ -34,8 +34,8 @@ export const clearCart = () => ({
 //thunks are for users who have an Order in the db
 export const fetchUserCart = () => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/order/cart`)
-    dispatch(getCart(data))
+    const {data} = await axios.get(`/api/orders/cart`)
+    dispatch(getCart(data.products))
   } catch (err) {
     console.error(err)
   }
@@ -43,7 +43,7 @@ export const fetchUserCart = () => async dispatch => {
 
 export const addToUserCart = product => async dispatch => {
   try {
-    const {data} = await axios.post(`/api/order/cart`, product)
+    const {data} = await axios.post(`/api/orders/cart`, product)
     dispatch(addToCart(data))
   } catch (err) {
     console.error(err)
@@ -52,7 +52,10 @@ export const addToUserCart = product => async dispatch => {
 
 export const removeFromUserCart = product => async dispatch => {
   try {
-    const {data} = await axios.destroy('/api/order/cart/orderProducts', product)
+    const {data} = await axios.destroy(
+      '/api/orders/cart/orderProducts',
+      product
+    )
     dispatch(removeFromCart(data))
   } catch (err) {
     console.error(err)
@@ -61,7 +64,7 @@ export const removeFromUserCart = product => async dispatch => {
 
 export const updateUserCart = product => async dispatch => {
   try {
-    const {data} = await axios.put('/api/order/cart/orderProducts', product)
+    const {data} = await axios.put('/api/orders/cart/orderProducts', product)
     dispatch(updateCart(data))
   } catch (err) {
     console.error(err)
@@ -70,7 +73,7 @@ export const updateUserCart = product => async dispatch => {
 
 export const checkout = () => async dispatch => {
   try {
-    const {data} = await axios.put('/api/order/cart')
+    const {data} = await axios.put('/api/orders/cart')
     dispatch(clearCart())
     history.push('/checkout/confirmation')
   } catch (err) {
