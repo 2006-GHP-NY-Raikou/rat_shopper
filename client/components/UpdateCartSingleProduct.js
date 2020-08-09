@@ -1,51 +1,45 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/singleProduct'
 
-class SingleProduct extends React.Component {
+class UpdateCartSingleProduct extends React.Component() {
   constructor() {
     super()
-    // this.state = {
-    //   qty :
-    // }
+    this.state = {
+      qty: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {
-    this.props.loadSingleProduct()
+  handleChange(event) {
+    this.setState({
+      qty: event.target.value
+    })
   }
 
   render() {
     const product = this.props.product
-
     if (!product.id) {
       return <div>Aw, rats! Not found!</div>
-    }
-
-    return (
-      <div>
+    } else {
+      return (
         <div>
-          <div>{product.name}</div>
-          <div>{product.price}</div>
-          <img src={product.imageUrl} />
+          <div>
+            <div>{product.name}</div>
+            <div>{product.price}</div>
+            <img src={product.imageUrl} />
+          </div>
+          <form>
+            <div>
+              <label htmlFor="qty">Quantity</label>
+              <input value={this.state.qty} onChange={this.handleChange} />
+              <div>
+                <button type="submit">Update</button>
+              </div>
+            </div>
+          </form>
         </div>
-        <form>
-          <input>Quantity</input>
-        </form>
-      </div>
-    )
+      )
+    }
   }
 }
 
-const mapState = state => {
-  return {
-    product: state.product
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    loadSingleProduct: () => dispatch(fetchSingleProduct)
-  }
-}
-
-export default connect(mapState, mapDispatch)(SingleProduct)
+export default UpdateCartSingleProduct

@@ -1,11 +1,10 @@
 import React from 'react'
 import {Route, Link, Switch, BrowserRouter as Router} from 'react-router-dom'
-import {Home, AllProducts, SingleUser} from './index'
-import { getOrCreateOrder } from '../store/order'
-import { connect } from 'react-redux'
+import {Home, AllProducts, SingleUser, UpdateCartSingleProduct} from './index'
+import {getOrCreateOrder} from '../store/order'
+import {connect} from 'react-redux'
 
 class Routes extends React.Component {
-
   componentDidMount() {
     this.props.getOrCreateOrder()
   }
@@ -28,8 +27,13 @@ class Routes extends React.Component {
           <main>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path='/auth/me' component={SingleUser} />
+              <Route exact path="/auth/me" component={SingleUser} />
               <Route exact path="/products" component={AllProducts} />
+              <Route
+                exact
+                path="/cart/update/productId"
+                component={UpdateCartSingleProduct}
+              />
             </Switch>
           </main>
         </div>

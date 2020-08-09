@@ -20,7 +20,17 @@ class Cart extends React.Component {
           {this.props.cart.map(product => (
             <div key={product.id}>
               <div>{product.name}</div>
-              <Link to="" />
+              <Link
+                to={{
+                  pathname: `/cart/update/${product.id}`,
+                  state: {
+                    id: product.id,
+                    price: product.price,
+                    imageUrl: product.imageUrl,
+                    qty: product.qty
+                  }
+                }}
+              />
               <button type="button">Edit</button>
             </div>
           ))}
