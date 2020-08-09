@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchOrderProducts} from '../store/orderProduct'
+import {fetchUserCart, clearCart, checkout} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -11,6 +11,8 @@ class Cart extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.props.checkout()
+    this.props.clearCart()
   }
 
   render() {
@@ -20,8 +22,9 @@ class Cart extends React.Component {
           {this.props.cart.map(product => (
             <div key={product.id}>
               <div>{product.name}</div>
-              <Link to={`/cart/update/${product.id}`} />
-              <button type="button">Edit</button>
+              <Link to={`/cart/update/${product.id}`}>
+                <button type="button">Edit</button>
+              </Link>
             </div>
           ))}
         </div>
@@ -32,12 +35,13 @@ class Cart extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.orderProducts,
-  user: state.user
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(fetchOrderProducts())
+  fetchCart: () => dispatch(fetchUserCart()),
+  clearCart: () => dispatch(clearCart()),
+  checkout: () => dispatch(checkout())
 })
 
 export default connect(mapState, mapDispatch)(Cart)
