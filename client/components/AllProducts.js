@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 import {fetchProducts} from '../store/allProducts'
 import ProductView from './ProductView'
-import {filter} from 'compression'
 
 export class AllProducts extends React.Component {
   constructor() {
