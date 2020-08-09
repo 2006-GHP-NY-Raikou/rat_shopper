@@ -1,3 +1,5 @@
+// TO BE DELETED
+
 // import React from 'react'
 // import {Route, Link, Switch, BrowserRouter as Router} from 'react-router-dom'
 // import {Home, AllProducts, SingleUser, UpdateCartSingleProduct, NewProduct, UpdateProduct, RemoveProduct, Login, Signup} from './index'
@@ -29,15 +31,17 @@
 //           </nav>
 //           <main>
 //             <Switch>
-//   <Route exact path="/" component={Home} />
-//   <Route exact path="/login" component={Login} />
-//   <Route exact path="/signUp" component={Signup} />
-//   <Route exact path="/auth/me" component={SingleUser} />
-//   <Route exact path="/products" component={AllProducts} />
-//   <Route exact path="/cart/update/productId" component={UpdateCartSingleProduct}/>
-//   <Route exact path ="/admin/NewProduct" component={NewProduct}/>
-//   <Route exact path="/admin/UpdateProduct" component={UpdateProduct}/>
-//   <Route exact path="/admin/RemoveProduct" component={RemoveProduct}/>
+{
+  /* <Route exact path="/" component={Home} />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signUp" component={Signup} />
+    <Route exact path="/auth/me" component={SingleUser} />
+    <Route exact path="/products" component={AllProducts} />
+    <Route exact path="/cart/update/productId" component={UpdateCartSingleProduct} />
+    <Route exact path="/admin/NewProduct" component={NewProduct} />
+    <Route exact path="/admin/UpdateProduct" component={UpdateProduct} />
+    <Route exact path="/admin/RemoveProduct" component={RemoveProduct} /> */
+}
 //             </Switch>
 //           </main>
 //         </div>
