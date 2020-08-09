@@ -12,7 +12,7 @@ export class AllProducts extends React.Component {
     this.handleFilter = this.handleFilter.bind(this)
   }
   componentDidMount() {
-    this.props.loadProducts()
+    if (this.props.loadProducts) this.props.loadProducts()
   }
   handleChange(event) {
     this.setState({sort: event.target.value})
@@ -53,7 +53,7 @@ export class AllProducts extends React.Component {
       <div>
         <div>
           <div>
-            Sort:{' '}
+            <h1>Sort:</h1>
             <select value={this.state.sort} onChange={this.handleChange}>
               <option value="random">Any order</option>
               <option value="highLow">Price (high-low)</option>
@@ -62,7 +62,7 @@ export class AllProducts extends React.Component {
           </div>
 
           <div>
-            Filter:{' '}
+            <h2>Filter:</h2>
             <select value={this.state.filter} onChange={this.handleFilter}>
               <option value="all">All products</option>
               <option value="rats">Rats for adoption</option>
