@@ -207,37 +207,30 @@ const products = [
 
 const orders = [
   {
-    id: 1,
     status: false,
     userId: 2
   },
   {
-    id: 2,
     status: false,
     userId: 3
   },
   {
-    id: 3,
     status: false,
     userId: 3
   },
   {
-    id: 4,
     status: true,
     userId: 3
   },
   {
-    id: 5,
     status: true,
     userId: 3
   },
   {
-    id: 6,
     status: true,
     userId: 3
   },
   {
-    id: 7,
     status: true,
     userId: 3
   }

@@ -1,21 +1,27 @@
 import axios from 'axios'
 
-const GET_ORDER_PRODUCTS = 'GET_ORDER_PRODUCTS'
-const CLEAR_ORDER_PRODUCTS = 'CLEAR_ORDER_PRODUCTS'
+const GET_CART = 'GET_CART'
+const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
+const CLEAR_CART = 'CLEAR_CART'
 
-const getOrderProducts = products => ({
-  type: GET_ORDER_PRODUCTS,
+const getCart = products => ({
+  type: GET_CART,
   products
 })
 
-export const clearOrderProducts = () => ({
-  type: CLEAR_ORDER_PRODUCTS
+const addToGuestCart = product => ({
+  type: ADD_TO_GUEST_CART,
+  product
 })
 
-export const fetchOrderProducts = orderId => async dispatch => {
+export const clearCart = () => ({
+  type: CLEAR_CART
+})
+
+export const fetchUserCart = () => async dispatch => {
   try {
-    const { data } = await axios.get(`/api/order/${orderId}`)
-    dispatch(getOrderProducts(data))
+    const { data } = await axios.get(`/api/order/cart`)
+    dispatch(getCart(data))
   } catch(err) {
     console.error(err)
   }
@@ -24,9 +30,9 @@ export const fetchOrderProducts = orderId => async dispatch => {
 //state name will be: cart
 export default function(state = [], action) {
   switch (action.type) {
-    case GET_ORDER_PRODUCTS:
+    case GET_CART:
       return action.products
-    case CLEAR_ORDER_PRODUCTS:
+    case CLEAR_CART:
       return []
     default:
       return state
