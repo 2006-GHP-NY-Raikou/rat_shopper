@@ -1,4 +1,7 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {updateCart, updateUserCart} from '../store/orderProduct'
+import {withRouter} from 'react-router-dom'
 
 class UpdateCartSingleProduct extends React.Component() {
   constructor() {
@@ -7,12 +10,26 @@ class UpdateCartSingleProduct extends React.Component() {
       qty: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
     this.setState({
       qty: event.target.value
     })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const updatedProduct = {
+      id: this.props.product.id,
+      qty: this.state.qty
+    }
+    if (this.user) {
+      updateUserCart(updatedProduct)
+    } else {
+      updateCart(updatedProduct)
+    }
   }
 
   render() {
@@ -42,4 +59,10 @@ class UpdateCartSingleProduct extends React.Component() {
   }
 }
 
-export default UpdateCartSingleProduct
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(UpdateCartSingleProduct))
