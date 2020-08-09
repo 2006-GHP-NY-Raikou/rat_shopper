@@ -12,7 +12,7 @@ export class AllProducts extends React.Component {
     this.handleFilter = this.handleFilter.bind(this)
   }
   componentDidMount() {
-    this.product.loadProducts()
+    this.props.loadProducts()
   }
   handleChange(event) {
     this.setState({sort: event.target.value})
