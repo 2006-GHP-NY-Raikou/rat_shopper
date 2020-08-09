@@ -1,40 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import { fetchOrderProducts } from '../store/orderProduct'
+import {getSingleUserThunk, clearSingleUser} from '../store/singleUser'
 
 /**
  * COMPONENT
  */
 
-export class SingleUser extends React.Component {
+//Single user page: for viewing a single user that is not yourself
+//for admin and possibly other users
 
+export class SingleUser extends React.Component {
   componentDidMount() {
-    this.props.fetchCart(this.props.orderId)
+    this.props.fetchSingleUser(this.props.match.params.id)
   }
 
   render() {
-  const {email, firstName, lastName, address, zipCode, country} = this.props.user
+    const {
+      email,
+      firstName,
+      lastName,
+      address,
+      zipCode,
+      country
+    } = this.props.singleUser
     return (
-      <div id='single-user-container'>
+      <div id="single-user-container">
         <h3>Welcome, {`${firstName} ${lastName}`}</h3>
-        <div id='user-info'>
+        <div id="user-info">
           <h5>email: {email}</h5>
           <p>{`
             Shipping address:\n
             ${firstName} ${lastName}\n
             ${address}\n
             ${country}, ${zipCode}\n
-            `
-          }</p>
-          <div id='past-orders'>
-            coming soon!
-          </div>
-        </div>
-        <div className='cart'>
-          {
-            this.props.cart.map(product => product.name)
-          }
+            `}</p>
+          <div id="past-orders">coming soon!</div>
         </div>
       </div>
     )
@@ -45,14 +46,12 @@ export class SingleUser extends React.Component {
  * CONTAINER
  */
 const mapState = state => ({
-  user: state.user,
-  orderId: state.orderId,
-  cart: state.orderProducts
+  singleUser: state.singleUser
 })
 
 const mapDispatch = dispatch => ({
-  //need a funtion that retrieves unbought items from current order
-  fetchCart: orderId => dispatch(fetchOrderProducts(orderId))
+  fetchSingleUser: id => dispatch(getSingleUserThunk(id)),
+  clearUser: () => dispatch(clearSingleUser())
 })
 
 export default connect(mapState, mapDispatch)(SingleUser)

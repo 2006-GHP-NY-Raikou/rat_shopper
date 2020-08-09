@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {updateCart, updateUserCart} from '../store/orderProduct'
+import {updateCart, updateUserCart} from '../store/cart'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {withRouter} from 'react-router-dom'
 
-class UpdateCartSingleProduct extends React.Component() {
+class UpdateCartSingleProduct extends React.Component {
   constructor() {
     super()
     this.state = {
