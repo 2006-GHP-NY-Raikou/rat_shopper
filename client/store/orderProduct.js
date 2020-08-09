@@ -33,36 +33,36 @@ export const clearCart = () => ({
 //thunks are for users who have an Order in the db
 export const fetchUserCart = () => async dispatch => {
   try {
-    const { data } = await axios.get(`/api/order/cart`)
+    const {data} = await axios.get(`/api/order/cart`)
     dispatch(getCart(data))
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 }
 
 export const addToUserCart = product => async dispatch => {
   try {
-    const { data } = await axios.post(`/api/order/cart`, product)
+    const {data} = await axios.post(`/api/order/cart`, product)
     dispatch(addToCart(data))
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 }
 
 export const removeFromUserCart = product => async dispatch => {
   try {
-    const { data } = await axios.destroy('/api/order/cart/orderProducts', product)
+    const {data} = await axios.destroy('/api/order/cart/orderProducts', product)
     dispatch(removeFromCart(data))
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 }
 
 export const updateUserCart = product => async dispatch => {
   try {
-    const { data } = await axios.put('/api/order/cart/orderProducts', product)
+    const {data} = await axios.put('/api/order/cart/orderProducts', product)
     dispatch(updateCart(data))
-  } catch(err) {
+  } catch (err) {
     console.error(err)
   }
 }
@@ -77,7 +77,12 @@ export default function(state = [], action) {
     case REMOVE_FROM_CART:
       return state.filter(product => product.id !== action.product.id)
     case UPDATE_CART:
-      return state.map(product => product.id === action.product.id ? {...product, qty: action.product.qty} : product)
+      return state.map(
+        product =>
+          product.id === action.product.id
+            ? {...product, qty: action.product.qty}
+            : product
+      )
     case CLEAR_CART:
       return []
     default:
