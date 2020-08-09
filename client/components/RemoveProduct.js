@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {deleteProduct} from '../store/allProducts'
 
 class RemoveProduct extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.handleRemove = this.handleRemove.bind(this)
   }

@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {updateProduct} from '../store/singleProduct'
 
 class UpdateProduct extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       name: '',
       category: '',
