@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const SET_PRODUCTS = 'GET_PRODUCTS'
+const SET_PRODUCTS = 'SET_PRODUCTS'
 const NEW_PRODUCT = 'NEW_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 
@@ -23,7 +23,7 @@ const removeProduct = product => ({
 export const fetchProducts = () => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/campuses')
+      const {data} = await axios.get('/api/products')
       dispatch(setProducts(data))
     } catch (err) {
       console.log(err)
@@ -34,7 +34,7 @@ export const fetchProducts = () => {
 export const addProduct = product => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/campuses', {
+      const {data} = await axios.post('/api/products', {
         name: product.name,
         category: product.category,
         sex: product.sex,
