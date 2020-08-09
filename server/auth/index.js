@@ -26,14 +26,15 @@ router.post('/login', async (req, res, next) => {
       })
       //loop through each item in req.body.cart
       //create an orderProduct for each item
-      req.body.cart.forEach(async product => {
-        await OrderProduct.create({
-        productId: product.id,
-        orderId: order.id,
-        qty: product.qty,
-        priceAtPurchase: product.price * product.qty
-      })
-    })
+      // if (req.body.cart) {
+      //   req.body.cart.forEach(async product => {
+      //     await OrderProduct.create({
+      //     productId: product.id,
+      //     orderId: order.id,
+      //     qty: product.qty,
+      //     priceAtPurchase: product.price * product.qty
+      //   })
+      // })}
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -41,7 +42,7 @@ router.post('/login', async (req, res, next) => {
   }
 })
 
-//map through each product.orderProduct, if 2 products are the same, instead of 
+//map through each product.orderProduct, if 2 products are the same, instead of
 //displaying a second copy of the item, we combine them for front-end display
 
 //create new order for new users

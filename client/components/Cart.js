@@ -1,9 +1,9 @@
 import React from 'react'
-import { fetchOrderProducts } from '../store/orderProduct'
-import { connect } from 'react-redux'
+import {fetchUserCart, clearCart, checkout} from '../store/cart'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
-
   componentDidMount() {
     this.props.fetchCart()
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -11,29 +11,47 @@ class Cart extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.props.checkout()
+    this.props.clearCart()
   }
 
-  render () {
+  render() {
     return (
-      <div id='checkout-container'>
-        <div className='cart'>
-          {
-            this.props.cart.map(product => <div key={product.id}>product.name</div>)
-          }
+      <div id="checkout-container">
+        <div className="cart">
+          {this.props.cart.map(product => (
+            <div key={product.id}>
+              <div>{product.name}</div>
+              <Link
+                to={{
+                  pathname: `/cart/update/${product.id}`,
+                  state: {
+                    id: product.id,
+                    price: product.price,
+                    imageUrl: product.imageUrl,
+                    qty: product.qty
+                  }
+                }}
+              >
+                <button type="button">Edit</button>
+              </Link>
+            </div>
+          ))}
         </div>
-        <button type='submit'>Checkout</button>
+        <button type="submit">Checkout</button>
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  cart: state.orderProducts,
-  user: state.user
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(fetchOrderProducts())
+  fetchCart: () => dispatch(fetchUserCart()),
+  clearCart: () => dispatch(clearCart()),
+  checkout: () => dispatch(checkout())
 })
 
 export default connect(mapState, mapDispatch)(Cart)
