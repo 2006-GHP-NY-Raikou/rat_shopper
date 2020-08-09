@@ -4,7 +4,7 @@ import {fetchSingleProduct} from '../store/singleProduct'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.loadSingleProduct()
+    this.props.loadSingleProduct(this.props.match.params.id)
   }
 
   render() {
@@ -35,7 +35,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadSingleProduct: () => dispatch(fetchSingleProduct)
+    loadSingleProduct: id => dispatch(fetchSingleProduct(id))
   }
 }
 

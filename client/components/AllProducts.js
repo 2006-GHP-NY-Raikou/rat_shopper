@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import {fetchProducts} from '../store'
+import {fetchProducts} from '../store/allProducts'
 import ProductView from './ProductView'
 
 export class AllProducts extends React.Component {
@@ -54,7 +54,7 @@ export class AllProducts extends React.Component {
       <div>
         <div>
           <div>
-            Sort:{' '}
+            <h2>Sort:</h2>
             <select value={this.state.sort} onChange={this.handleChange}>
               <option value="random">Any order</option>
               <option value="highLow">Price (high-low)</option>
@@ -63,7 +63,7 @@ export class AllProducts extends React.Component {
           </div>
 
           <div>
-            Filter:{' '}
+            <h2>Filter:</h2>
             <select value={this.state.filter} onChange={this.handleFilter}>
               <option value="all">All products</option>
               <option value="rats">Rats for adoption</option>
