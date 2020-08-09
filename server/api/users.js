@@ -5,7 +5,15 @@ function isAdmin(req, res, next) {
   if (req.user.isAdmin) {
     next()
   } else {
-    return res.status(404).send('Not an admin!')
+    return res.status(403).send('Forbidden')
+  }
+}
+
+function isAdminOrSameUser(req, res, next) {
+  if (req.user.isAdmin || req.user.id == req.params.id) {
+    next()
+  } else {
+    return res.status(403).send('Forbidden')
   }
 }
 
@@ -20,7 +28,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 //for admin to view single user
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdminOrSameUser, async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id)
     res.send(singleUser)
