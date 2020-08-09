@@ -7,7 +7,7 @@ import {
   updateUserCart
 } from '../store/cart'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import CartItem from './CartItem'
 
 class Cart extends React.Component {

@@ -11,14 +11,18 @@ function isAdmin(req, res, next) {
 
 async function isUser(req, res, next) {
   try {
-    if(req.user){
-      const order = await Order.findOne({ where: { userId: req.user.id, status: false }})
+    if (req.user) {
+      const order = await Order.findOne({
+        where: {userId: req.user.id, status: false}
+      })
       req.orderId = order.id
       next()
     } else {
-      throw new Error('this is not the page you\'re looking for, move along')
+      throw new Error("this is not the page you're looking for, move along")
     }
-  } catch(err) { next(err) }
+  } catch (err) {
+    next(err)
+  }
 }
 
 //GET all orders and their associated product and orderProduct info
@@ -39,8 +43,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 //POST new order for guest checkout
 router.post('/', async (req, res, next) => {
   try {
-    const order = await Order.create({ status: true }
-)
+    const order = await Order.create({status: true})
     //req.body: array of guest cart items
     //loop through them and create new orderProduct for each
     //{guestCart: [{productId: #, price: #, qty: #}, {...info}, {...info}]}
@@ -146,8 +149,6 @@ router.delete('/cart', isUser, async (req, res, next) => {
     next(err)
   }
 })
-
-
 
 //PUT unbought products in cart
 //again, assumes req.body contains item info
