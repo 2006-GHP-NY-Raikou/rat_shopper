@@ -1,9 +1,9 @@
 import React from 'react'
-import { fetchOrderProducts } from '../store/orderProduct'
-import { connect } from 'react-redux'
+import {fetchOrderProducts} from '../store/orderProduct'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
-
   componentDidMount() {
     this.props.fetchCart()
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -13,15 +13,19 @@ class Cart extends React.Component {
     event.preventDefault()
   }
 
-  render () {
+  render() {
     return (
-      <div id='checkout-container'>
-        <div className='cart'>
-          {
-            this.props.cart.map(product => <div key={product.id}>product.name</div>)
-          }
+      <div id="checkout-container">
+        <div className="cart">
+          {this.props.cart.map(product => (
+            <div key={product.id}>
+              <div>{product.name}</div>
+              <Link to="" />
+              <button type="button">Edit</button>
+            </div>
+          ))}
         </div>
-        <button type='submit'>Checkout</button>
+        <button type="submit">Checkout</button>
       </div>
     )
   }
