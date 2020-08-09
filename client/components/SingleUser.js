@@ -26,7 +26,6 @@ export class SingleUser extends React.Component {
     } = this.props.singleUser
     return (
       <div id="single-user-container">
-        <h3>Welcome, {`${firstName} ${lastName}`}</h3>
         <div id="user-info">
           <h5>email: {email}</h5>
           <p>{`
