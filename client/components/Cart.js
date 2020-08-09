@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 class Cart extends React.Component {
 
   componentDidMount() {
-    this.props.fetchCart(this.props.orderId)
+    this.props.fetchCart()
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -28,12 +28,12 @@ class Cart extends React.Component {
 }
 
 const mapState = state => ({
-  orderId: state.orderId,
-  cart: state.orderProducts
+  cart: state.orderProducts,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: orderId => dispatch(fetchOrderProducts(orderId))
+  fetchCart: () => dispatch(fetchOrderProducts())
 })
 
 export default connect(mapState, mapDispatch)(Cart)
