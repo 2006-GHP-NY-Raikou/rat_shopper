@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 import {fetchProducts} from '../store/allProducts'
 import ProductView from './ProductView'
-import {filter} from 'compression'
 
 export class AllProducts extends React.Component {
   constructor() {
@@ -13,7 +12,7 @@ export class AllProducts extends React.Component {
     this.handleFilter = this.handleFilter.bind(this)
   }
   componentDidMount() {
-    this.props.loadProducts()
+    if (this.props.loadProducts) this.props.loadProducts()
   }
   handleChange(event) {
     this.setState({sort: event.target.value})
@@ -22,19 +21,18 @@ export class AllProducts extends React.Component {
     this.setState({filter: event.target.value})
   }
   render() {
-    // const { products } = this.props.products
     let filteredProducts = this.props.products
 
     //Logic for filtering and sorting below
 
     if (this.state.filter === 'rats') {
-      filteredProducts = products.filter(p => {
+      filteredProducts = filteredProducts.filter(p => {
         return p.sex
       })
     }
 
     if (this.state.filter === 'accessories') {
-      filteredProducts = products.filter(p => {
+      filteredProducts = filteredProducts.filter(p => {
         return !p.sex
       })
     }

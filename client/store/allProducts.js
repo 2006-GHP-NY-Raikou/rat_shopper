@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const SET_PRODUCTS = 'SET_PRODUCTS'
+const SET_PRODUCTS = 'GET_PRODUCTS'
 const NEW_PRODUCT = 'NEW_PRODUCT'
 const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
 

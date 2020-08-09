@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {updateCart, updateUserCart} from '../store/cart'
 import {fetchSingleProduct} from '../store/singleProduct'
-import {withRouter} from 'react-router-dom'
 
 class UpdateCartSingleProduct extends React.Component {
   constructor() {
@@ -15,7 +14,7 @@ class UpdateCartSingleProduct extends React.Component {
   }
 
   componentDidMount() {
-    this.props.loadSingleProduct()
+    this.props.loadSingleProduct(this.props.match.params.productId)
   }
 
   handleChange(event) {
@@ -73,10 +72,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadSingleProduct: () => dispatch(fetchSingleProduct)
+    loadSingleProduct: id => dispatch(fetchSingleProduct(id))
   }
 }
 
-export default withRouter(
-  connect(mapState, mapDispatch)(UpdateCartSingleProduct)
-)
+export default connect(mapState, mapDispatch)(UpdateCartSingleProduct)
