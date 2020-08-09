@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -62,6 +63,16 @@ export const updateUserCart = product => async dispatch => {
   try {
     const {data} = await axios.put('/api/order/cart/orderProducts', product)
     dispatch(updateCart(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const checkout = () => async dispatch => {
+  try {
+    const {data} = await axios.put('/api/order/cart')
+    dispatch(clearCart())
+    history.push('/checkout/confirmation')
   } catch (err) {
     console.error(err)
   }

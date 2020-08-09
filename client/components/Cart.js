@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchUserCart, clearCart} from '../store/cart'
+import {fetchUserCart, clearCart, checkout} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
@@ -11,6 +11,7 @@ class Cart extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    this.props.checkout()
     this.props.clearCart()
   }
 
@@ -49,7 +50,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchUserCart()),
-  clearCart: () => dispatch(clearCart())
+  clearCart: () => dispatch(clearCart()),
+  checkout: () => dispatch(checkout())
 })
 
 export default connect(mapState, mapDispatch)(Cart)
