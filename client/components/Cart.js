@@ -1,18 +1,57 @@
 import React from 'react'
-import {fetchUserCart, clearCart, checkout} from '../store/cart'
+import {
+  fetchUserCart,
+  clearCart,
+  checkout,
+  updateCart,
+  updateUserCart
+} from '../store/cart'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import CartItem from './CartItem'
 
 class Cart extends React.Component {
-  componentDidMount() {
-    this.props.fetchCart()
-    this.handleSubmit = this.handleSubmit.bind(this)
+  constructor() {
+    super()
+    this.state = {
+      qty: 0
+    }
+    this.handleChangeUpdate = this.handleChangeUpdate.bind(this)
+    this.handleSubmitUpdate = this.handleSubmitUpdate.bind(this)
+    this.handleSubmitCheckout = this.handleSubmitCheckout.bind(this)
   }
 
-  handleSubmit(event) {
+  componentDidMount() {
+    this.props.fetchCart()
+  }
+
+  handleChangeUpdate(event) {
+    this.setState({
+      qty: event.target.value
+    })
+    console.log(this.state.qty, 'qty')
+  }
+
+  handleSubmitCheckout(event) {
     event.preventDefault()
     this.props.checkout()
     this.props.clearCart()
+  }
+
+  handleSubmitUpdate(event, id, price) {
+    event.preventDefault()
+    console.log(this.state.qty, 'qty')
+    console.log(event, id, price)
+    const updatedProduct = {
+      id,
+      qty: this.state.qty,
+      price
+    }
+    if (this.props.user) {
+      this.props.updateUserCart(updatedProduct)
+    } else {
+      this.props.updateCart(updatedProduct)
+    }
   }
 
   //renders cart items and checkout button.
@@ -22,18 +61,12 @@ class Cart extends React.Component {
       <div id="checkout-container">
         <div className="cart">
           {this.props.cart.map(product => (
-            <div key={product.id}>
-              <div className="cartItem-info">
-                <h2>{product.name}</h2>
-                <p>${product.orderProduct.priceAtPurchase / 100}</p>
-                <div className="cart-qty">
-                  <span>Qty: {product.orderProduct.qty}</span>
-                  <Link to={`/cart/update/${product.id}`}>
-                    <button type="button">Edit</button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <CartItem
+              key={product.id}
+              {...product}
+              handleChange={this.handleChangeUpdate}
+              handleSubmit={this.handleSubmitUpdate}
+            />
           ))}
         </div>
         <form>
@@ -47,13 +80,16 @@ class Cart extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.cart
+  cart: state.cart,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchUserCart()),
   clearCart: () => dispatch(clearCart()),
-  checkout: () => dispatch(checkout())
+  checkout: () => dispatch(checkout()),
+  updateCart: updated => dispatch(updateCart(updated)),
+  updateUserCart: updated => dispatch(updateUserCart(updated))
 })
 
 export default connect(mapState, mapDispatch)(Cart)
