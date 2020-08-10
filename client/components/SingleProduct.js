@@ -27,8 +27,8 @@ export class SingleProduct extends React.Component {
   render() {
     const product = this.props.product
 
-    if (!product.id) {
-      return <div>Aw, rats! Not found!</div>
+    if (!this.props.product) {
+      return <div>Aw, rats! This product was not found!</div>
     }
 
     return <SingleProductView product={product} />
