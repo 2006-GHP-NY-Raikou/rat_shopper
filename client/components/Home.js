@@ -1,4 +1,5 @@
 import React from 'react'
+import AllProducts from './AllProducts'
 
 export default function Home() {
   return (
@@ -8,6 +9,9 @@ export default function Home() {
           Welcome to the definitive hub for adopting rats and shopping unique
           rat accessories!
         </h3>
+      </div>
+      <div>
+        <AllProducts />
       </div>
     </div>
   )
