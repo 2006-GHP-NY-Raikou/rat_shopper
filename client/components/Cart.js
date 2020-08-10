@@ -69,6 +69,11 @@ class Cart extends React.Component {
         <div className="cart-total">
           <div> Cart Total: ${total}</div>
         </div>
+        <div>
+          <button type="button" onClick={this.handleSubmitCheckout}>
+            Checkout
+          </button>
+        </div>
       </div>
     )
   }
