@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: rgb(253, 218, 223);
 }
 
 a {
@@ -10,6 +11,13 @@ label {
   display: block;
 }
 
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
@@ -18,4 +26,53 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+}
+
+.navBar {
+  /* width: 200px; */
+  display: flex;
+  /* flex-direction: column;
+  padding-left: 20px; */
+}
+
+.allProducts {
+  display: flex;
+  padding-left: 50px;
+}
+
+.allProducts img {
+  max-width: 200px;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+.productView {
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+}
+
+.singleProduct {
+  text-align: center;
+}
+
+.singleProduct img {
+  max-width: 400px;
+}
+
+/* #app {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+} */
+
+#productViews {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 50px;
 }

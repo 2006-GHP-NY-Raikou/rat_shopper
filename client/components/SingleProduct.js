@@ -6,13 +6,13 @@ import {addToCart, addToUserCart} from '../store/cart'
 export const SingleProductView = props => {
   let product = props.product
   return (
-    <div>
+    <div className="singleProduct">
       <h1>{product.name}</h1>
       <h2>${product.price / 100}</h2>
       <img src={product.imageUrl} />
       <div>
         <button type="button" onClick={props.handleSubmit}>
-          Add
+          Add To Cart
         </button>
       </div>
     </div>
