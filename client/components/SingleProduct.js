@@ -8,7 +8,6 @@ export const SingleProductView = props => {
     <div>
       <h1>{product.name}</h1>
       <h2>{product.price}</h2>
-
       <img src={product.imageUrl} />
     </div>
   )
@@ -16,14 +15,19 @@ export const SingleProductView = props => {
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props.loadSingleProduct(this.props.match.params.id)
+    try {
+      const productId = this.props.match.params.productId
+      this.props.loadSingleProduct(productId)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   render() {
     const product = this.props.product
 
-    if (!product.id) {
-      return <div>Aw, rats! Not found!</div>
+    if (!this.props.product) {
+      return <div>Aw, rats! This product was not found!</div>
     }
 
     return <SingleProductView product={product} />

@@ -10,7 +10,6 @@ import {
   AllProducts,
   SingleProduct,
   Cart,
-  UpdateCartSingleProduct,
   AllUsers,
   SingleUser
 } from './components'
@@ -34,10 +33,9 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
-        <Route
-          path="/cart/update/productId"
-          component={UpdateCartSingleProduct}
-        />
+        <Route path="/users/:userId" component={SingleUser} />
+        {/* <Route path="/products" component={singleProduct} /> */}
+        <Route path="/cart/update/productId" />
         <Route path="/products/:productId" component={SingleProduct} />
 
         {isLoggedIn && (
