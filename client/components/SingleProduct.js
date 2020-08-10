@@ -16,8 +16,7 @@ export const SingleProductView = props => {
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
-    if (!this.props.product)
-      this.props.loadSingleProduct(this.props.match.params.id)
+    this.props.loadSingleProduct(this.props.match.params.id)
   }
 
   render() {

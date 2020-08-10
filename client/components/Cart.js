@@ -7,7 +7,6 @@ import {
   updateUserCart
 } from '../store/cart'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
 import CartItem from './CartItem'
 
 class Cart extends React.Component {
@@ -29,7 +28,6 @@ class Cart extends React.Component {
     this.setState({
       qty: event.target.value
     })
-    console.log(this.state.qty, 'qty')
   }
 
   handleSubmitCheckout(event) {
@@ -40,10 +38,8 @@ class Cart extends React.Component {
 
   handleSubmitUpdate(event, id, price) {
     event.preventDefault()
-    console.log(this.state.qty, 'qty')
-    console.log(event, id, price)
     const updatedProduct = {
-      id,
+      productId: id,
       qty: this.state.qty,
       price
     }
