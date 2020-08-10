@@ -35,14 +35,11 @@ export class SingleProduct extends React.Component {
   }
 
   handleSubmit() {
-    console.log('hi')
-    console.log(this.props)
     const product = {
       productId: this.props.match.params.productId,
       qty: 1,
       price: this.props.product.price
     }
-    console.log(product)
     if (this.props.user) {
       this.props.addToUserCart(product)
     } else {

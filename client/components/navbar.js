@@ -32,9 +32,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/products" exact="true">
             All Products
           </Link>
-          <Link to="/cart" exact="true">
-            Cart
-          </Link>
         </div>
       )}
     </nav>
