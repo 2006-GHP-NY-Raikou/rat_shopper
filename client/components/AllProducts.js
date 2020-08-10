@@ -50,8 +50,8 @@ export class AllProducts extends React.Component {
     }
 
     return (
-      <div>
-        <div>
+      <div className="allProducts">
+        <div id="sortFilter">
           <div>
             <h3>Sort:</h3>
             <select value={this.state.sort} onChange={this.handleChange}>
@@ -70,15 +70,10 @@ export class AllProducts extends React.Component {
             </select>
           </div>
         </div>
-        <div>
+        <div id="productViews">
           {filteredProducts
             ? filteredProducts.map(product => {
                 return <ProductView product={product} key={product.id} />
-                // <Link to={`/products/${product.id}`} key={product.id}>
-                //   <div>{product.name}</div>
-
-                //   <img src={product.imageUrl} />
-                // </Link>
               })
             : ''}
         </div>

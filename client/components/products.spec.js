@@ -12,20 +12,20 @@ import ProductView from './ProductView'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-// describe('AllProducts component', () => {
-//   let allProducts
+describe('AllProducts component', () => {
+  let allProducts
 
-//   beforeEach(() => {
-//     allProducts = shallow(<AllProducts />)
-//     console.dir(allProducts)
-//   })
+  beforeEach(() => {
+    allProducts = shallow(<AllProducts />)
+    console.dir(allProducts)
+  })
 
-//   it('renders strings Sort: and Filter: in h2 elements', () => {
-//     console.log(allProducts.find('h2'))
-//     console.log(allProducts.find('h2').text())
-//     expect(allProducts.find('h2').text()).to.be.equal('Sort:,Filter:')
-//   })
-// })
+  it('renders Sort and Filter selectors', () => {
+    expect(allProducts.first().text()).to.equal(
+      'Sort:Any orderPrice (high-low)Price (low-high)Filter:All productsRats for adoptionRat accessories'
+    )
+  })
+})
 
 describe('Single product view', () => {
   let singleProduct
@@ -58,12 +58,13 @@ describe('All products view', () => {
   })
 
   it('renders a single product name', () => {
-    expect(productView.find('div').text()).to.be.equal('al')
+    expect(productView.find('h2').text()).to.be.equal('al')
   })
 
   it('renders a link to the product', () => {
     expect(productView.find('Link').text()).to.equal('<Link />')
   })
+
   it('renders link based on product id', () => {
     expect(productView.find('Link').prop('to')).to.equal('/products/4')
   })
