@@ -17,9 +17,9 @@ export const addToCart = product => ({
   product
 })
 
-export const removeFromCart = product => ({
+export const removeFromCart = productId => ({
   type: REMOVE_FROM_CART,
-  product
+  productId
 })
 
 export const updateCart = product => ({
@@ -50,18 +50,23 @@ export const addToUserCart = product => async dispatch => {
   try {
     const {data} = await axios.post(`/api/orders/cart`, product)
     dispatch(addToCart(data))
+    history.push('/cart')
   } catch (err) {
     console.error(err)
   }
 }
 
-export const removeFromUserCart = product => async dispatch => {
+export const removeFromUserCart = productId => async dispatch => {
   try {
-    const {data} = await axios.destroy(
-      '/api/orders/cart/orderProducts',
-      product
-    )
-    dispatch(removeFromCart(data))
+    await axios.delete('/api/orders/cart/orderProducts', {
+      headers: {
+        Authorization: 'token'
+      },
+      data: {
+        productId
+      }
+    })
+    dispatch(removeFromCart(productId))
   } catch (err) {
     console.error(err)
   }
@@ -93,16 +98,14 @@ export default function(state = [], action) {
     case ADD_TO_CART:
       return [...state, action.product]
     case REMOVE_FROM_CART:
-      return state.filter(product => product.id !== action.product.id)
+      return state.filter(product => product.id !== action.productId)
     case UPDATE_CART:
-      // eslint-disable-next-line no-case-declarations
-      let map = state.map(
+      return state.map(
         product =>
           product.id === action.product.productId
             ? {...product, qty: action.product.qty}
             : product
       )
-      return map
     case CLEAR_CART:
       return []
     default:
