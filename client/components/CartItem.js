@@ -9,12 +9,9 @@ const CartItem = props => {
         <p>${props.priceAtPurchase / 100}</p>
         <div className="cart-qty">
           <span>Qty: {props.qty}</span>
-          <form
-            onSubmit={(event, productId = props.id, price = props.price) =>
-              props.handleSubmit(event, productId, price)
-            }
-          >
+          <form>
             <div>
+              <label>Edit</label>
               <select
                 onChange={(event, productId = props.id, price = props.price) =>
                   props.handleSubmit(event, productId, price)
@@ -32,9 +29,6 @@ const CartItem = props => {
                 <option value={8}>8</option>
                 <option value={9}>9</option>
               </select>
-              <div>
-                <button type="submit">Update</button>
-              </div>
             </div>
           </form>
         </div>
