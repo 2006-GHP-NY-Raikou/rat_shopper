@@ -44,7 +44,7 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/users" component={AllUsers} />
-            {/* <Route path="/users/:userId" component={SingleUser} /> */}
+            <Route path="/users/:userId" component={SingleUser} />
           </Switch>
         )}
 

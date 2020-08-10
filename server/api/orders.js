@@ -63,7 +63,6 @@ router.post('/', async (req, res, next) => {
 
 //GET all unbought products and their associated orderProduct info - for users only
 router.get('/cart', isUser, async (req, res, next) => {
-  console.log('req things: ', req.orderId)
   try {
     const currentOrder = await Order.findByPk(req.orderId, {
       include: {

@@ -35,7 +35,12 @@ export const clearCart = () => ({
 export const fetchUserCart = () => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/cart`)
-    dispatch(getCart(data.products))
+    const products = data.products.map(product => {
+      product.qty = product.orderProduct.qty
+      product.priceAtPurchase = product.orderProduct.priceAtPurchase
+      return product
+    })
+    dispatch(getCart(products))
   } catch (err) {
     console.error(err)
   }
@@ -90,12 +95,14 @@ export default function(state = [], action) {
     case REMOVE_FROM_CART:
       return state.filter(product => product.id !== action.product.id)
     case UPDATE_CART:
-      return state.map(
+      // eslint-disable-next-line no-case-declarations
+      let map = state.map(
         product =>
-          product.id === action.product.id
+          product.id === action.product.productId
             ? {...product, qty: action.product.qty}
             : product
       )
+      return map
     case CLEAR_CART:
       return []
     default:
