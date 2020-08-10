@@ -27,7 +27,8 @@ export class SingleProduct extends React.Component {
   render() {
     const product = this.props.product
 
-    if (!product.id) {
+    if (!this.props.product) {
+      console.log(this.props.product, 'ID does not exist')
       return <div>Aw, rats! Not found!</div>
     }
 
