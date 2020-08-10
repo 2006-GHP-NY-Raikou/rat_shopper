@@ -38,8 +38,8 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 })
 
-//for admin to view single user
-router.get('/:id', isUser, async (req, res, next) => {
+//for any user to view other users, not their own profile page
+router.get('/:id', isAdminOrSameUser, async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id)
     res.send(singleUser)
