@@ -1,11 +1,15 @@
 import React from 'react'
 import {
   fetchUserCart,
+  getCart,
   clearCart,
   checkout,
   updateCart,
   updateUserCart,
-  removeFromUserCart
+  removeFromUserCart,
+  addToGuestCart,
+  updateGuestCart,
+  removeFromGuestCart
 } from '../store/cart'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
@@ -18,7 +22,11 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchCart()
+    if (this.props.user.id) this.props.fetchCart()
+    else {
+      const savedCart = JSON.parse(window.localStorage.getItem('cart'))
+      this.props.fetchGuestCart(savedCart || [])
+    }
   }
 
   handleSubmitCheckout(event) {
@@ -31,17 +39,21 @@ class Cart extends React.Component {
     event.preventDefault()
     if (event.target.value !== 'select qty') {
       if (+event.target.value === 0) {
-        this.props.remove(id)
+        if (this.props.user.id) {
+          this.props.remove(id)
+        } else {
+          this.props.removeFromGuestCart(id)
+        }
       } else {
         const updatedProduct = {
           productId: id,
           qty: +event.target.value,
           price
         }
-        if (this.props.user) {
+        if (this.props.user.id) {
           this.props.updateUserCart(updatedProduct)
         } else {
-          this.props.updateCart(updatedProduct)
+          this.props.updateGuestCart(updatedProduct)
         }
       }
     }
@@ -51,7 +63,7 @@ class Cart extends React.Component {
   //cart items could be a seperate component for convenience
   render() {
     const total = this.props.cart.reduce((accum, item) => {
-      return item.priceAtPurchase / 100 * item.qty + accum
+      return item.price / 100 * item.qty + accum
     }, 0)
     return (
       <div id="checkout-container">
@@ -84,11 +96,15 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchUserCart()),
+  fetchGuestCart: products => dispatch(getCart(products)),
   clearCart: () => dispatch(clearCart()),
   checkout: () => dispatch(checkout()),
   updateCart: updated => dispatch(updateCart(updated)),
   updateUserCart: updated => dispatch(updateUserCart(updated)),
-  remove: productId => dispatch(removeFromUserCart(productId))
+  remove: productId => dispatch(removeFromUserCart(productId)),
+  addToGuestCart: product => dispatch(addToGuestCart(product)),
+  updateGuestCart: product => dispatch(updateGuestCart(product)),
+  removeFromGuestCart: productId => dispatch(removeFromGuestCart(productId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)

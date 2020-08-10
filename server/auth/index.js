@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
 const Order = require('../db/models/order')
-const OrderProduct = require('../db/models/orderProduct')
 module.exports = router
 
 //findOrCreate order associated with user
