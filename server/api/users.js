@@ -16,6 +16,15 @@ function isUser(req, res, next) {
     next()
   } else {
     res.status(404).send('Not a user!')
+    return res.status(403).send('Forbidden')
+  }
+}
+
+function isAdminOrSameUser(req, res, next) {
+  if (req.user.isAdmin || req.user.id == req.params.id) {
+    next()
+  } else {
+    return res.status(403).send('Forbidden')
   }
 }
 

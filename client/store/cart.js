@@ -75,7 +75,6 @@ export const checkout = () => async dispatch => {
   try {
     const {data} = await axios.put('/api/orders/cart')
     dispatch(clearCart())
-    history.push('/checkout/confirmation')
   } catch (err) {
     console.error(err)
   }
