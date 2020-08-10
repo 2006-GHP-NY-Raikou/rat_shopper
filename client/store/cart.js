@@ -50,6 +50,7 @@ export const addToUserCart = product => async dispatch => {
   try {
     const {data} = await axios.post(`/api/orders/cart`, product)
     dispatch(addToCart(data))
+    history.push('/cart')
   } catch (err) {
     console.error(err)
   }
