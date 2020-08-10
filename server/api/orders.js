@@ -12,10 +12,13 @@ function isAdmin(req, res, next) {
 async function isUser(req, res, next) {
   try {
     if (req.user) {
+      //console.log("this is my req.user: ", req.user)
       const order = await Order.findOne({
         where: {userId: req.user.id, status: false}
       })
+      console.log('req.user.id: ', req.user.id)
       req.orderId = order.id
+      console.log('order: ', order)
       next()
     } else {
       throw new Error("this is not the page you're looking for, move along")
@@ -43,7 +46,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 //POST new order for guest checkout
 router.post('/', async (req, res, next) => {
   try {
-    const order = await Order.create({status: true})
+    const order = await Order.create({status: false})
     //req.body: array of guest cart items
     //loop through them and create new orderProduct for each
     //{guestCart: [{productId: #, price: #, qty: #}, {...info}, {...info}]}
@@ -80,6 +83,7 @@ router.get('/cart', isUser, async (req, res, next) => {
 router.post('/cart', isUser, async (req, res, next) => {
   // assuming the product info is in the req.body
   //check if the item already exists in cart
+  console.log('req.orderId: ', req.orderId)
   try {
     const [cartItem] = await OrderProduct.findOrCreate({
       where: {
