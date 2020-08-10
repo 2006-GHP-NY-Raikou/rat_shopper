@@ -7,6 +7,8 @@ const ProductView = props => {
     <Link to={`/products/${product.id}`} key={product.id}>
       <div>{product.name}</div>
       <img src={product.imageUrl} />
+      <div>Price: ${product.price / 100}</div>
+      <p />
     </Link>
   )
 }
