@@ -51,10 +51,8 @@ class Cart extends React.Component {
   //cart items could be a seperate component for convenience
   render() {
     const total = this.props.cart.reduce((accum, item) => {
-      return item.priceAtPurchase / 100 + accum
+      return item.priceAtPurchase / 100 * item.qty + accum
     }, 0)
-    console.log(this.props.cart)
-    console.log(total)
     return (
       <div id="checkout-container">
         <div className="cart">

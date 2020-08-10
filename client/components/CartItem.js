@@ -6,7 +6,7 @@ const CartItem = props => {
     <div key={props.id}>
       <div className="cartItem-info">
         <h2>{props.name}</h2>
-        <p>${props.priceAtPurchase / 100}</p>
+        <p>${props.priceAtPurchase / 100 * props.qty}</p>
         <div className="cart-qty">
           <span>Qty: {props.qty}</span>
           <form>
