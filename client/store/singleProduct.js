@@ -30,7 +30,7 @@ export const updateProduct = (productId, updatedProduct) => {
         `/api/products/${productId}`,
         updatedProduct
       )
-      dispatch(selectProduct(data))
+      dispatch(fetchSingleProduct(productId))
       history.push(`/products/${productId}`)
     } catch (err) {
       console.log(err)

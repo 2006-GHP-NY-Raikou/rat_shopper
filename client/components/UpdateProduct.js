@@ -5,17 +5,9 @@ import {updateProduct} from '../store/singleProduct'
 class UpdateProduct extends React.Component {
   constructor() {
     super()
-    this.state = {
-      name: '',
-      category: '',
-      sex: '',
-      price: '',
-      qty: '',
-      imageUrl: '',
-      description: ''
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.state = {}
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
@@ -24,7 +16,7 @@ class UpdateProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.update(this.props.match.params.productID, this.state)
+    this.props.update(this.props.match.params.productId, this.state)
   }
 
   render() {
@@ -61,8 +53,8 @@ class UpdateProduct extends React.Component {
         <label htmlFor="quantity">Updated Quantity:</label>
         <input
           type="text"
-          name="qty"
-          value={this.state.qty}
+          name="quantity"
+          value={this.state.quantity}
           onChange={this.handleChange}
         />
         <label htmlFor="imageUrl">Updated ImageUrl:</label>
@@ -87,7 +79,10 @@ class UpdateProduct extends React.Component {
 }
 
 const mapDispatch = dispatch => {
-  return {update: product => dispatch(updateProduct(product))}
+  return {
+    update: (product, updatedProduct) =>
+      dispatch(updateProduct(product, updatedProduct))
+  }
 }
 
 export default connect(null, mapDispatch)(UpdateProduct)

@@ -16,7 +16,7 @@ export const SingleProductView = props => {
         <div>
           <h2>Category: {product.category}</h2>
           <h2>Sex: {product.sex}</h2>
-          <h2>Quantity: {product.qty}</h2>
+          <h2>Quantity: {product.quantity}</h2>
           <h2>Description: {product.description}</h2>
           <Link to={`/admin/updateProduct/${product.id}`}>
             <button type="button">Update</button>
