@@ -50,6 +50,11 @@ class Cart extends React.Component {
   //renders cart items and checkout button.
   //cart items could be a seperate component for convenience
   render() {
+    const total = this.props.cart.reduce((accum, item) => {
+      return item.priceAtPurchase / 100 + accum
+    }, 0)
+    console.log(this.props.cart)
+    console.log(total)
     return (
       <div id="checkout-container">
         <div className="cart">
@@ -60,6 +65,9 @@ class Cart extends React.Component {
               handleSubmit={this.handleSubmitUpdate}
             />
           ))}
+        </div>
+        <div className="cart-total">
+          <div> Cart Total: ${total}</div>
         </div>
       </div>
     )
