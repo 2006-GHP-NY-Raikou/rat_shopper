@@ -10,7 +10,7 @@ class UpdateProduct extends React.Component {
       category: '',
       sex: '',
       price: '',
-      quantity: '',
+      qty: '',
       imageUrl: '',
       description: ''
     }
@@ -18,24 +18,13 @@ class UpdateProduct extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-
-    this.props.update(this.state)
-
-    this.setState({
-      name: '',
-      category: '',
-      sex: '',
-      price: '',
-      quantity: '',
-      imageUrl: '',
-      description: ''
-    })
-  }
-
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.update(this.props.match.params.productID, this.state)
   }
 
   render() {
@@ -72,8 +61,8 @@ class UpdateProduct extends React.Component {
         <label htmlFor="quantity">Updated Quantity:</label>
         <input
           type="text"
-          name="quantity"
-          value={this.state.quantity}
+          name="qty"
+          value={this.state.qty}
           onChange={this.handleChange}
         />
         <label htmlFor="imageUrl">Updated ImageUrl:</label>

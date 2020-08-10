@@ -2,19 +2,32 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {addToCart, addToUserCart} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 export const SingleProductView = props => {
   let product = props.product
+  console.log(props.user.isAdmin, 'isAdmin')
   return (
     <div className="singleProduct">
-      <h1>{product.name}</h1>
-      <h2>${product.price / 100}</h2>
       <img src={product.imageUrl} />
-      <div>
-        <button type="button" onClick={props.handleSubmit}>
-          Add To Cart
+      <h1>Name: {product.name}</h1>
+      <h2>Price: ${product.price / 100}</h2>
+      {props.user.isAdmin ? (
+        <div>
+          <h2>Category: {product.category}</h2>
+          <h2>Sex: {product.sex}</h2>
+          <h2>Quantity: {product.qty}</h2>
+          <h2>Description: {product.description}</h2>
+          <Link to={`/admin/updateProduct/${product.id}`}>
+            <button type="button">Update</button>
+          </Link>
+        </div>
+      ) : (
+        <button type="button" onClick={props.handleSubmitAddToCart}>
+          {' '}
+          Add to Cart{' '}
         </button>
-      </div>
+      )}
     </div>
   )
 }
@@ -22,7 +35,7 @@ export const SingleProductView = props => {
 export class SingleProduct extends React.Component {
   constructor() {
     super()
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmitAddToCart = this.handleSubmitAddToCart.bind(this)
   }
 
   componentDidMount() {
@@ -34,7 +47,7 @@ export class SingleProduct extends React.Component {
     }
   }
 
-  handleSubmit() {
+  handleSubmitAddToCart() {
     const product = {
       productId: this.props.match.params.productId,
       qty: 1,
@@ -52,11 +65,15 @@ export class SingleProduct extends React.Component {
 
     if (!this.props.product) {
       return <div>Aw, rats! This product was not found!</div>
+    } else {
+      return (
+        <SingleProductView
+          user={this.props.user}
+          product={product}
+          handleSubmitAddToCart={this.handleSubmitAddToCart}
+        />
+      )
     }
-
-    return (
-      <SingleProductView product={product} handleSubmit={this.handleSubmit} />
-    )
   }
 }
 
