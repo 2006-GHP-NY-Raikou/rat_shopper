@@ -137,7 +137,12 @@ router.put('/cart', isUser, async (req, res, next) => {
         quantity: product.quantity - product.orderProduct.qty
       })
     })
-    res.json(order)
+
+    const newOrder = await Order.create({
+      userId: order.userId
+    })
+
+    res.json(newOrder)
   } catch (err) {
     next(err)
   }
