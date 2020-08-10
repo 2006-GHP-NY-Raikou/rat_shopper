@@ -12,7 +12,7 @@ import {getSingleUserThunk, clearSingleUser} from '../store/singleUser'
 
 export class SingleUser extends React.Component {
   componentDidMount() {
-    this.props.fetchSingleUser(this.props.match.params.id)
+    this.props.fetchSingleUser(this.props.match.params.userId)
   }
 
   render() {
