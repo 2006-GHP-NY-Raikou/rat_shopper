@@ -4,7 +4,8 @@ import {
   clearCart,
   checkout,
   updateCart,
-  updateUserCart
+  updateUserCart,
+  removeFromUserCart
 } from '../store/cart'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
@@ -12,22 +13,12 @@ import CartItem from './CartItem'
 class Cart extends React.Component {
   constructor() {
     super()
-    this.state = {
-      qty: 0
-    }
-    this.handleChangeUpdate = this.handleChangeUpdate.bind(this)
     this.handleSubmitUpdate = this.handleSubmitUpdate.bind(this)
     this.handleSubmitCheckout = this.handleSubmitCheckout.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchCart()
-  }
-
-  handleChangeUpdate(event) {
-    this.setState({
-      qty: event.target.value
-    })
   }
 
   handleSubmitCheckout(event) {
@@ -38,15 +29,21 @@ class Cart extends React.Component {
 
   handleSubmitUpdate(event, id, price) {
     event.preventDefault()
-    const updatedProduct = {
-      productId: id,
-      qty: this.state.qty,
-      price
-    }
-    if (this.props.user) {
-      this.props.updateUserCart(updatedProduct)
-    } else {
-      this.props.updateCart(updatedProduct)
+    if (event.target.value !== 'select qty') {
+      if (+event.target.value === 0) {
+        this.props.remove(id)
+      } else {
+        const updatedProduct = {
+          productId: id,
+          qty: +event.target.value,
+          price
+        }
+        if (this.props.user) {
+          this.props.updateUserCart(updatedProduct)
+        } else {
+          this.props.updateCart(updatedProduct)
+        }
+      }
     }
   }
 
@@ -60,7 +57,6 @@ class Cart extends React.Component {
             <CartItem
               key={product.id}
               {...product}
-              handleChange={this.handleChangeUpdate}
               handleSubmit={this.handleSubmitUpdate}
             />
           ))}
@@ -85,7 +81,8 @@ const mapDispatch = dispatch => ({
   clearCart: () => dispatch(clearCart()),
   checkout: () => dispatch(checkout()),
   updateCart: updated => dispatch(updateCart(updated)),
-  updateUserCart: updated => dispatch(updateUserCart(updated))
+  updateUserCart: updated => dispatch(updateUserCart(updated)),
+  remove: productId => dispatch(removeFromUserCart(productId))
 })
 
 export default connect(mapState, mapDispatch)(Cart)
