@@ -1,6 +1,6 @@
 import React from 'react'
 import {getAllUsersThunk} from '../store/allUsers'
-import {connect} from '../../server/api/users'
+import {connect} from 'react-redux'
 import User from './User'
 
 class AllUsers extends React.Component {
@@ -10,7 +10,9 @@ class AllUsers extends React.Component {
   render() {
     return (
       <div>
-        {this.props.users.map(user => <User key={user.id} {...user} />)}
+        {this.props.users
+          ? this.props.users.map(user => <User key={user.id} {...user} />)
+          : ''}
       </div>
     )
   }

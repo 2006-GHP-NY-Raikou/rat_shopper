@@ -5,6 +5,17 @@ function isAdmin(req, res, next) {
   if (req.user.isAdmin) {
     next()
   } else {
+    //the message doesn't display when a non-admin tries to access the page
+    //TODO: find some way to display helpful message
+    res.status(404).send('Not an admin!')
+  }
+}
+
+function isUser(req, res, next) {
+  if (req.user) {
+    next()
+  } else {
+    res.status(404).send('Not a user!')
     return res.status(403).send('Forbidden')
   }
 }
@@ -28,7 +39,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 //for admin to view single user
-router.get('/:id', isAdminOrSameUser, async (req, res, next) => {
+router.get('/:id', isUser, async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id)
     res.send(singleUser)
