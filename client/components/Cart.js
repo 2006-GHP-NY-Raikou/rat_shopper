@@ -61,11 +61,6 @@ class Cart extends React.Component {
             />
           ))}
         </div>
-        <form>
-          <button type="submit" onSubmit={this.handleSubmit}>
-            Checkout
-          </button>
-        </form>
       </div>
     )
   }

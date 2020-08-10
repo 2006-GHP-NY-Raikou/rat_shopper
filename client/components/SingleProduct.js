@@ -8,7 +8,7 @@ export const SingleProductView = props => {
   return (
     <div>
       <h1>{product.name}</h1>
-      <h2>{product.price}</h2>
+      <h2>${product.price / 100}</h2>
       <img src={product.imageUrl} />
       <div>
         <button type="button" onClick={props.handleSubmit}>
