@@ -1,4 +1,6 @@
 import axios from 'axios'
+import history from '../history'
+
 const SELECT_PRODUCT = 'SELECT_PRODUCT'
 
 const initialState = {}
@@ -21,20 +23,12 @@ export const fetchSingleProduct = id => {
   }
 }
 
-export const updateProduct = product => {
+export const updateProduct = (productId, updatedProduct) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/products/${product.id}`, {
-        name: product.name,
-        category: product.category,
-        sex: product.sex,
-        price: product.price,
-        quantity: product.quantity,
-        imageUrl: product.imageUrl,
-        description: product.description
-      })
-
-      dispatch(selectProduct(data))
+      await axios.put(`/api/products/${productId}`, updatedProduct)
+      dispatch(fetchSingleProduct(productId))
+      history.push(`/products/${productId}`)
     } catch (err) {
       console.log(err)
     }

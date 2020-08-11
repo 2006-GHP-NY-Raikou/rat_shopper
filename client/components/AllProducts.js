@@ -54,7 +54,13 @@ export class AllProducts extends React.Component {
         <div id="productViews">
           {filteredProducts
             ? filteredProducts.map(product => {
-                return <ProductView product={product} key={product.id} />
+                return (
+                  <ProductView
+                    product={product}
+                    key={product.id}
+                    isAdmin={this.props.user.isAdmin}
+                  />
+                )
               })
             : ''}
         </div>
@@ -84,7 +90,8 @@ export class AllProducts extends React.Component {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user
   }
 }
 

@@ -12,6 +12,9 @@ import {
   Cart,
   AllUsers,
   SingleUser,
+  UpdateProduct,
+  NewProduct,
+  RemoveProduct,
   ConfirmationPage
 } from './components'
 import {addToUserCart} from './store/cart'
@@ -41,7 +44,6 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -66,15 +68,22 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             <Route exact path="/users" component={AllUsers} />
             <Route path="/users/:userId" component={SingleUser} />
+            {/* Even though the following "admin" routes are in isLoggedIn, the components associated with these paths won't render if not admin*/}
+            <Route
+              exact
+              path="/admin/updateProduct/:productId"
+              component={UpdateProduct}
+            />
+            <Route exact path="/admin/NewProduct" component={NewProduct} />
+            <Route
+              exact
+              path="/admin/RemoveProduct"
+              component={RemoveProduct}
+            />
           </Switch>
         )}
 
-        {/* For admins only:
-          <Route exact path ="/admin/NewProduct" component={NewProduct}/>
-        <Route exact path="/admin/UpdateProduct" component={UpdateProduct}/>
-        <Route exact path="/admin/RemoveProduct" component={RemoveProduct}/> */}
-
-        {/* Displays our Login component as a fallback */}
+        {}
         <Route component={Login} />
       </Switch>
     )
@@ -110,5 +119,6 @@ export default withRouter(connect(mapState, mapDispatch)(Routes))
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired
 }

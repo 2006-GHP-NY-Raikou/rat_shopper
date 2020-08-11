@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 const SET_PRODUCTS = 'GET_PRODUCTS'
 const NEW_PRODUCT = 'NEW_PRODUCT'
@@ -34,16 +35,9 @@ export const fetchProducts = () => {
 export const addProduct = product => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/products', {
-        name: product.name,
-        category: product.category,
-        sex: product.sex,
-        price: product.price,
-        quantity: product.quantity,
-        imageUrl: product.imageUrl,
-        description: product.description
-      })
+      const {data} = await axios.post('/api/products', product)
       dispatch(newProduct(data))
+      history.push('/products')
     } catch (err) {
       console.log(err)
     }
@@ -53,8 +47,9 @@ export const addProduct = product => {
 export const deleteProduct = product => {
   return async dispatch => {
     try {
-      await axios.destroy(`/api/products/${product.id}`)
-      dispatch(removeProduct(product))
+      const deletedProduct = await axios.delete(`/api/products/${product}`)
+      dispatch(removeProduct(deletedProduct))
+      history.push('/products')
     } catch (err) {
       console.log(err)
     }
