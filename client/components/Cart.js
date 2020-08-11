@@ -71,25 +71,26 @@ class Cart extends React.Component {
       return item.price / 100 * item.qty + accum
     }, 0)
     return (
-      <div id="checkout-container">
-        <div className="cart">
-          {this.props.cart.map(product => (
-            <CartItem
-              key={product.id}
-              {...product}
-              handleSubmit={this.handleSubmitUpdate}
-            />
-          ))}
+      <React.Fragment>
+        <h3>{this.props.user.firstName || `guest`}'s cart</h3>
+        <div id="checkout-container">
+          <div className="cart">
+            {this.props.cart.map(product => (
+              <CartItem
+                key={product.id}
+                {...product}
+                handleSubmit={this.handleSubmitUpdate}
+              />
+            ))}
+          </div>
+          <div id="checkout">
+            <div className="cart-total">Cart Total: ${total}</div>
+            <button type="button" onClick={this.handleSubmitCheckout}>
+              Checkout
+            </button>
+          </div>
         </div>
-        <div className="cart-total">
-          <div> Cart Total: ${total}</div>
-        </div>
-        <div>
-          <button type="button" onClick={this.handleSubmitCheckout}>
-            Checkout
-          </button>
-        </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
