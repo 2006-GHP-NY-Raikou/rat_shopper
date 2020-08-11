@@ -41,8 +41,9 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 //POST new order for guest checkout
-router.post('/', async (req, res, next) => {
+router.post('/guest/checkout', async (req, res, next) => {
   try {
+    console.log(req.body)
     const order = await Order.create({status: true})
     //req.body: array of guest cart items
     //loop through them and create new orderProduct for each
@@ -133,6 +134,11 @@ router.put('/cart', isUser, async (req, res, next) => {
         quantity: product.quantity - product.orderProduct.qty
       })
     })
+
+    await Order.create({
+      userId: order.userId
+    })
+
     res.json(order)
   } catch (err) {
     next(err)

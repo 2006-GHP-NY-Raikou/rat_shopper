@@ -14,8 +14,11 @@ import {
   SingleUser,
   UpdateProduct,
   NewProduct,
-  RemoveProduct
+  RemoveProduct,
+  ConfirmationPage
 } from './components'
+import {addToUserCart} from './store/cart'
+import {guestCheckout} from './store/guestCart'
 import {me} from './store'
 
 /**
@@ -24,6 +27,19 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+  }
+
+  //if user logs in and there are items in their guest cart:
+  //guest cart items are added to user cart items
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      if (this.props.isLoggedIn && this.props.guestCart.length) {
+        this.props.guestCart.map(product =>
+          this.props.guestToUserCart({...product, productId: product.id})
+        )
+        this.props.clearGuestCart()
+      }
+    }
   }
 
   render() {
@@ -39,12 +55,17 @@ class Routes extends Component {
         {/* <Route path="/products" component={singleProduct} /> */}
         <Route path="/cart/update/productId" />
         <Route path="/products/:productId" component={SingleProduct} />
+        <Route exact path="/cart" component={Cart} />
+        <Route
+          exact
+          path="/cart/checkout/confirm"
+          component={ConfirmationPage}
+        />
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route exact path="/cart" component={Cart} />
             <Route exact path="/users" component={AllUsers} />
             <Route path="/users/:userId" component={SingleUser} />
             {/* Even though the following "admin" routes are in isLoggedIn, the components associated with these paths won't render if not admin*/}
@@ -76,15 +97,16 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    guestCart: state.guestCart
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData() {
-      dispatch(me())
-    }
+    loadInitialData: () => dispatch(me()),
+    guestToUserCart: product => dispatch(addToUserCart(product)),
+    clearGuestCart: () => dispatch(guestCheckout())
   }
 }
 

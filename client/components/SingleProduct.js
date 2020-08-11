@@ -4,6 +4,7 @@ import {fetchSingleProduct} from '../store/singleProduct'
 import {addToCart, addToUserCart} from '../store/cart'
 import {Link} from 'react-router-dom'
 import RemoveProduct from './RemoveProduct'
+import {addToGuestCart} from '../store/guestCart'
 
 export const SingleProductView = props => {
   let product = props.product
@@ -56,10 +57,14 @@ export class SingleProduct extends React.Component {
       qty: 1,
       price: this.props.product.price
     }
-    if (this.props.user) {
+    if (this.props.user.id) {
       this.props.addToUserCart(product)
     } else {
-      this.props.addToCart(product)
+      this.props.addToGuestCart({
+        ...this.props.product,
+        qty: 1,
+        price: product.price
+      })
     }
   }
 
@@ -91,8 +96,9 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
     addToCart: item => dispatch(addToCart(item)),
-    addToUserCart: item => dispatch(addToUserCart(item)),
-    deleteProduct: product => dispatch(deleteProduct(product))
+    deleteProduct: product => dispatch(deleteProduct(product)),
+    addToGuestCart: item => dispatch(addToGuestCart(item)),
+    addToUserCart: item => dispatch(addToUserCart(item))
   }
 }
 
