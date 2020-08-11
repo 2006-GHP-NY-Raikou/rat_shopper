@@ -31,8 +31,12 @@ class Cart extends React.Component {
     }
   }
 
+  //if user refreshes the page on cart component, this ensures that the loggedIn cart state will re-load
+  componentDidUpdate(prevProps) {
+    if (!prevProps.user.id && this.props.user.id) this.props.fetchCart()
+  }
+
   handleSubmitCheckout(event) {
-    console.log(this.props.user.id)
     event.preventDefault()
     if (this.props.user.id) this.props.userCheckout()
     else this.props.guestCheckout(this.props.cart)
@@ -70,6 +74,7 @@ class Cart extends React.Component {
     const total = this.props.cart.reduce((accum, item) => {
       return item.price / 100 * item.qty + accum
     }, 0)
+
     return (
       <React.Fragment>
         <h3>{this.props.user.firstName || `guest`}'s cart</h3>
