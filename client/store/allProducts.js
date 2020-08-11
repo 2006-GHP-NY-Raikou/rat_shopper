@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 const SET_PRODUCTS = 'GET_PRODUCTS'
 const NEW_PRODUCT = 'NEW_PRODUCT'
@@ -53,8 +54,9 @@ export const addProduct = product => {
 export const deleteProduct = product => {
   return async dispatch => {
     try {
-      await axios.destroy(`/api/products/${product.id}`)
-      dispatch(removeProduct(product))
+      const deletedProduct = await axios.delete(`/api/products/${product}`)
+      dispatch(removeProduct(deletedProduct))
+      history.push('/products')
     } catch (err) {
       console.log(err)
     }

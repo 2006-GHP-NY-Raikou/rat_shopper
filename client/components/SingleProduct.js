@@ -3,14 +3,15 @@ import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {addToCart, addToUserCart} from '../store/cart'
 import {Link} from 'react-router-dom'
+import RemoveProduct from './RemoveProduct'
 
 export const SingleProductView = props => {
   let product = props.product
-  console.log(props.user.isAdmin, 'isAdmin')
   return (
     <div className="singleProduct">
       <img src={product.imageUrl} />
       <h1>Name: {product.name}</h1>
+      {/* Something to note: On form, either the admin has to know that we are storing in pennies, or we update form to reflect this.  */}
       <h2>Price: ${product.price / 100}</h2>
       {props.user.isAdmin ? (
         <div>
@@ -21,11 +22,13 @@ export const SingleProductView = props => {
           <Link to={`/admin/updateProduct/${product.id}`}>
             <button type="button">Update</button>
           </Link>
+          <div>
+            <RemoveProduct product={product.id} />
+          </div>
         </div>
       ) : (
         <button type="button" onClick={props.handleSubmitAddToCart}>
-          {' '}
-          Add to Cart{' '}
+          Add to Cart
         </button>
       )}
     </div>
@@ -88,7 +91,8 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
     addToCart: item => dispatch(addToCart(item)),
-    addToUserCart: item => dispatch(addToUserCart(item))
+    addToUserCart: item => dispatch(addToUserCart(item)),
+    deleteProduct: product => dispatch(deleteProduct(product))
   }
 }
 

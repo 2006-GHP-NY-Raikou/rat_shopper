@@ -78,7 +78,7 @@ export class AllProducts extends React.Component {
                   <ProductView
                     product={product}
                     key={product.id}
-                    isAdmin={this.state.user}
+                    isAdmin={this.props.user}
                   />
                 )
               })

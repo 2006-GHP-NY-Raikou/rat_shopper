@@ -26,10 +26,7 @@ export const fetchSingleProduct = id => {
 export const updateProduct = (productId, updatedProduct) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(
-        `/api/products/${productId}`,
-        updatedProduct
-      )
+      await axios.put(`/api/products/${productId}`, updatedProduct)
       dispatch(fetchSingleProduct(productId))
       history.push(`/products/${productId}`)
     } catch (err) {

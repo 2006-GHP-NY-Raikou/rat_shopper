@@ -15,7 +15,7 @@ class RemoveProduct extends React.Component {
   render() {
     return (
       <button type="button" onClick={e => this.handleRemove(e)}>
-        X
+        Delete
       </button>
     )
   }
