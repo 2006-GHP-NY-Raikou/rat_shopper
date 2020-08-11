@@ -89,7 +89,7 @@ export class SingleProduct extends React.Component {
         price: product.price
       })
     }
-    history.push('/cart')
+    history.push('/products')
   }
 
   render() {
