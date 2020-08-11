@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {addToCart, addToUserCart} from '../store/cart'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import RemoveProduct from './RemoveProduct'
 import {addToGuestCart} from '../store/guestCart'
 
@@ -89,6 +89,7 @@ export class SingleProduct extends React.Component {
         price: product.price
       })
     }
+    this.props.history.push('/cart')
   }
 
   render() {
@@ -119,10 +120,9 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
     addToCart: item => dispatch(addToCart(item)),
-    deleteProduct: product => dispatch(deleteProduct(product)),
     addToGuestCart: item => dispatch(addToGuestCart(item)),
     addToUserCart: item => dispatch(addToUserCart(item))
   }
 }
 
-export default connect(mapState, mapDispatch)(SingleProduct)
+export default withRouter(connect(mapState, mapDispatch)(SingleProduct))
