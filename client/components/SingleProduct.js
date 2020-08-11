@@ -16,23 +16,44 @@ export const SingleProductView = props => {
       <h1>Name: {product.name}</h1>
       {/* Something to note: On form, either the admin has to know that we are storing in pennies, or we update form to reflect this.  */}
       <h2>Price: ${product.price / 100}</h2>
+      <h2>Category: {product.category}</h2>
+      <h2>Sex: {product.sex}</h2>
+      <h2>Description: {product.description}</h2>
       {props.user.isAdmin ? (
         <div>
-          <h2>Category: {product.category}</h2>
-          <h2>Sex: {product.sex}</h2>
-          <h2>Quantity: {product.quantity}</h2>
-          <h2>Description: {product.description}</h2>
-          <Link to={`/admin/updateProduct/${product.id}`}>
-            <button type="button">Update</button>
-          </Link>
+          {product.quantity ? (
+            <div>
+              <h2> Quantity in stock: {product.quantity}</h2>
+              <button type="button" onClick={props.handleSubmitAddToCart}>
+                Add to Cart
+              </button>
+            </div>
+          ) : (
+            <h2>Out of Stock</h2>
+          )}
           <div>
-            <RemoveProduct product={product.id} />
+            <Link to={`/admin/updateProduct/${product.id}`}>
+              <button type="button">Update</button>
+            </Link>
+            <div>
+              <RemoveProduct product={product.id} />
+            </div>
           </div>
         </div>
       ) : (
-        <button type="button" onClick={props.handleSubmitAddToCart}>
-          Add to Cart
-        </button>
+        <div>
+          <div>
+            {product.quantity ? (
+              <div>
+                <button type="button" onClick={props.handleSubmitAddToCart}>
+                  Add to Cart
+                </button>
+              </div>
+            ) : (
+              <h3>Out of Stock</h3>
+            )}
+          </div>
+        </div>
       )}
     </div>
   )
