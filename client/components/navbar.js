@@ -49,7 +49,6 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
               Rat Accessories
             </Link>
             <Link>Coming Soon: Rat of the Day! </Link>
-            <Link to="cart">Cart</Link>
           </div>
         </div>
       )}
