@@ -13,14 +13,23 @@ const ProductView = props => {
         <h2>{product.name}</h2>
         <img src={product.imageUrl} />
       </Link>
-      {props.isAdmin ? (
-        <div> </div>
-      ) : (
-        <div>
-          <div>Price: ${product.price / 100}</div>
-          <p />
-        </div>
-      )}
+      <div>
+        <div>Price: ${product.price / 100}</div>
+        <p />
+      </div>
+      <div>
+        {props.isAdmin ? (
+          <div>
+            {product.quantity ? (
+              <div> Qty: {product.quantity}</div>
+            ) : (
+              <h3>Out of Stock</h3>
+            )}
+          </div>
+        ) : (
+          <div>{product.quantity ? <div /> : <h3>Out of Stock</h3>}</div>
+        )}
+      </div>
     </div>
   )
 }

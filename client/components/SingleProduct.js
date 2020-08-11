@@ -22,6 +22,9 @@ export const SingleProductView = props => {
           <h2>Sex: {product.sex}</h2>
           <h2>Quantity: {product.quantity}</h2>
           <h2>Description: {product.description}</h2>
+          <button type="button" onClick={props.handleSubmitAddToCart}>
+            Add to Cart
+          </button>
           <Link to={`/admin/updateProduct/${product.id}`}>
             <button type="button">Update</button>
           </Link>
