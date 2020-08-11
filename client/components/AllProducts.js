@@ -51,6 +51,19 @@ export class AllProducts extends React.Component {
 
     return (
       <div className="allProducts">
+        <div id="productViews">
+          {filteredProducts
+            ? filteredProducts.map(product => {
+                return (
+                  <ProductView
+                    product={product}
+                    key={product.id}
+                    isAdmin={this.props.user.isAdmin}
+                  />
+                )
+              })
+            : ''}
+        </div>
         <div id="sortFilter">
           <div>
             <h3>Sort:</h3>
@@ -69,19 +82,6 @@ export class AllProducts extends React.Component {
               <option value="accessories">Rat accessories</option>
             </select>
           </div>
-        </div>
-        <div id="productViews">
-          {filteredProducts
-            ? filteredProducts.map(product => {
-                return (
-                  <ProductView
-                    product={product}
-                    key={product.id}
-                    isAdmin={this.props.user.isAdmin}
-                  />
-                )
-              })
-            : ''}
         </div>
       </div>
     )

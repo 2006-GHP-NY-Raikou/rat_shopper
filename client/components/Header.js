@@ -4,54 +4,39 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn, user}) => (
+const Header = ({handleClick, isLoggedIn}) => (
   <div>
-    <nav>
-      {/* <h1>
+    <div className="header">
+      <h1>
         <Link to="/home">Rat Shopper</Link>
-      </h1> */}
+      </h1>
       {isLoggedIn ? (
         <div>
-          <div className="navBar">
+          <div className="upperRight">
             {/* The navbar will show these links after you log in */}
-            {/* <Link to="/home">Home</Link> */}
-            <Link to="/products" exact="true">
-              All Products
+
+            <Link to="/cart" exact="true">
+              Cart
             </Link>
             {/* <Link to="/users/:userId" exact="true">My Profile</Link> */}
-            {user.isAdmin ? (
-              <Link to="/admin/NewProduct" exact="true">
-                Add Product
-              </Link>
-            ) : (
-              <Link to="/cart" exact="true">
-                Cart
-              </Link>
-            )}
+
             <a href="#" onClick={handleClick}>
               Logout
-            </a>{' '}
+            </a>
           </div>
         </div>
       ) : (
         <div>
-          <div className="navBar">
+          <div className="upperRight">
             {/* The navbar will show these links before you log in */}
             {/* <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link> */}
-            <Link to="/products" exact="true">
-              All Products
-            </Link>
-            <Link to="cart">Cart</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
           </div>
         </div>
       )}
-
-      {/* <div className="header">
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
-      </div> */}
-    </nav>
+    </div>
   </div>
 )
 
@@ -60,8 +45,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
-    user: state.user
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -73,12 +57,12 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Header)
 
 /**
  * PROP TYPES
  */
-Navbar.propTypes = {
+Header.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
