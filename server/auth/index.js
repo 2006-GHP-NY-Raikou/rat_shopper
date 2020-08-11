@@ -17,23 +17,12 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       //req.body: add cart info.
-      const [order] = await Order.findOrCreate({
+      await Order.findOrCreate({
         where: {
           userId: user.id,
           status: false
         }
       })
-      //loop through each item in req.body.cart
-      //create an orderProduct for each item
-      // if (req.body.cart) {
-      //   req.body.cart.forEach(async product => {
-      //     await OrderProduct.create({
-      //     productId: product.id,
-      //     orderId: order.id,
-      //     qty: product.qty,
-      //     priceAtPurchase: product.price * product.qty
-      //   })
-      // })}
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {

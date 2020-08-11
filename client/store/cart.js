@@ -7,9 +7,6 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const UPDATE_CART = 'UPDATE_CART'
-const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
-const REMOVE_FROM_GUEST_CART = 'REMOVE_FROM_GUEST_CART'
-const UPDATE_GUEST_CART = 'UPDATE_GUEST_CART'
 
 export const getCart = products => ({
   type: GET_CART,
@@ -33,21 +30,6 @@ export const updateCart = product => ({
 
 export const clearCart = () => ({
   type: CLEAR_CART
-})
-
-export const addToGuestCart = product => ({
-  type: ADD_TO_GUEST_CART,
-  product
-})
-
-export const updateGuestCart = product => ({
-  type: UPDATE_GUEST_CART,
-  product
-})
-
-export const removeFromGuestCart = productId => ({
-  type: REMOVE_FROM_GUEST_CART,
-  productId
 })
 
 // thunks are for users who have an Order in the db
@@ -109,39 +91,15 @@ export const checkout = () => async dispatch => {
   }
 }
 
-//checks if item is already in guest cart, updates if y, adds if n
-const checkCart = (state, action) => {
-  if (state.length) {
-    const item = state.findIndex(product => product.id === action.product.id)
-    if (item >= 0) {
-      let newState = [...state]
-      newState[item].qty += action.product.qty
-      return newState
-    }
-  }
-  return [...state, action.product]
-}
-
-//updates guest cart
-
 //state name will be: cart
 export default function(state = [], action) {
-  let newState = null
   switch (action.type) {
     case GET_CART:
       return action.products
-    case ADD_TO_GUEST_CART:
-      newState = checkCart(state, action)
-      window.localStorage.setItem('cart', JSON.stringify(newState))
-      return newState
     case ADD_TO_CART:
       return [...state, action.product]
     case REMOVE_FROM_CART:
       return state.filter(product => product.id !== action.productId)
-    case REMOVE_FROM_GUEST_CART:
-      newState = state.filter(product => product.id !== action.productId)
-      window.localStorage.setItem('cart', JSON.stringify(newState))
-      return newState
     case UPDATE_CART:
       return state.map(
         product =>
@@ -149,17 +107,7 @@ export default function(state = [], action) {
             ? {...product, qty: action.product.qty}
             : product
       )
-    case UPDATE_GUEST_CART:
-      newState = state.map(
-        product =>
-          product.id === action.product.productId
-            ? {...product, qty: action.product.qty}
-            : product
-      )
-      window.localStorage.setItem('cart', JSON.stringify(newState))
-      return newState
     case CLEAR_CART:
-      window.localStorage.clear()
       return []
     default:
       return state

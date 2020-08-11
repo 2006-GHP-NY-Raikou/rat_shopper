@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
-import {addToCart, addToUserCart, addToGuestCart} from '../store/cart'
+import {addToUserCart} from '../store/cart'
+import {addToGuestCart} from '../store/guestCart'
 
 export const SingleProductView = props => {
   let product = props.product
