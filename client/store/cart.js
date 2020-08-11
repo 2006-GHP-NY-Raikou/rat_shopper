@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import axios from 'axios'
 import history from '../history'
 
@@ -31,7 +32,7 @@ export const clearCart = () => ({
   type: CLEAR_CART
 })
 
-//thunks are for users who have an Order in the db
+// thunks are for users who have an Order in the db
 export const fetchUserCart = () => async dispatch => {
   try {
     const {data} = await axios.get(`/api/orders/cart`)
