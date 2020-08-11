@@ -41,13 +41,12 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 //POST new order for guest checkout
+//there might be a way to combine this with user checkout
+//investigate if we have time
 router.post('/guest/checkout', async (req, res, next) => {
   try {
-    console.log(req.body)
     const order = await Order.create({status: true})
-    //req.body: array of guest cart items
-    //loop through them and create new orderProduct for each
-    //{guestCart: [{productId: #, price: #, qty: #}, {...info}, {...info}]}
+    //combines order with products
     req.body.forEach(async product => {
       await OrderProduct.create({
         productId: product.id,
@@ -55,6 +54,9 @@ router.post('/guest/checkout', async (req, res, next) => {
         qty: product.qty,
         priceAtPurchase: product.price
       })
+      //updates product quantities
+      const p = await Product.findByPk(+product.id)
+      await p.update({quantity: p.quantity - product.qty})
     })
     res.json(order)
   } catch (err) {
@@ -112,25 +114,9 @@ router.put('/cart', isUser, async (req, res, next) => {
       }
     })
     await order.update({status: true})
-    //the below bit could maybe be in a product route??
+    //update quantities of products in db
     order.products.forEach(async product => {
-      const {
-        name,
-        category,
-        sex,
-        price,
-        imageUrl,
-        description,
-        orderProduct
-      } = product
       await product.update({
-        name,
-        category,
-        sex,
-        price,
-        imageUrl,
-        description,
-        orderProduct,
         quantity: product.quantity - product.orderProduct.qty
       })
     })
