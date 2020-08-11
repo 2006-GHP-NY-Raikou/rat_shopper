@@ -37,7 +37,7 @@ const products = [
     category: 'black',
     sex: 'male',
     price: 6750,
-    quanitity: 1,
+    quantity: 1,
     imageUrl:
       'https://image.shutterstock.com/image-photo/beautiful-gray-rat-isolated-on-260nw-1058967671.jpg',
     description: 'This rat sometimes looks like a dog'
@@ -202,6 +202,87 @@ const products = [
     imageUrl:
       'https://petdiys.com/wp-content/uploads/2014/09/DIY-Rat-Witch-Hat.jpg',
     description: "This hat makes for a bewitching rat'"
+  },
+  {
+    name: 'Sunglasses',
+    category: 'props',
+    sex: null,
+    price: 5000,
+    quantity: 20,
+    imageUrl:
+      'https://wallpapersgood.com.de/resize/640x960/wallpapers/main/201546/20309cc1d731ed6.jpg',
+    description: 'Let your rat throw some shade!'
+  },
+  {
+    name: 'Hoodies',
+    category: 'clothes',
+    sex: null,
+    price: 6000,
+    quantity: 20,
+    imageUrl:
+      'https://i.pinimg.com/originals/66/95/98/6695981f0275b1cc3d5ca87c159cf87e.png',
+    description: 'Super soft and comfy!'
+  },
+  {
+    name: 'Boxing Gear',
+    category: 'props',
+    sex: null,
+    price: 7000,
+    quantity: 34,
+    imageUrl:
+      'https://i.pinimg.com/236x/00/36/a1/0036a17dc6bedc0fe198d02dc7caec7f.jpg',
+    description: 'For the rats that pack a punch'
+  },
+  {
+    name: 'Top Hat',
+    category: 'hat',
+    sex: null,
+    price: 5000,
+    quantity: 12,
+    imageUrl:
+      'https://i.pinimg.com/originals/e9/d3/1e/e9d31e62bbfde85adc51d948d767f3ad.jpg',
+    description: 'For the spiffy rats!'
+  },
+  {
+    name: 'Birthday Hat',
+    category: 'props',
+    sex: null,
+    price: 9900,
+    quantity: 30,
+    imageUrl:
+      'https://i.pinimg.com/236x/19/16/b6/1916b6b68d0f12188c67e0b79cd65ec3--fancy-rat-cute-rats.jpg',
+    description: "Celebrate your rat's birthday!"
+  },
+  {
+    name: 'Purse',
+    category: 'props',
+    sex: null,
+    price: 6000,
+    quantity: 20,
+    imageUrl:
+      'https://rlv.zcache.com/cute_rat_playing_flute_postcard-r7d47941f9a7c4d1db63665da8dda12c3_vgbaq_8byvr_630.jpg?view_padding=%5B285%2C0%2C285%2C0%5D',
+    description: 'For rats to pack anything they want!'
+  },
+  {
+    name: 'Bango',
+    category: 'props',
+    sex: null,
+    price: 8000,
+    quantity: 20,
+    imageUrl:
+      'https://i0.wp.com/theverybesttop10.com/wp-content/uploads/2014/11/Top-10-Rats-Playing-Musical-Instruments-9.jpg?resize=600%2C436&ssl=1',
+    description: 'For the musical rats'
+  },
+  {
+    name: 'Stuffed Animal',
+    category: 'props',
+    sex: null,
+    price: 7000,
+    quantity: 20,
+    imageUrl:
+      'https://i.pinimg.com/originals/14/83/73/1483739108cb5bb27ac00507814fb657.jpg',
+    description:
+      'Because all rats deserve to snuggle with their favorite stuffed animal!'
   }
 ]
 
