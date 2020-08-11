@@ -11,7 +11,7 @@ export const UserHome = props => {
   return (
     <div id="userHome">
       <h2>Welcome, {email}</h2>
-      <img />
+      <img src="https://p0.pxfuel.com/preview/610/407/738/rat-color-rats-rodent-fur.jpg" />
       <h3>We're so happy to see you again!</h3>
     </div>
   )
