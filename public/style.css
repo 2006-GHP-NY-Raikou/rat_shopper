@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
-  background-color: rgb(253, 218, 223);
+  background-color: rgb(203, 203, 203);
+  font-family: 'Karla', sans-serif;
 }
 
 a {
@@ -12,10 +13,11 @@ label {
 }
 
 nav {
+  width: 150px;
+
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 20px;
+  flex-direction: column;
+  padding: 15px 0px 0px 30px;
 }
 
 nav a {
@@ -29,31 +31,60 @@ form div {
 }
 
 .header {
+  background-color: rgb(203, 203, 203);
+  border: 3px solid #e36397;
+  border-radius: 10px;
+  height: 100px;
+  width: 90%;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px 0 40px;
+  margin: 20px;
 }
 
-.navBar {
-  /* width: 200px; */
-  display: flex;
-  /* flex-direction: column;
-  padding-left: 20px; */
+.header h1 {
+  color: #e36397;
 }
+
+.header a {
+  color: #432e36;
+  font-family: 'Karla', sans-serif;
+}
+
+.header a:hover {
+  color: #e36397;
+}
+
+.upperRight {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+}
+/*
+.navBar {
+  width: 200px;
+
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+} */
 
 .allProducts {
   display: flex;
-  padding-left: 50px;
+  padding-left: 30px;
+  width: fit-content;
 }
 
 .allProducts img {
-  max-width: 200px;
-  max-height: 200px;
+  width: 220px;
+  height: 220px;
   object-fit: cover;
 }
 
 .productView {
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
   padding: 10px;
 }
 
@@ -65,16 +96,31 @@ form div {
   max-width: 400px;
 }
 
-/* #app {
+#app {
+  width: 100vw;
+}
+
+#main {
   width: 100vw;
   display: flex;
-  justify-content: space-between;
-} */
+}
 
 #productViews {
   display: flex;
   flex-wrap: wrap;
-  padding-left: 50px;
+}
+
+#sortFilter {
+  background-color: #eff2ef;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  margin: 20px 50px 0 0;
+  padding: 0px 8px 15px 8px;
+  border: 3px solid;
+  color: #e36397;
+  border-radius: 5px;
 }
 
 #checkout-container {
