@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom'
 import RemoveProduct from './RemoveProduct'
 import {addToGuestCart} from '../store/guestCart'
 
+//THIS SHOULD WORK!
+
 export const SingleProductView = props => {
   let product = props.product
   return (
