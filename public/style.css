@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
-  background-color: rgb(253, 218, 223);
+  background-color: rgb(203, 203, 203);
+  font-family: 'Karla', sans-serif;
 }
 
 a {
@@ -30,13 +31,29 @@ form div {
 }
 
 .header {
-  background-color: rgb(247, 162, 175);
+  background-color: rgb(203, 203, 203);
+  border: 3px solid #e36397;
   border-radius: 10px;
   height: 100px;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 40px 0 40px;
+  margin: 20px;
+}
+
+.header h1 {
+  color: #e36397;
+}
+
+.header a {
+  color: #432e36;
+  font-family: 'Karla', sans-serif;
+}
+
+.header a:hover {
+  color: #e36397;
 }
 
 .upperRight {
@@ -79,11 +96,9 @@ form div {
   max-width: 400px;
 }
 
-/* #app {
+#app {
   width: 100vw;
-  display: flex;
-  justify-content: space-between;
-} */
+}
 
 #main {
   width: 100vw;
@@ -96,13 +111,14 @@ form div {
 }
 
 #sortFilter {
-  background-color: rgb(253, 249, 249);
+  background-color: #eff2ef;
   display: flex;
   flex-direction: column;
   width: fit-content;
   height: fit-content;
   margin: 20px 50px 0 0;
   padding: 0px 8px 15px 8px;
-  border: 3px solid rgb(247, 162, 175);
+  border: 3px solid;
+  color: #e36397;
   border-radius: 5px;
 }
