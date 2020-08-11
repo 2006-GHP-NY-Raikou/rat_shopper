@@ -1,6 +1,5 @@
 /* eslint-disable complexity */
 import axios from 'axios'
-import history from '../history'
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
