@@ -35,16 +35,9 @@ export const fetchProducts = () => {
 export const addProduct = product => {
   return async dispatch => {
     try {
-      const {data} = await axios.post('/api/products', {
-        name: product.name,
-        category: product.category,
-        sex: product.sex,
-        price: product.price,
-        quantity: product.quantity,
-        imageUrl: product.imageUrl,
-        description: product.description
-      })
+      const {data} = await axios.post('/api/products', product)
       dispatch(newProduct(data))
+      history.push('/products')
     } catch (err) {
       console.log(err)
     }

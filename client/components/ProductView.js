@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 
 const ProductView = props => {
   const product = props.product
-  console.log(props.isAdmin, 'isAdminTest')
   return (
     <div>
       <Link
