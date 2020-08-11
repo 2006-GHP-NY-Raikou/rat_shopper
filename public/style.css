@@ -1,11 +1,26 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
   font-family: sans-serif;
-  background-color: rgb(203, 203, 203);
+  background-color: #eff2ef;
   font-family: 'Karla', sans-serif;
+  width: 100%;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
+}
+
+button {
+  font-family: 'Karla', sans-serif;
+  background-color: #f0b3cb;
+  color: #432e36;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 label {
@@ -14,15 +29,20 @@ label {
 
 nav {
   width: 150px;
-
+  background-color: #e36397;
   display: flex;
   flex-direction: column;
-  padding: 15px 0px 0px 30px;
+  margin: 40px 0px 0px 40px;
+  border: 3px solid #e36397;
+
+  border-radius: 10px;
 }
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin: 0.5em;
+  font-size: 16pt;
+  color: #f3e8ec;
 }
 
 form div {
@@ -31,7 +51,7 @@ form div {
 }
 
 .header {
-  background-color: rgb(203, 203, 203);
+  background-color: #eff2ef;
   border: 3px solid #e36397;
   border-radius: 10px;
   height: 100px;
@@ -39,12 +59,8 @@ form div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px 0 40px;
-  margin: 20px;
-}
-
-.header h1 {
-  color: #e36397;
+  padding: 0 20px 0 20px;
+  margin-left: 40px;
 }
 
 .header a {
@@ -57,22 +73,15 @@ form div {
 }
 
 .upperRight {
-  width: 150px;
+  width: 170px;
   display: flex;
   justify-content: space-between;
+  font-size: 16pt;
 }
-/*
-.navBar {
-  width: 200px;
-
-  display: flex;
-  flex-direction: column;
-  padding-left: 20px;
-} */
 
 .allProducts {
   display: flex;
-  padding-left: 30px;
+  padding-left: 60px;
   width: fit-content;
 }
 
@@ -83,8 +92,8 @@ form div {
 }
 
 .productView {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 280px;
+  max-height: 280px;
   padding: 10px;
 }
 
@@ -98,11 +107,49 @@ form div {
 
 #app {
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 #main {
+  min-height: 70vh;
   width: 100vw;
   display: flex;
+}
+
+#loginPage {
+  display: flex;
+  justify-content: space-between;
+  width: 45vw;
+  margin: 40px 0 0 100px;
+}
+
+#loginPage img {
+  max-width: 400px;
+
+  object-fit: cover;
+}
+
+#login {
+  display: flex;
+  flex-direction: column;
+}
+
+#loginForms {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #e36397;
+  border-radius: 10px;
+}
+
+#loginGoogle {
+  background-color: #432e36;
+  color: #e36397;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0 0 0;
 }
 
 #productViews {
@@ -116,11 +163,34 @@ form div {
   flex-direction: column;
   width: fit-content;
   height: fit-content;
-  margin: 20px 50px 0 0;
+  margin: 40px 60px 0 0;
   padding: 0px 8px 15px 8px;
   border: 3px solid;
   color: #e36397;
   border-radius: 5px;
+}
+
+#userHome {
+  color: #432e36;
+  display: flex;
+  flex-direction: column;
+  width: 45vw;
+  margin: 40px 0 0 100px;
+  text-align: center;
+  align-items: center;
+}
+
+#userHome img {
+  max-width: 400px;
+
+  object-fit: cover;
+}
+
+#footer {
+  height: 200px;
+  width: 100%;
+  background-color: rgb(203, 203, 203);
+  margin-top: 50px;
 }
 
 #checkout-container {

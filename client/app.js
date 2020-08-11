@@ -1,18 +1,19 @@
 import React from 'react'
 
-import {Navbar, Header} from './components'
+import {Navbar, Header, Footer} from './components'
 
 import Routes from './routes'
 
 const App = () => {
   return (
-    <div>
+    <div id="app">
       <Header />
       <div id="main">
         <Navbar />
 
         <Routes />
       </div>
+      <Footer />
     </div>
   )
 }
