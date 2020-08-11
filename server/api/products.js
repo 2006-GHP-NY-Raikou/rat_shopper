@@ -53,9 +53,8 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin, async (req, res, next) => {
   try {
-    isAdmin()
     const {
       name,
       category,
@@ -68,7 +67,7 @@ router.put('/:id', async (req, res, next) => {
 
     const product = await Product.findByPk(req.params.id)
 
-    await Product.update({
+    const updatedProduct = await product.update({
       name,
       category,
       sex,
@@ -77,16 +76,14 @@ router.put('/:id', async (req, res, next) => {
       imageUrl,
       description
     })
-
-    res.status(201).json(product)
+    res.status(201).json(updatedProduct)
   } catch (err) {
     next(err)
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
-    isAdmin()
     const product = await Product.findByPk(req.params.id)
     await product.destroy()
     res.status(204).send('deleted')
