@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {clearCart} from './cart'
 import history from '../history'
 
 /**
@@ -50,6 +51,7 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
+    dispatch(clearCart())
     history.push('/login')
   } catch (err) {
     console.error(err)

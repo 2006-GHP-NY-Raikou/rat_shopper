@@ -1,16 +1,18 @@
 import React from 'react'
 import {
   fetchUserCart,
-  getCart,
   clearCart,
-  checkout,
   updateCart,
   updateUserCart,
-  removeFromUserCart,
+  removeFromUserCart
+} from '../store/cart'
+import {
+  getGuestCart,
   addToGuestCart,
   updateGuestCart,
   removeFromGuestCart
-} from '../store/cart'
+} from '../store/guestCart'
+import {guestCheckout, userCheckout} from '../store/checkout'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
 
@@ -30,9 +32,12 @@ class Cart extends React.Component {
   }
 
   handleSubmitCheckout(event) {
+    console.log(this.props.user.id)
     event.preventDefault()
-    this.props.checkout()
+    if (this.props.user.id) this.props.userCheckout()
+    else this.props.guestCheckout(this.props.cart)
     this.props.clearCart()
+    this.props.history.push(`/cart/checkout/confirm`)
   }
 
   handleSubmitUpdate(event, id, price) {
@@ -90,15 +95,16 @@ class Cart extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.cart,
+  cart: state.guestCart.length ? state.guestCart : state.cart,
   user: state.user
 })
 
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(fetchUserCart()),
-  fetchGuestCart: products => dispatch(getCart(products)),
+  fetchGuestCart: products => dispatch(getGuestCart(products)),
   clearCart: () => dispatch(clearCart()),
-  checkout: () => dispatch(checkout()),
+  userCheckout: () => dispatch(userCheckout()),
+  guestCheckout: products => dispatch(guestCheckout(products)),
   updateCart: updated => dispatch(updateCart(updated)),
   updateUserCart: updated => dispatch(updateUserCart(updated)),
   remove: productId => dispatch(removeFromUserCart(productId)),
