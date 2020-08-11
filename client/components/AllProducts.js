@@ -71,14 +71,13 @@ export class AllProducts extends React.Component {
           </div>
         </div>
         <div id="productViews">
-          {/*Passed in user state for admin view*/}
           {filteredProducts
             ? filteredProducts.map(product => {
                 return (
                   <ProductView
                     product={product}
                     key={product.id}
-                    isAdmin={this.props.user}
+                    isAdmin={this.props.user.isAdmin}
                   />
                 )
               })
