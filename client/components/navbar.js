@@ -14,43 +14,45 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
         <div>
           <div className="navBar">
             {/* The navbar will show these links after you log in */}
-            {/* <Link to="/home">Home</Link> */}
             <Link to="/products" exact="true">
               All Products
             </Link>
-            {/* <Link to="/users/:userId" exact="true">My Profile</Link> */}
+            <Link to="/products" exact="true">
+              All Rats
+            </Link>
+            <Link to="/products" exact="true">
+              Rat Accessories
+            </Link>
+            <Link>Coming Soon: Rat of the Day! </Link>
+            <Link to="/users/:userId" exact="true">
+              My Profile
+            </Link>
             {user.isAdmin ? (
               <Link to="/admin/NewProduct" exact="true">
                 Add Product
               </Link>
             ) : (
-              <Link to="/cart" exact="true">
-                Cart
-              </Link>
+              ' '
             )}
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>{' '}
           </div>
         </div>
       ) : (
         <div>
           <div className="navBar">
-            {/* The navbar will show these links before you log in */}
-            {/* <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link> */}
             <Link to="/products" exact="true">
               All Products
             </Link>
+            <Link to="/products" exact="true">
+              All Rats
+            </Link>
+            <Link to="/products" exact="true">
+              Rat Accessories
+            </Link>
+            <Link>Coming Soon: Rat of the Day! </Link>
             <Link to="cart">Cart</Link>
           </div>
         </div>
       )}
-
-      {/* <div className="header">
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
-      </div> */}
     </nav>
   </div>
 )

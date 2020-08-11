@@ -10,26 +10,31 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a target='_self' href="auth/google">{displayName} with Google</a>
+    <div id="loginPage">
+      <img src="https://squeaksandnibbles.com/wp-content/uploads/2017/07/rat2-1.jpg" />
+      <div id="login">
+        <form onSubmit={handleSubmit} name={name} id="loginForms">
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        <a target="_self" href="auth/google" id="loginGoogle">
+          {displayName} with Google
+        </a>
+      </div>
     </div>
   )
 }
