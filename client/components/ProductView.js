@@ -18,17 +18,7 @@ const ProductView = props => {
         <p />
       </div>
       <div>
-        {props.isAdmin ? (
-          <div>
-            {product.quantity ? (
-              <div> Qty: {product.quantity}</div>
-            ) : (
-              <h3>Out of Stock</h3>
-            )}
-          </div>
-        ) : (
-          <div>{product.quantity ? <div /> : <h3>Out of Stock</h3>}</div>
-        )}
+        <div>{product.quantity ? <div /> : <h3>Out of Stock</h3>}</div>
       </div>
     </div>
   )

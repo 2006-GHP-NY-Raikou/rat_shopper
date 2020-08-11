@@ -8,18 +8,6 @@ import {addToGuestCart} from '../store/guestCart'
 
 //THIS SHOULD WORK!
 
-// {props.isAdmin ? (
-//   <div>
-//     {product.quantity ? (
-//       <div> Qty: {product.quantity}</div>
-//     ) : (
-//       <h3>Out of Stock</h3>
-//     )}
-//   </div>
-// ) : (
-//   <div>{product.quantity ? <div /> : <h3>Out of Stock</h3>}</div>
-// )}
-
 export const SingleProductView = props => {
   let product = props.product
   return (
