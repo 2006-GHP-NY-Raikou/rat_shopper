@@ -24,9 +24,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
                 Add Product
               </Link>
             ) : (
-              <Link to="/cart" exact="true">
-                Cart
-              </Link>
+              <div />
             )}
             <a href="#" onClick={handleClick}>
               Logout
@@ -42,15 +40,9 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
             <Link to="/products" exact="true">
               All Products
             </Link>
-            <Link to="cart">Cart</Link>
           </div>
         </div>
       )}
-
-      {/* <div className="header">
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
-      </div> */}
     </nav>
   </div>
 )
