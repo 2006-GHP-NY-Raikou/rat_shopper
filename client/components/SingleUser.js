@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getSingleUserThunk, clearSingleUser} from '../store/singleUser'
+import convertToChange from './ConvertToChange'
 
 /**
  * COMPONENT
@@ -22,7 +23,8 @@ export class SingleUser extends React.Component {
       lastName,
       address,
       zipCode,
-      country
+      country,
+      pastPurchases
     } = this.props.singleUser
     return (
       <div id="single-user-container">
@@ -34,7 +36,28 @@ export class SingleUser extends React.Component {
             ${address}\n
             ${country}, ${zipCode}\n
             `}</p>
-          <div id="past-orders">coming soon!</div>
+          <div id="past-orders">
+            <h3>Past Purchases:</h3>
+            {pastPurchases
+              ? pastPurchases.map(product => (
+                  <div className="cart-item-container" key="item.id">
+                    <div className="cart-item-info-container">
+                      <img className="cart-item-img" src={product.imageUrl} />
+                      <div className="cart-item-info">
+                        <h2>{product.name}</h2>
+                        <p>
+                          ${convertToChange(
+                            product.orderProduct.priceAtPurchase,
+                            product.orderProduct.qty
+                          )}
+                        </p>
+                        <small>Qty: {product.orderProduct.qty}</small>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              : ''}
+          </div>
         </div>
       </div>
     )
