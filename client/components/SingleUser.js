@@ -29,7 +29,7 @@ export class SingleUser extends React.Component {
     return (
       <div id="single-user-container">
         <div id="user-info">
-          <h5>email: {email}</h5>
+          <p>Email: {email}</p>
           <p>{`
             Shipping address:\n
             ${firstName} ${lastName}\n
@@ -46,7 +46,8 @@ export class SingleUser extends React.Component {
                       <div className="cart-item-info">
                         <h2>{product.name}</h2>
                         <p>
-                          ${convertToChange(
+                          $
+                          {convertToChange(
                             product.orderProduct.priceAtPurchase,
                             product.orderProduct.qty
                           )}
