@@ -4,7 +4,7 @@ html {
 }
 body {
   font-family: sans-serif;
-  background-color: #eff2ef;
+  background-color: #f4e6eb;
   font-family: 'Karla', sans-serif;
   width: 100%;
   margin: 0;
@@ -51,7 +51,6 @@ form div {
 }
 
 .header {
-  background-color: #eff2ef;
   border: 3px solid #e36397;
   border-radius: 10px;
   height: 100px;
@@ -73,10 +72,10 @@ form div {
 }
 
 .upperRight {
-  width: 170px;
+  width: 24vw;
   display: flex;
-  justify-content: space-between;
-  font-size: 16pt;
+  justify-content: space-evenly;
+  font-size: 18pt;
 }
 
 .allProducts {
@@ -98,7 +97,10 @@ form div {
 }
 
 .singleProduct {
-  text-align: center;
+  display: flex;
+  width: 70vw;
+  justify-content: space-evenly;
+  margin: 40px 0 0 40px;
 }
 
 .singleProduct img {
@@ -116,6 +118,14 @@ form div {
   min-height: 70vh;
   width: 100vw;
   display: flex;
+}
+
+#welcome {
+  font-size: 16pt;
+  color: #432e36;
+  width: 70vw;
+  text-align: center;
+  margin: 40px 0 0 40px;
 }
 
 #loginPage {
@@ -152,13 +162,37 @@ form div {
   margin: 10px 0 0 0;
 }
 
+#cartPage {
+  font-size: 20pt;
+  display: flex;
+  flex-direction: row;
+  width: 70vw;
+  justify-content: space-evenly;
+  margin: 40px 0 0 40px;
+}
+
+#checkoutPage {
+  font-size: 20pt;
+
+  width: 70vw;
+  text-align: center;
+  margin: 40px 0 0 40px;
+}
+
 #productViews {
   display: flex;
   flex-wrap: wrap;
 }
 
+#productViews a {
+  color: #432e36;
+}
+
+#productViews a:hover {
+  color: #e36397;
+}
+
 #sortFilter {
-  background-color: #eff2ef;
   display: flex;
   flex-direction: column;
   width: fit-content;
@@ -174,16 +208,21 @@ form div {
   color: #432e36;
   display: flex;
   flex-direction: column;
-  width: 45vw;
-  margin: 40px 0 0 100px;
+
   text-align: center;
   align-items: center;
+  width: 70vw;
+
+  margin: 40px 0 0 40px;
 }
 
 #userHome img {
   max-width: 400px;
 
   object-fit: cover;
+}
+#productDetails {
+  max-width: 300px;
 }
 
 #footer {
@@ -205,8 +244,6 @@ form div {
 }
 
 #updateModal {
-  /* display: none; */
-  /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;

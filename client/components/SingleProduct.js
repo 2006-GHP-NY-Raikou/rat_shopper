@@ -15,49 +15,53 @@ export const SingleProductView = props => {
   let product = props.product
   return (
     <div className="singleProduct">
-      <img src={product.imageUrl} />
-      <h1>Name: {product.name}</h1>
-      {/* Something to note: On form, either the admin has to know that we are storing in pennies, or we update form to reflect this.  */}
-      <h2>Price: ${convertToChange(product.price, 1)}</h2>
-      {product.sex ? <h2>Sex: {product.sex} </h2> : <div />}
-      <h2>Description: {product.description}</h2>
-      {props.user.isAdmin ? (
-        <div>
-          {product.quantity ? (
-            <div>
-              <h2>Category: {product.category}</h2>
-              <h2> Quantity in stock: {product.quantity}</h2>
-              <button type="button" onClick={props.handleSubmitAddToCart}>
-                Add to Cart
-              </button>
-            </div>
-          ) : (
-            <h2>Out of Stock</h2>
-          )}
-          <div>
-            <button type="button" onClick={() => props.handleUpdate(true)}>
-              Update
-            </button>
-            <div>
-              <RemoveProduct product={product.id} />
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div>
+      <div>
+        <img src={product.imageUrl} />
+      </div>
+      <div id="productDetails">
+        <h1> {product.name}</h1>
+        {/* Something to note: On form, either the admin has to know that we are storing in pennies, or we update form to reflect this.  */}
+        <h2>Price: ${convertToChange(product.price, 1)}</h2>
+        {product.sex ? <h2>Sex: {product.sex} </h2> : <div />}
+        <h2>{product.description}</h2>
+        {props.user.isAdmin ? (
           <div>
             {product.quantity ? (
               <div>
+                <h2>Category: {product.category}</h2>
+                <h2> Quantity in stock: {product.quantity}</h2>
                 <button type="button" onClick={props.handleSubmitAddToCart}>
                   Add to Cart
                 </button>
               </div>
             ) : (
-              <h3>Out of Stock</h3>
+              <h2>Out of Stock</h2>
             )}
+            <div>
+              <button type="button" onClick={() => props.handleUpdate(true)}>
+                Update
+              </button>
+              <div>
+                <RemoveProduct product={product.id} />
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        ) : (
+          <div>
+            <div>
+              {product.quantity ? (
+                <div>
+                  <button type="button" onClick={props.handleSubmitAddToCart}>
+                    Add to Cart
+                  </button>
+                </div>
+              ) : (
+                <h3>Out of Stock</h3>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
