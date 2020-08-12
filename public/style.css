@@ -34,7 +34,6 @@ nav {
   flex-direction: column;
   margin: 40px 0px 0px 40px;
   border: 3px solid #e36397;
-
   border-radius: 10px;
 }
 
@@ -72,7 +71,7 @@ form div {
 }
 
 .upperRight {
-  width: 24vw;
+  width: 10em;
   display: flex;
   justify-content: space-evenly;
   font-size: 18pt;
@@ -163,7 +162,7 @@ form div {
 }
 
 #cartPage {
-  font-size: 20pt;
+  font-size: larger;
   display: flex;
   flex-direction: row;
   width: 70vw;
@@ -293,7 +292,6 @@ form div {
 
 .cart-item-container {
   display: flex;
-  max-width: 70vw;
   align-items: flex-start;
   border-bottom: 1px solid gray;
 }
@@ -301,7 +299,6 @@ form div {
 .cart-item-info-container {
   display: flex;
   align-items: flex-start;
-  flex-grow: 1;
   margin: 1em;
 }
 

@@ -3,7 +3,6 @@ const User = require('../db/models/user')
 const Order = require('../db/models/order')
 module.exports = router
 
-//findOrCreate order associated with user
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({
@@ -16,7 +15,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
-      //req.body: add cart info.
+      //findOrCreate open order associated with user
       await Order.findOrCreate({
         where: {
           userId: user.id,
@@ -40,7 +39,7 @@ router.post('/signup', async (req, res, next) => {
     if (user) {
       req.login(user, err => (err ? next(err) : res.json(user)))
       //create a blank order for the newly signed-up user:
-      const order = await Order.create({userId: user.id, status: false})
+      const order = await Order.create({userId: user.id})
 
       console.log('this is the signed-up user order:', order) // show the order
     }

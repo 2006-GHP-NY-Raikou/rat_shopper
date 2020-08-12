@@ -15,7 +15,7 @@ const ProductView = props => {
         <img src={product.imageUrl} />
       </Link>
       <div>
-        <div>Price: ${convertToChange(product.price, 1)}</div>
+        <div>Price: ${convertToChange(product.price)}</div>
         <p />
       </div>
       <div>

@@ -15,13 +15,13 @@ export const guestCheckout = products => async dispatch => {
   try {
     const {data} = await axios.post('/api/orders/guest/checkout', products)
     if (data) {
-      toast.success(`checkout success!`, {position: 'top-center'})
+      toast.success(`checkout success!`)
       dispatch(checkout(data.id))
       dispatch(clearGuestCart())
     } else throw new Error()
   } catch (err) {
     console.error(err)
-    toast.error(`user checkout failed`, {position: 'top-center'})
+    toast.error(`user checkout failed`)
   }
 }
 
@@ -30,13 +30,13 @@ export const userCheckout = () => async dispatch => {
   try {
     const {data} = await axios.put('/api/orders/cart')
     if (data) {
-      toast.success(`checkout success!`, {position: 'top-center'})
+      toast.success(`checkout success!`)
       dispatch(checkout(data.id))
       dispatch(clearCart())
     } else throw new Error()
   } catch (err) {
     console.error(err)
-    toast.error(`guest checkout failed`, {position: 'top-center'})
+    toast.error(`guest checkout failed`)
   }
 }
 
