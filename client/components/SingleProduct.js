@@ -2,9 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 import {addToCart, addToUserCart} from '../store/cart'
-import {Link} from 'react-router-dom'
+
 import RemoveProduct from './RemoveProduct'
 import {addToGuestCart} from '../store/guestCart'
+import {UpdateProduct} from './index'
 
 //THIS SHOULD WORK!
 
@@ -32,9 +33,9 @@ export const SingleProductView = props => {
             <h2>Out of Stock</h2>
           )}
           <div>
-            <Link to={`/admin/updateProduct/${product.id}`}>
-              <button type="button">Update</button>
-            </Link>
+            <button type="button" onClick={() => props.handleUpdate(true)}>
+              Update
+            </button>
             <div>
               <RemoveProduct product={product.id} />
             </div>
@@ -62,7 +63,9 @@ export const SingleProductView = props => {
 export class SingleProduct extends React.Component {
   constructor() {
     super()
+    this.state = {isOpen: false}
     this.handleSubmitAddToCart = this.handleSubmitAddToCart.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -91,18 +94,29 @@ export class SingleProduct extends React.Component {
     }
   }
 
+  handleUpdate(val) {
+    this.setState({isOpen: val})
+  }
+
   render() {
     const product = this.props.product
+    // const Update = this.state.isOpen ? <UpdateProduct /> : null
 
     if (!this.props.product) {
       return <div>Aw, rats! This product was not found!</div>
     } else {
       return (
-        <SingleProductView
-          user={this.props.user}
-          product={product}
-          handleSubmitAddToCart={this.handleSubmitAddToCart}
-        />
+        <>
+          <SingleProductView
+            user={this.props.user}
+            product={product}
+            handleSubmitAddToCart={this.handleSubmitAddToCart}
+            handleUpdate={this.handleUpdate}
+          />
+          {this.state.isOpen ? (
+            <UpdateProduct handleUpdate={this.handleUpdate} />
+          ) : null}
+        </>
       )
     }
   }
@@ -119,7 +133,7 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
     addToCart: item => dispatch(addToCart(item)),
-    deleteProduct: product => dispatch(deleteProduct(product)),
+
     addToGuestCart: item => dispatch(addToGuestCart(item)),
     addToUserCart: item => dispatch(addToUserCart(item))
   }

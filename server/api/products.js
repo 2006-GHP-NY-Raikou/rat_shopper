@@ -18,6 +18,18 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/random', async (req, res, next) => {
+  try {
+    const products = await Product.findAll()
+    console.log(products)
+    const idx = Math.floor(Math.random() * products.length)
+    console.log(idx)
+    res.json(products[idx].id)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id)
