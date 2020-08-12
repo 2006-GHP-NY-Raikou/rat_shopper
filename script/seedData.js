@@ -70,7 +70,7 @@ const products = [
     quantity: 1,
     imageUrl:
       'https://i.pinimg.com/originals/7f/23/cc/7f23ccef5cf4d94266b3dd4d61a10074.jpg',
-    description: 'Pretty rat and quite cunning'
+    description: 'Pretty rat, and quite cunning'
   },
   {
     name: 'Fleur',
@@ -170,7 +170,7 @@ const products = [
     quantity: 10,
     imageUrl:
       'https://i.pinimg.com/originals/3a/c3/01/3ac301e53126d22f1e135c05fac4c9ec.jpg',
-    description: "Yeeee haw lil\\' pardner!'"
+    description: "Yeeee-haw, lil pardner!'"
   },
   {
     name: 'Spring Dress',
@@ -181,7 +181,7 @@ const products = [
     imageUrl:
       'https://i.pinimg.com/originals/43/e7/d3/43e7d33d2ee3c04eb3e42dca04700f56.jpg',
     description:
-      "Get your rat ready for spring with this dress from our prata 2021 collection'"
+      "Get your rat ready for spring with this dress from our Prata 2021 collection'"
   },
   {
     name: 'Chic Harness',
@@ -201,7 +201,7 @@ const products = [
     quantity: 10,
     imageUrl:
       'https://petdiys.com/wp-content/uploads/2014/09/DIY-Rat-Witch-Hat.jpg',
-    description: "This hat makes for a bewitching rat'"
+    description: 'This hat makes for a bewitching rat'
   },
   {
     name: 'Sunglasses',
@@ -247,14 +247,14 @@ const products = [
     name: 'Birthday Hat',
     category: 'props',
     sex: null,
-    price: 9900,
+    price: 2200,
     quantity: 30,
     imageUrl:
       'https://i.pinimg.com/236x/19/16/b6/1916b6b68d0f12188c67e0b79cd65ec3--fancy-rat-cute-rats.jpg',
     description: "Celebrate your rat's birthday!"
   },
   {
-    name: 'Purse',
+    name: 'Flute',
     category: 'props',
     sex: null,
     price: 6000,

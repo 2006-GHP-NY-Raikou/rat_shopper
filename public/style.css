@@ -28,7 +28,7 @@ label {
 }
 
 nav {
-  width: 150px;
+  width: 170px;
   background-color: #e36397;
   display: flex;
   flex-direction: column;
@@ -69,8 +69,6 @@ form div {
 
 .header a {
   color: #e36397;
-
-  font-family: 'Karla', sans-serif;
 }
 
 .header a:hover {
@@ -78,7 +76,7 @@ form div {
 }
 
 .upperRight {
-  width: 10em;
+  width: 15em;
   display: flex;
   justify-content: space-evenly;
   font-size: 18pt;
@@ -144,6 +142,10 @@ form div {
   width: 70vw;
   text-align: center;
   margin: 40px 0 0 40px;
+}
+
+#newProduct {
+  padding: 40px 0 0 100px;
 }
 
 #loginPage {
@@ -255,10 +257,10 @@ form div {
   display: flex;
   justify-content: space-between;
   height: 250px;
-  width: 100%;
+
   background-color: #5c404b;
   padding: 40px 40px 0 40px;
-
+  margin-top: 40px;
   color: #ac7088;
 }
 
@@ -270,9 +272,10 @@ form div {
   color: #ecb0c8;
 }
 
-#ratShopper {
+.ratShopper {
   color: #ecb0c8;
-  font-size: 20pt;
+  font-size: 24pt;
+  font-family: 'Coustard', serif;
 }
 
 #checkout-container {
@@ -343,7 +346,7 @@ form div {
 .cart-item-info-container {
   display: flex;
   align-items: flex-start;
-  margin: 1em;
+  hmargin: 1em;
 }
 
 .cart-item-img {
