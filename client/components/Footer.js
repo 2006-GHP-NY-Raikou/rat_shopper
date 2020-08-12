@@ -5,7 +5,7 @@ import {AiOutlineLinkedin} from 'react-icons/ai'
 const Footer = () => (
   <div id="footer">
     <div className="footerHalf">
-      <div id="ratShopper">Rat Shopper</div>
+      <div className="ratShopper">Rat Shopper</div>
       <h3>
         Your one-stop shop for adopting pet rats and dressing them to the nines!
       </h3>
@@ -26,7 +26,7 @@ const Footer = () => (
         <AiOutlineLinkedin size={25} /> Natalie Ng
       </a>
       <a href="https://www.linkedin.com/in/emma-seely-katz-b4386a1a3/">
-        <AiOutlineLinkedin size={25} />Emma Seely-Katz
+        <AiOutlineLinkedin size={25} /> Emma Seely-Katz
       </a>
       <h2>August 2020</h2>
     </div>
