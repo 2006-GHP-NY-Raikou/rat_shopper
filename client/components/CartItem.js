@@ -8,8 +8,8 @@ const CartItem = props => {
       <div className="cart-item-info-container">
         <img className="cart-item-img" src={props.imageUrl} />
         <div className="cart-item-info">
-          <h2>{props.name}</h2>
-          <p>${convertToChange(props.price, props.qty)}</p>
+          <h3>{props.name}</h3>
+          <p>${convertToChange(props.price * props.qty)}</p>
           <small>Qty: {props.qty}</small>
         </div>
       </div>
