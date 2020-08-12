@@ -18,6 +18,18 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/random', async (req, res, next) => {
+  try {
+    const products = await Product.findAll()
+    console.log(products)
+    const idx = Math.floor(Math.random() * products.length)
+    console.log(idx)
+    res.json(products[idx].id)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id)
@@ -53,6 +65,7 @@ router.post('/', isAdmin, async (req, res, next) => {
   }
 })
 
+// eslint-disable-next-line complexity
 router.put('/:id', isAdmin, async (req, res, next) => {
   try {
     const {
@@ -68,13 +81,13 @@ router.put('/:id', isAdmin, async (req, res, next) => {
     const product = await Product.findByPk(req.params.id)
 
     const updatedProduct = await product.update({
-      name,
-      category,
-      sex,
-      price,
-      quantity,
-      imageUrl,
-      description
+      name: name || product.name,
+      category: category || product.category,
+      sex: sex || product.sex,
+      price: price || product.price,
+      quantity: quantity || product.quantity,
+      imageUrl: imageUrl || product.imageUrl,
+      description: description || product.description
     })
     res.status(201).json(updatedProduct)
   } catch (err) {

@@ -10,16 +10,14 @@ const Header = ({handleClick, isLoggedIn}) => (
       <h1>
         <Link to="/home">Rat Shopper</Link>
       </h1>
-      <div className="upperRight">
-        <Link to="/cart" exact="true">
-          Cart
-        </Link>
-      </div>
+
       {isLoggedIn ? (
         <div>
           <div className="upperRight">
             {/* The navbar will show these links after you log in */}
-            {/* <Link to="/users/:userId" exact="true">My Profile</Link> */}
+            <Link to="/cart" exact="true">
+              Cart
+            </Link>
 
             <a href="#" onClick={handleClick}>
               Logout

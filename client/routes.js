@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Login,
@@ -20,13 +20,28 @@ import {
 import {addToUserCart} from './store/cart'
 import {guestCheckout} from './store/guestCart'
 import {me} from './store'
+import axios from 'axios'
 
 /**
  * COMPONENT
  */
+
 class Routes extends Component {
+  constructor() {
+    super()
+    this.state = {random: null}
+  }
   componentDidMount() {
     this.props.loadInitialData()
+    const random = async () => {
+      const {data} = await axios.get('/api/products/random')
+      console.dir(data)
+      console.dir(`/products/${data}`)
+      // const path = `/products/${data}`
+      this.setState({random: data})
+      console.dir(this.state)
+    }
+    random()
   }
 
   //if user logs in and there are items in their guest cart:
@@ -44,6 +59,7 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
+
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -51,6 +67,20 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
+
+        <Route
+          path="/random"
+          // component={async () => {
+          //   const {data} = await axios.get('/api/products/random')
+          //   console.dir(data)
+          //   console.dir(`/products/${data}`)
+          //   // const path = `/products/${data}`
+          //   <Redirect to="/products" />
+          // }}
+        >
+          <Redirect to={`/products/${this.state.random}`} />
+        </Route>
+
         <Route path="/users/:userId" component={SingleUser} />
         {/* <Route path="/products" component={singleProduct} /> */}
         <Route path="/cart/update/productId" />
