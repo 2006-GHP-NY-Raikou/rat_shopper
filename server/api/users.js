@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, OrderProduct, Product} = require('../db/models')
 
 function isAdmin(req, res, next) {
   if (req.user.isAdmin) {
@@ -11,17 +11,8 @@ function isAdmin(req, res, next) {
   }
 }
 
-function isUser(req, res, next) {
-  if (req.user) {
-    next()
-  } else {
-    res.status(404).send('Not a user!')
-    return res.status(403).send('Forbidden')
-  }
-}
-
 function isAdminOrSameUser(req, res, next) {
-  if (req.user.isAdmin || req.user.id == req.params.id) {
+  if (req.user.isAdmin || req.user.id === +req.params.id) {
     next()
   } else {
     return res.status(403).send('Forbidden')
@@ -32,7 +23,7 @@ function isAdminOrSameUser(req, res, next) {
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     const allUsers = await User.findAll()
-    res.send(allUsers)
+    res.json(allUsers)
   } catch (error) {
     next(error)
   }
@@ -42,7 +33,25 @@ router.get('/', isAdmin, async (req, res, next) => {
 router.get('/:id', isAdminOrSameUser, async (req, res, next) => {
   try {
     const singleUser = await User.findByPk(req.params.id)
-    res.send(singleUser)
+    res.json(singleUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/orders', isAdminOrSameUser, async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({
+      where: {
+        userId: +req.params.id,
+        status: true
+      },
+      include: {
+        model: Product,
+        through: OrderProduct
+      }
+    })
+    res.json(orders)
   } catch (error) {
     next(error)
   }

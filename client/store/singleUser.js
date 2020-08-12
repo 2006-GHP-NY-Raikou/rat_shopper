@@ -14,8 +14,17 @@ export const clearSingleUser = () => ({
 
 export const getSingleUserThunk = userId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/users/${userId}`)
-    dispatch(getSingleUser(data))
+    // const { data } = await axios.get(`/api/users/${userId}`)
+    const [user, userOrders] = await Promise.all([
+      axios.get(`/api/users/${userId}`),
+      axios.get(`/api/users/${userId}/orders`)
+    ])
+    let orders = userOrders.data.reduce(
+      (acc, order) => [...acc, ...order.products],
+      []
+    )
+    user.data.pastPurchases = orders
+    dispatch(getSingleUser(user.data))
   } catch (err) {
     console.error(err)
   }
