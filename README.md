@@ -1,10 +1,17 @@
-# Rat Shop
+# 🐀🐀 Rat Shopper 🐀🐀
 
-_Good things come in pairs_
+A lovely e-commerce site where you can adopt your magical rat companion and all sort of accesories for them!
 
-Rats are so cute
+## Deployed Website
+
+[Check out our website here!](https://ratshop.herokuapp.com/)
 
 ## Setup
 
 npm install
 npm run start-dev
+
+
+Open another terminal window; from there, 
+createdb rat_shopper
+npm run seed to seed the database
