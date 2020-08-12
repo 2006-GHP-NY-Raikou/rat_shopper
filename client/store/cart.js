@@ -1,5 +1,6 @@
 /* eslint-disable complexity */
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -43,15 +44,21 @@ export const fetchUserCart = () => async dispatch => {
     dispatch(getCart(products))
   } catch (err) {
     console.error(err)
+    toast.error(`something went wrong :O`)
   }
 }
 
 export const addToUserCart = product => async dispatch => {
   try {
     const {data} = await axios.post(`/api/orders/cart`, product)
-    dispatch(addToCart(data))
+    console.log(product)
+    if (data) {
+      toast.success(`added to cart!`)
+      dispatch(addToCart(data))
+    } else throw new Error()
   } catch (err) {
     console.error(err)
+    toast.error(`couldn't add to cart`)
   }
 }
 
@@ -66,8 +73,10 @@ export const removeFromUserCart = productId => async dispatch => {
       }
     })
     dispatch(removeFromCart(productId))
+    toast.info(`removed from cart`)
   } catch (err) {
     console.error(err)
+    toast.error(`something went wrong :O`)
   }
 }
 
@@ -77,6 +86,7 @@ export const updateUserCart = product => async dispatch => {
     dispatch(updateCart(data))
   } catch (err) {
     console.error(err)
+    toast.error(`something went wrong :O`)
   }
 }
 

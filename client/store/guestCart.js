@@ -1,4 +1,4 @@
-import axios from 'axios'
+import {toast} from 'react-toastify'
 
 const GET_GUEST_CART = 'GET_GUEST_CART'
 const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
@@ -30,14 +30,6 @@ export const guestCheckout = () => ({
   type: GUEST_CHECKOUT
 })
 
-export const guestCheckoutThunk = products => async dispatch => {
-  try {
-    await axios.post('api/orders/guest/checkout', products)
-    dispatch(guestCheckout())
-  } catch (err) {
-    console.error(err)
-  }
-}
 //checks if item is already in guest cart, updates if y, adds if n
 const checkCart = (state, action) => {
   if (state.length) {
@@ -57,10 +49,12 @@ export default function(state = [], action) {
     case GET_GUEST_CART:
       return action.products
     case ADD_TO_GUEST_CART:
+      toast.success(`added to cart!`)
       newState = checkCart(state, action)
       window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState
     case REMOVE_FROM_GUEST_CART:
+      toast.info(`removed from cart`)
       newState = state.filter(product => product.id !== action.productId)
       window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState
