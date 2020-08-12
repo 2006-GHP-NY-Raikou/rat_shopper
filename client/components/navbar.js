@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import axios from 'axios'
 
 const Navbar = ({handleClick, isLoggedIn, user}) => (
   <div>
@@ -49,8 +48,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
             <Link to="/products" exact="true">
               Rat Accessories
             </Link>
-            <Link to="/random">Random Rat!</Link>
-            <Link to="cart">Cart</Link>
+            <Link to="/random">Rat of the Day</Link>
           </div>
         </div>
       )}

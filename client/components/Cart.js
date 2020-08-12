@@ -35,18 +35,12 @@ class Cart extends React.Component {
   //if user refreshes the page on cart component, this ensures that the loggedIn cart state will re-load
   componentDidUpdate(prevProps) {
     if (!prevProps.user.id && this.props.user.id) this.props.fetchCart()
-    if (prevProps.user.id && this.props.guestCart.length) {
-      this.props.guestCart.map(product =>
-        this.props.guestToUserCart({...product, productId: product.id})
-      )
-      this.props.clearGuestCart()
-    }
   }
 
   handleSubmitCheckout(event) {
     event.preventDefault()
     if (this.props.user.id) this.props.userCheckout()
-    else this.props.guestCheckout(this.props.cart)
+    else this.props.guestCheckout(this.props.guestCart)
     this.props.clearCart()
     this.props.history.push(`/cart/checkout/confirm`)
   }

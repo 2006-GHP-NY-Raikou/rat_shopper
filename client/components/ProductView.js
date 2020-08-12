@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import convertToChange from './ConvertToChange.js'
 
 const ProductView = props => {
   const product = props.product
@@ -14,7 +15,7 @@ const ProductView = props => {
         <img src={product.imageUrl} />
       </Link>
       <div>
-        <div>Price: ${product.price / 100}</div>
+        <div>Price: ${convertToChange(product.price, 1)}</div>
         <p />
       </div>
       <div>

@@ -8,6 +8,8 @@ import {addToGuestCart} from '../store/guestCart'
 import {UpdateProduct} from './index'
 
 //THIS SHOULD WORK!
+import convertToChange from './ConvertToChange.js'
+import history from '../history'
 
 export const SingleProductView = props => {
   let product = props.product
@@ -16,14 +18,14 @@ export const SingleProductView = props => {
       <img src={product.imageUrl} />
       <h1>Name: {product.name}</h1>
       {/* Something to note: On form, either the admin has to know that we are storing in pennies, or we update form to reflect this.  */}
-      <h2>Price: ${product.price / 100}</h2>
-      <h2>Category: {product.category}</h2>
-      <h2>Sex: {product.sex}</h2>
+      <h2>Price: ${convertToChange(product.price, 1)}</h2>
+      {product.sex ? <h2>Sex: {product.sex} </h2> : <div />}
       <h2>Description: {product.description}</h2>
       {props.user.isAdmin ? (
         <div>
           {product.quantity ? (
             <div>
+              <h2>Category: {product.category}</h2>
               <h2> Quantity in stock: {product.quantity}</h2>
               <button type="button" onClick={props.handleSubmitAddToCart}>
                 Add to Cart
@@ -92,6 +94,7 @@ export class SingleProduct extends React.Component {
         price: product.price
       })
     }
+    history.push('/products')
   }
 
   handleUpdate(val) {
@@ -133,7 +136,6 @@ const mapDispatch = dispatch => {
   return {
     loadSingleProduct: id => dispatch(fetchSingleProduct(id)),
     addToCart: item => dispatch(addToCart(item)),
-
     addToGuestCart: item => dispatch(addToGuestCart(item)),
     addToUserCart: item => dispatch(addToUserCart(item))
   }
