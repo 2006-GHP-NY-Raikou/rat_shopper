@@ -220,10 +220,24 @@ form div {
 
 #updateModalContent {
   background-color: #fefefe;
+
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  align-items: center;
+  width: 200px; /* Could be more or less, depending on screen size */
+}
+
+#updateModalContent button {
+  margin-top: 20px;
+}
+
+#updateModalContent span {
+  margin-right: -5px;
+}
+
+#updateModalContent form {
+  margin-top: 20px;
 }
 
 #closeModal {

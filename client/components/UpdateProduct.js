@@ -16,7 +16,8 @@ class UpdateProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.update(this.props.match.params.productId, this.state)
+    this.props.update(this.props.product.id, this.state)
+    this.props.handleUpdate(false)
   }
 
   render() {
@@ -32,7 +33,7 @@ class UpdateProduct extends React.Component {
               &times;
             </span>
             <form onSubmit={this.handleSubmit}>
-              <label htmlFor="name">Updated Product Name:</label>
+              <label htmlFor="name">Updated Name:</label>
               <input
                 type="text"
                 name="name"

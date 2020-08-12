@@ -117,7 +117,7 @@ export class SingleProduct extends React.Component {
             handleUpdate={this.handleUpdate}
           />
           {this.state.isOpen ? (
-            <UpdateProduct handleUpdate={this.handleUpdate} />
+            <UpdateProduct product={product} handleUpdate={this.handleUpdate} />
           ) : null}
         </>
       )

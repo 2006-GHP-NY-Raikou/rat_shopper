@@ -23,7 +23,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
             <Link to="/products" exact="true">
               Rat Accessories
             </Link>
-            <Link to="/products/random">Random Rat!</Link>
+            <Link to="/random">Random Rat!</Link>
             <Link to="/users/:userId" exact="true">
               My Profile
             </Link>
