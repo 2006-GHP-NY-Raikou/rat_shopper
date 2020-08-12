@@ -4,7 +4,7 @@ html {
 }
 body {
   font-family: sans-serif;
-  background-color: #f4e6eb;
+  background-color: #f0e8eb;
   font-family: 'Karla', sans-serif;
   width: 100%;
   margin: 0;
@@ -44,13 +44,19 @@ nav a {
   color: #f3e8ec;
 }
 
+nav a:hover {
+  color: #432e36;
+}
+
 form div {
   margin: 1em;
   display: inline-block;
 }
 
 .header {
-  border: 3px solid #e36397;
+  background-color: #5c404b;
+
+  border: 3px solid #5c404b;
   border-radius: 10px;
   height: 100px;
   width: 90%;
@@ -62,12 +68,13 @@ form div {
 }
 
 .header a {
-  color: #432e36;
+  color: #e36397;
+
   font-family: 'Karla', sans-serif;
 }
 
 .header a:hover {
-  color: #e36397;
+  color: #f3e8ec;
 }
 
 .upperRight {
@@ -75,6 +82,11 @@ form div {
   display: flex;
   justify-content: space-evenly;
   font-size: 18pt;
+  color: #ac7088;
+}
+
+.upperRight a {
+  color: #ac7088;
 }
 
 .allProducts {
@@ -104,6 +116,13 @@ form div {
 
 .singleProduct img {
   max-width: 400px;
+}
+
+.footerHalf {
+  display: flex;
+  flex-direction: column;
+  width: 45vh;
+  margin-right: 60px;
 }
 
 #app {
@@ -178,6 +197,14 @@ form div {
   margin: 40px 0 0 40px;
 }
 
+#single-user-container {
+  font-size: 16pt;
+  color: #432e36;
+  width: 70vw;
+
+  margin: 40px 0 0 60px;
+}
+
 #productViews {
   display: flex;
   flex-wrap: wrap;
@@ -225,10 +252,27 @@ form div {
 }
 
 #footer {
-  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  height: 250px;
   width: 100%;
-  background-color: rgb(203, 203, 203);
-  margin-top: 50px;
+  background-color: #5c404b;
+  padding: 40px 40px 0 40px;
+
+  color: #ac7088;
+}
+
+#footer a {
+  color: #e36397;
+  font-size: 20pt;
+}
+#footer a:hover {
+  color: #ecb0c8;
+}
+
+#ratShopper {
+  color: #ecb0c8;
+  font-size: 20pt;
 }
 
 #checkout-container {
