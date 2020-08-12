@@ -13,10 +13,10 @@ import {
   updateGuestCart,
   removeFromGuestCart
 } from '../store/guestCart'
-import {guestCheckout, userCheckout} from '../store/checkout'
-import {connect} from 'react-redux'
+import { guestCheckout, userCheckout } from '../store/checkout'
+import { connect } from 'react-redux'
 import CartItem from './CartItem'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 
 class Cart extends React.Component {
   constructor() {
@@ -92,12 +92,12 @@ class Cart extends React.Component {
               <div className="cart">
                 {cart.length > 0
                   ? cart.map(product => (
-                      <CartItem
-                        key={product.id}
-                        {...product}
-                        handleSubmit={this.handleSubmitUpdate}
-                      />
-                    ))
+                    <CartItem
+                      key={product.id}
+                      {...product}
+                      handleSubmit={this.handleSubmitUpdate}
+                    />
+                  ))
                   : 'is empty (for now)!'}
               </div>
             </div>
