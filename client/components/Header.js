@@ -7,7 +7,7 @@ import {logout} from '../store'
 const Header = ({handleClick, isLoggedIn}) => (
   <div>
     <div className="header">
-      <h1>
+      <h1 className="ratShopper">
         <Link to="/home">Rat Shopper</Link>
       </h1>
 
