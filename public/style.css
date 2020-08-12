@@ -28,7 +28,7 @@ label {
 }
 
 nav {
-  width: 150px;
+  width: 170px;
   background-color: #e36397;
   display: flex;
   flex-direction: column;
@@ -76,7 +76,7 @@ form div {
 }
 
 .upperRight {
-  width: 10em;
+  width: 15em;
   display: flex;
   justify-content: space-evenly;
   font-size: 18pt;
@@ -142,6 +142,10 @@ form div {
   width: 70vw;
   text-align: center;
   margin: 40px 0 0 40px;
+}
+
+#newProduct {
+  padding: 40px 0 0 100px;
 }
 
 #loginPage {

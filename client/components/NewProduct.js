@@ -21,7 +21,7 @@ class NewProduct extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="newProduct">
         {this.props.user.isAdmin ? (
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="name">New Product Name:</label>
@@ -81,6 +81,7 @@ class NewProduct extends React.Component {
               value={this.state.description}
               onChange={this.handleChange}
             />
+            <br />
             <br />
             <button type="submit">Submit</button>
           </form>
