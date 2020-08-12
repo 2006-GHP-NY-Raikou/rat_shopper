@@ -24,7 +24,7 @@ const Navbar = ({handleClick, isLoggedIn, user}) => (
               Rat Accessories
             </Link>
             <Link>Coming Soon: Rat of the Day! </Link>
-            <Link to="/users/:userId" exact="true">
+            <Link to={`/users/${user.id}`} exact="true">
               My Profile
             </Link>
             {user.isAdmin ? (
