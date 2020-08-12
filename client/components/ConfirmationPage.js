@@ -4,18 +4,18 @@ import {Link} from 'react-router-dom'
 
 const ConfirmationPage = props => {
   return (
-    <div>
+    <div id="checkoutPage">
       <h3>Thank you for your order!</h3>
       <p>
         {props.orderId
           ? `Your order confirmation number is:  ${props.orderId}
-      You will recieve a confirmation email shortly\n
-      Or, you WOULD... if this was a real e-commerce website :')`
-          : `no recent orders. Adopt your rat today!`}
+      You will recieve a confirmation email shortly...\n
+      Or, you WOULD... if this were a real e-commerce website :')`
+          : `No recent orders. Adopt some new rats today!`}
       </p>
       {!props.loggedIn && (
         <p>
-          want the full rat shopper experience?{' '}
+          Want the full rat shopper experience?{' '}
           <Link to="/signup">Sign up</Link> today!
         </p>
       )}

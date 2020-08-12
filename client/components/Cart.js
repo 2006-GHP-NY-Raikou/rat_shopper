@@ -85,16 +85,22 @@ class Cart extends React.Component {
 
     return (
       <React.Fragment>
-        <h3>{this.props.user.firstName || `guest`}'s cart</h3>
-        <div id="checkout-container">
-          <div className="cart">
-            {cart.map(product => (
-              <CartItem
-                key={product.id}
-                {...product}
-                handleSubmit={this.handleSubmitUpdate}
-              />
-            ))}
+        <div id="cartPage">
+          <div>
+            <div>{this.props.user.firstName || `Guest`}'s cart</div>
+            <div id="checkout-container">
+              <div className="cart">
+                {cart.length > 0
+                  ? cart.map(product => (
+                      <CartItem
+                        key={product.id}
+                        {...product}
+                        handleSubmit={this.handleSubmitUpdate}
+                      />
+                    ))
+                  : 'is empty (for now)!'}
+              </div>
+            </div>
           </div>
           <div id="checkout">
             <div className="cart-total">Cart Total: ${total}</div>
