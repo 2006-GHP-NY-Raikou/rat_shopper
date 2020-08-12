@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {clearCart} from './cart'
 import {guestCheckout as clearGuestCart} from './guestCart'
+import {toast} from 'react-toastify'
 
 const CHECKOUT = 'CHECKOUT'
 
@@ -13,10 +14,14 @@ const checkout = orderId => ({
 export const guestCheckout = products => async dispatch => {
   try {
     const {data} = await axios.post('/api/orders/guest/checkout', products)
-    dispatch(checkout(data.id))
-    dispatch(clearGuestCart())
+    if (data) {
+      toast.success(`checkout success!`, {position: 'top-center'})
+      dispatch(checkout(data.id))
+      dispatch(clearGuestCart())
+    } else throw new Error()
   } catch (err) {
     console.error(err)
+    toast.error(`user checkout failed`, {position: 'top-center'})
   }
 }
 
@@ -24,10 +29,14 @@ export const guestCheckout = products => async dispatch => {
 export const userCheckout = () => async dispatch => {
   try {
     const {data} = await axios.put('/api/orders/cart')
-    dispatch(checkout(data.id))
-    dispatch(clearCart())
+    if (data) {
+      toast.success(`checkout success!`, {position: 'top-center'})
+      dispatch(checkout(data.id))
+      dispatch(clearCart())
+    } else throw new Error()
   } catch (err) {
     console.error(err)
+    toast.error(`guest checkout failed`, {position: 'top-center'})
   }
 }
 
