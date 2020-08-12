@@ -73,9 +73,9 @@ form div {
 }
 
 .upperRight {
-  width: 170px;
+  width: 18vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   font-size: 16pt;
 }
 
