@@ -44,7 +44,7 @@ class Cart extends React.Component {
       if (this.props.user.id) this.props.userCheckout()
       else this.props.guestCheckout(this.props.guestCart)
       this.props.clearCart()
-      this.props.history.push(`/cart/checkout/confirm`)
+      this.props.history.push(`/cart/checkout/confirmation`)
     } else toast.warning("There's nothing in your cart")
   }
 

@@ -1,10 +1,12 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import Confetti from 'react-confetti'
 
 const ConfirmationPage = props => {
   return (
     <div id="checkoutPage">
+      <Confetti width={5000} height={5000} numberOfPieces={2500} />
       <h3>Thank you for your order!</h3>
       <p>
         {props.orderId

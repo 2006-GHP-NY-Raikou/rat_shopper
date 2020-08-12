@@ -15,6 +15,7 @@ import {
   UpdateProduct,
   NewProduct,
   RemoveProduct,
+  PaymentPage,
   ConfirmationPage
 } from './components'
 import {addToUserCart} from './store/cart'
@@ -86,9 +87,10 @@ class Routes extends Component {
         <Route path="/cart/update/productId" />
         <Route path="/products/:productId" component={SingleProduct} />
         <Route exact path="/cart" component={Cart} />
+        {/* <Route exact path="/cart/checkout/payment" component={PaymentPage} /> */}
         <Route
           exact
-          path="/cart/checkout/confirm"
+          path="/cart/checkout/confirmation"
           component={ConfirmationPage}
         />
 
