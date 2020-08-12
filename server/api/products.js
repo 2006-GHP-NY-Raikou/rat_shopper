@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/random', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll().filter(r => r.sex)
     const idx = Math.floor(Math.random() * products.length)
     res.json(products[idx].id)
   } catch (err) {
