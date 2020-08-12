@@ -1,14 +1,8 @@
 import React from 'react'
+import convertToChange from './ConvertToChange.js'
 
 //represents one cart item
 const CartItem = props => {
-  //this can go to some other utils component so that it can be re-used
-  const convertToChange = (price, qty) => {
-    let toChange = price * qty / 100
-    if ((price * qty) % 100 === 0) return toChange + '.00'
-    else if (!toChange.toString().endsWith('0')) return toChange + '0'
-  }
-
   return (
     <div className="cart-item-container">
       <div className="cart-item-info-container">
