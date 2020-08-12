@@ -247,14 +247,14 @@ const products = [
     name: 'Birthday Hat',
     category: 'props',
     sex: null,
-    price: 9900,
+    price: 2200,
     quantity: 30,
     imageUrl:
       'https://i.pinimg.com/236x/19/16/b6/1916b6b68d0f12188c67e0b79cd65ec3--fancy-rat-cute-rats.jpg',
     description: "Celebrate your rat's birthday!"
   },
   {
-    name: 'Purse',
+    name: 'Flute',
     category: 'props',
     sex: null,
     price: 6000,
