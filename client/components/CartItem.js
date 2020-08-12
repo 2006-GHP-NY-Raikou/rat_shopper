@@ -9,7 +9,7 @@ const CartItem = props => {
         <img className="cart-item-img" src={props.imageUrl} />
         <div className="cart-item-info">
           <h2>{props.name}</h2>
-          <p>${convertToChange(props.price, props.qty)}</p>
+          <p>${convertToChange(props.price * props.qty)}</p>
           <small>Qty: {props.qty}</small>
         </div>
       </div>

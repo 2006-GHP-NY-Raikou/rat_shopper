@@ -16,6 +16,7 @@ import {
 import {guestCheckout, userCheckout} from '../store/checkout'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
+import convertToChange from './ConvertToChange'
 import {toast} from 'react-toastify'
 
 class Cart extends React.Component {
@@ -75,12 +76,12 @@ class Cart extends React.Component {
   //renders cart items and checkout button.
   //cart items could be a seperate component for convenience
   render() {
-    let cart = this.props.guestCart.length
+    const cart = this.props.guestCart.length
       ? this.props.guestCart
       : this.props.cart
 
     const total = cart.reduce((accum, item) => {
-      return item.price / 100 * item.qty + accum
+      return item.price * item.qty + accum
     }, 0)
 
     return (
@@ -97,7 +98,9 @@ class Cart extends React.Component {
             ))}
           </div>
           <div id="checkout">
-            <div className="cart-total">Cart Total: ${total}</div>
+            <div className="cart-total">
+              Cart Total: ${convertToChange(total)}
+            </div>
             <button type="button" onClick={this.handleSubmitCheckout}>
               Checkout
             </button>

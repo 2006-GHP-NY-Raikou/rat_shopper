@@ -35,11 +35,8 @@ class Routes extends Component {
     this.props.loadInitialData()
     const random = async () => {
       const {data} = await axios.get('/api/products/random')
-      console.dir(data)
-      console.dir(`/products/${data}`)
       // const path = `/products/${data}`
       this.setState({random: data})
-      console.dir(this.state)
     }
     random()
   }

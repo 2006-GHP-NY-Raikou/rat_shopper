@@ -51,7 +51,6 @@ export const fetchUserCart = () => async dispatch => {
 export const addToUserCart = product => async dispatch => {
   try {
     const {data} = await axios.post(`/api/orders/cart`, product)
-    console.log(product)
     if (data) {
       toast.success(`added to cart!`)
       dispatch(addToCart(data))

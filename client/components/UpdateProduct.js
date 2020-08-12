@@ -21,7 +21,6 @@ class UpdateProduct extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'PROPS')
     return (
       <div id="updateModal">
         {this.props.user.isAdmin ? (

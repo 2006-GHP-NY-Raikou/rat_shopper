@@ -18,7 +18,7 @@ export const SingleProductView = props => {
       <img src={product.imageUrl} />
       <h1>Name: {product.name}</h1>
       {/* Something to note: On form, either the admin has to know that we are storing in pennies, or we update form to reflect this.  */}
-      <h2>Price: ${convertToChange(product.price, 1)}</h2>
+      <h2>Price: ${convertToChange(product.price)}</h2>
       {product.sex ? <h2>Sex: {product.sex} </h2> : <div />}
       <h2>Description: {product.description}</h2>
       {props.user.isAdmin ? (
