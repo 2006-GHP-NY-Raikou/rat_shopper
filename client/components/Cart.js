@@ -16,6 +16,7 @@ import {
 import {guestCheckout, userCheckout} from '../store/checkout'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
+import {toast} from 'react-toastify'
 
 class Cart extends React.Component {
   constructor() {
@@ -39,10 +40,12 @@ class Cart extends React.Component {
 
   handleSubmitCheckout(event) {
     event.preventDefault()
-    if (this.props.user.id) this.props.userCheckout()
-    else this.props.guestCheckout(this.props.guestCart)
-    this.props.clearCart()
-    this.props.history.push(`/cart/checkout/confirm`)
+    if (this.props.cart.length || this.props.guestCart.length) {
+      if (this.props.user.id) this.props.userCheckout()
+      else this.props.guestCheckout(this.props.guestCart)
+      this.props.clearCart()
+      this.props.history.push(`/cart/checkout/confirm`)
+    } else toast.warning("There's nothing in your cart")
   }
 
   handleSubmitUpdate(event, id, price) {
