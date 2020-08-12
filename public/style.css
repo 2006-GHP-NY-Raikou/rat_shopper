@@ -144,6 +144,10 @@ form div {
   margin: 40px 0 0 40px;
 }
 
+#newProduct {
+  padding: 40px 0 0 100px;
+}
+
 #loginPage {
   display: flex;
   justify-content: space-between;
