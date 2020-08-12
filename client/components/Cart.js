@@ -16,7 +16,6 @@ import {
 import {guestCheckout, userCheckout} from '../store/checkout'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
-import convertToChange from './ConvertToChange'
 import {toast} from 'react-toastify'
 
 class Cart extends React.Component {
@@ -76,31 +75,35 @@ class Cart extends React.Component {
   //renders cart items and checkout button.
   //cart items could be a seperate component for convenience
   render() {
-    const cart = this.props.guestCart.length
+    let cart = this.props.guestCart.length
       ? this.props.guestCart
       : this.props.cart
 
     const total = cart.reduce((accum, item) => {
-      return item.price * item.qty + accum
+      return item.price / 100 * item.qty + accum
     }, 0)
 
     return (
       <React.Fragment>
-        <h3>{this.props.user.firstName || `guest`}'s cart</h3>
-        <div id="checkout-container">
-          <div className="cart">
-            {cart.map(product => (
-              <CartItem
-                key={product.id}
-                {...product}
-                handleSubmit={this.handleSubmitUpdate}
-              />
-            ))}
+        <div id="cartPage">
+          <div>
+            <div>{this.props.user.firstName || `Guest`}'s cart</div>
+            <div id="checkout-container">
+              <div className="cart">
+                {cart.length > 0
+                  ? cart.map(product => (
+                      <CartItem
+                        key={product.id}
+                        {...product}
+                        handleSubmit={this.handleSubmitUpdate}
+                      />
+                    ))
+                  : 'is empty (for now)!'}
+              </div>
+            </div>
           </div>
           <div id="checkout">
-            <div className="cart-total">
-              Cart Total: ${convertToChange(total)}
-            </div>
+            <div className="cart-total">Cart Total: ${total}</div>
             <button type="button" onClick={this.handleSubmitCheckout}>
               Checkout
             </button>

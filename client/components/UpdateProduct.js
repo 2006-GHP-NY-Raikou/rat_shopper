@@ -16,6 +16,7 @@ class UpdateProduct extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+
     this.props.update(this.props.product.id, this.state)
     this.props.handleUpdate(false)
   }
