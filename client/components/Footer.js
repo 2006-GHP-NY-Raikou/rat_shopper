@@ -16,7 +16,7 @@ const Footer = () => (
         Cecilia Yu Chung Chang
       </a>
       <a href="https://www.linkedin.com/in/elizabeth-john-630b761a7/">
-        Elizabeth John
+        Liz John
       </a>
       <a href="https://www.linkedin.com/in/natalie-ng-a812a811b/">Natalie Ng</a>
       <a href="https://www.linkedin.com/in/emma-seely-katz-b4386a1a3/">
