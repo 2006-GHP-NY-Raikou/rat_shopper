@@ -49,12 +49,12 @@ export default function(state = [], action) {
     case GET_GUEST_CART:
       return action.products
     case ADD_TO_GUEST_CART:
-      toast.success(`added to cart!`)
+      toast.success(`added to cart!`, {position: 'top-left'})
       newState = checkCart(state, action)
       window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState
     case REMOVE_FROM_GUEST_CART:
-      toast.info(`removed from cart`)
+      toast.info(`removed from cart`, {position: 'top-left'})
       newState = state.filter(product => product.id !== action.productId)
       window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState

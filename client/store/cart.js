@@ -44,7 +44,7 @@ export const fetchUserCart = () => async dispatch => {
     dispatch(getCart(products))
   } catch (err) {
     console.error(err)
-    toast.error(`something went wrong :O`)
+    toast.error(`something went wrong :O`, {position: 'top-left'})
   }
 }
 
@@ -52,12 +52,12 @@ export const addToUserCart = product => async dispatch => {
   try {
     const {data} = await axios.post(`/api/orders/cart`, product)
     if (data) {
-      toast.success(`added to cart!`)
+      toast.success(`added to cart!`, {position: 'top-left'})
       dispatch(addToCart(data))
     } else throw new Error()
   } catch (err) {
     console.error(err)
-    toast.error(`couldn't add to cart`)
+    toast.error(`couldn't add to cart`, {position: 'top-left'})
   }
 }
 
@@ -72,10 +72,10 @@ export const removeFromUserCart = productId => async dispatch => {
       }
     })
     dispatch(removeFromCart(productId))
-    toast.info(`removed from cart`)
+    toast.info(`removed from cart`, {position: 'top-left'})
   } catch (err) {
     console.error(err)
-    toast.error(`something went wrong :O`)
+    toast.error(`something went wrong :O`, {position: 'top-left'})
   }
 }
 
@@ -85,7 +85,7 @@ export const updateUserCart = product => async dispatch => {
     dispatch(updateCart(data))
   } catch (err) {
     console.error(err)
-    toast.error(`something went wrong :O`)
+    toast.error(`something went wrong :O`, {position: 'top-left'})
   }
 }
 
